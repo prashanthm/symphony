@@ -1,0 +1,2228 @@
+{
+  "workflow_id": "onboard-symphony-4b478a66",
+  "customer_name": "symphony",
+  "package_type": "enterprise",
+  "industry": "technology",
+  "status": "failed",
+  "current_step": "deploy_agents",
+  "created_at": "2025-09-01T13:58:59.882294+00:00",
+  "started_at": "2025-09-01T13:58:59.895443+00:00",
+  "completed_at": null,
+  "steps": [
+    {
+      "step_id": "validate_environment",
+      "name": "Environment Validation",
+      "description": "Validate Symphony environment and dependencies",
+      "required": true,
+      "estimated_duration": 30,
+      "dependencies": [],
+      "status": "completed",
+      "started_at": "2025-09-01T13:58:59.895523+00:00",
+      "completed_at": "2025-09-01T13:58:59.900833+00:00",
+      "error_message": null,
+      "result_data": {
+        "python_version": "3.9.6",
+        "uv_available": true,
+        "directory_structure": true,
+        "validation_passed": true
+      },
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "create_customer",
+      "name": "Customer Creation",
+      "description": "Create customer configuration and directory structure",
+      "required": true,
+      "estimated_duration": 60,
+      "dependencies": [
+        "validate_environment"
+      ],
+      "status": "completed",
+      "started_at": "2025-09-01T13:58:59.900843+00:00",
+      "completed_at": "2025-09-01T13:59:00.031173+00:00",
+      "error_message": null,
+      "result_data": {
+        "customer_id": "symphony",
+        "config_path": "/Users/pmuniraju/play/sandbox/symphony/organizations/customers/symphony/config/customer-config.yaml",
+        "agent_count": 3
+      },
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "setup_integrations",
+      "name": "Integration Setup",
+      "description": "Configure and validate integrations (Linear, GitHub, etc.) (Using Linear enterprise template)",
+      "required": true,
+      "estimated_duration": 600,
+      "dependencies": [
+        "create_customer"
+      ],
+      "status": "completed",
+      "started_at": "2025-09-01T13:59:00.031186+00:00",
+      "completed_at": "2025-09-01T13:59:00.036629+00:00",
+      "error_message": null,
+      "result_data": {
+        "linear": {
+          "valid": false,
+          "error": "Not authenticated - requires manual setup"
+        },
+        "github": {
+          "valid": false,
+          "error": "Not authenticated - requires manual setup"
+        }
+      },
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {
+        "linear_template": {
+          "workspace": {
+            "name": "Symphony Autonomous Enterprise Platform",
+            "description": "The complete operational framework for AI-first autonomous enterprise transformations"
+          },
+          "organization": {
+            "customer_name": "Symphony Autonomous Enterprise",
+            "industry": "autonomous_enterprise_platform",
+            "size": "global",
+            "regions": [
+              "north_america",
+              "europe",
+              "asia_pacific",
+              "global"
+            ],
+            "timezone": "UTC",
+            "locale": "en-US",
+            "implementation_model": "autonomous_continuous_deployment"
+          },
+          "branding": {
+            "colors": {
+              "primary": "#6366f1",
+              "secondary": "#8b5cf6",
+              "accent": "#f59e0b",
+              "success": "#10b981"
+            },
+            "logo_url": "https://symphony.ai/logo.png",
+            "theme": "professional_autonomous"
+          },
+          "teams": [
+            {
+              "name": "Strategic Leadership",
+              "key": "STRAT",
+              "description": "Vision, strategy, and business transformation leadership",
+              "team_lead": "Chief Strategy Officer",
+              "workflows": [
+                {
+                  "name": "Vision Development",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "Developing strategic vision and transformation roadmaps"
+                },
+                {
+                  "name": "Strategy Planning",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Active strategy development and planning"
+                },
+                {
+                  "name": "Market Analysis",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Competitive and market intelligence analysis"
+                },
+                {
+                  "name": "Business Case",
+                  "type": "started",
+                  "position": 4,
+                  "description": "ROI validation and business case development"
+                },
+                {
+                  "name": "Executive Approval",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Executive-approved strategies and initiatives"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Strategic Priority",
+                  "type": "select",
+                  "options": [
+                    "Transformational",
+                    "Core",
+                    "Optimization",
+                    "Innovation"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Business Impact",
+                  "type": "select",
+                  "options": [
+                    "Revolutionary",
+                    "High",
+                    "Medium",
+                    "Supporting"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Timeline Horizon",
+                  "type": "select",
+                  "options": [
+                    "Immediate",
+                    "Quarter",
+                    "Year",
+                    "Multi-Year"
+                  ],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Platform Engineering",
+              "key": "PLAT",
+              "description": "Core autonomous enterprise platform development and architecture",
+              "team_lead": "Chief Technology Officer",
+              "workflows": [
+                {
+                  "name": "Architecture Design",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "System architecture and technical design"
+                },
+                {
+                  "name": "Development",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Active development and implementation"
+                },
+                {
+                  "name": "Integration Testing",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Integration and system testing"
+                },
+                {
+                  "name": "Security Review",
+                  "type": "started",
+                  "position": 4,
+                  "description": "Security validation and compliance review"
+                },
+                {
+                  "name": "Production Ready",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Production-ready platform components"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Architecture Layer",
+                  "type": "select",
+                  "options": [
+                    "Core Platform",
+                    "Agent Ecosystem",
+                    "Security",
+                    "Integration",
+                    "UI/UX"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Technical Complexity",
+                  "type": "number",
+                  "range": [
+                    1,
+                    10
+                  ],
+                  "description": "Engineering complexity rating",
+                  "required": true
+                },
+                {
+                  "name": "Security Level",
+                  "type": "select",
+                  "options": [
+                    "Critical",
+                    "High",
+                    "Standard",
+                    "Low"
+                  ],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Agent Ecosystem",
+              "key": "AGENTS",
+              "description": "85+ autonomous agent development, coordination, and optimization",
+              "team_lead": "Agent Ecosystem Director",
+              "workflows": [
+                {
+                  "name": "Agent Design",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "Agent specification and capability design"
+                },
+                {
+                  "name": "Agent Development",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Agent implementation and training"
+                },
+                {
+                  "name": "Coordination Testing",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Multi-agent coordination and handoff testing"
+                },
+                {
+                  "name": "Performance Optimization",
+                  "type": "started",
+                  "position": 4,
+                  "description": "Agent performance tuning and optimization"
+                },
+                {
+                  "name": "Ecosystem Ready",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Fully coordinated agent ecosystem"
+                }
+              ],
+              "sub_teams": [
+                {
+                  "name": "Coordinators",
+                  "key": "COORD",
+                  "description": "Business coordination and orchestration agents"
+                },
+                {
+                  "name": "Technical Leads",
+                  "key": "LEADS",
+                  "description": "Technical leadership and strategy agents"
+                },
+                {
+                  "name": "Managers",
+                  "key": "MGMT",
+                  "description": "Management tier coordination agents"
+                },
+                {
+                  "name": "Specialists",
+                  "key": "SPEC",
+                  "description": "Domain-specific expertise agents"
+                },
+                {
+                  "name": "Maestro",
+                  "key": "MAESTRO",
+                  "description": "Ultimate coordination and orchestration"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Agent Category",
+                  "type": "select",
+                  "options": [
+                    "Coordinator",
+                    "Lead",
+                    "Manager",
+                    "Specialist",
+                    "Maestro"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Agent Count",
+                  "type": "number",
+                  "range": [
+                    1,
+                    85
+                  ],
+                  "description": "Number of agents in this initiative",
+                  "required": true
+                },
+                {
+                  "name": "Coordination Complexity",
+                  "type": "select",
+                  "options": [
+                    "Simple",
+                    "Moderate",
+                    "Complex",
+                    "Ultra-Complex"
+                  ],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Operations Excellence",
+              "key": "OPS",
+              "description": "Operational standards, workflow management, and execution excellence",
+              "team_lead": "Chief Operating Officer",
+              "workflows": [
+                {
+                  "name": "Standards Definition",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "Defining operational standards and protocols"
+                },
+                {
+                  "name": "Process Implementation",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Implementing operational processes"
+                },
+                {
+                  "name": "Quality Assurance",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Quality validation and compliance checking"
+                },
+                {
+                  "name": "Continuous Optimization",
+                  "type": "started",
+                  "position": 4,
+                  "description": "Ongoing process optimization and improvement"
+                },
+                {
+                  "name": "Excellence Achieved",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Operational excellence standards met"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Operations Domain",
+                  "type": "select",
+                  "options": [
+                    "Workflow Management",
+                    "Agent Handoffs",
+                    "Quality Standards",
+                    "Performance Monitoring"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Automation Level",
+                  "type": "number",
+                  "range": [
+                    0,
+                    100
+                  ],
+                  "description": "Percentage of process automation",
+                  "required": true
+                },
+                {
+                  "name": "Excellence Score",
+                  "type": "number",
+                  "range": [
+                    1,
+                    10
+                  ],
+                  "description": "Operational excellence rating"
+                }
+              ]
+            },
+            {
+              "name": "Customer Implementation",
+              "key": "IMPL",
+              "description": "Customer deployment, implementation patterns, and go-live processes",
+              "team_lead": "Implementation Director",
+              "workflows": [
+                {
+                  "name": "Discovery & Requirements",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "Customer needs analysis and requirements gathering"
+                },
+                {
+                  "name": "Solution Design",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Customized solution architecture and design"
+                },
+                {
+                  "name": "Configuration & Setup",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Platform configuration and environment setup"
+                },
+                {
+                  "name": "Agent Deployment",
+                  "type": "started",
+                  "position": 4,
+                  "description": "Agent ecosystem deployment and training"
+                },
+                {
+                  "name": "Go-Live & Support",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Production deployment with autonomous operations"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Customer Package",
+                  "type": "select",
+                  "options": [
+                    "Startup (15 agents)",
+                    "SMB (35 agents)",
+                    "Enterprise (65+ agents)",
+                    "Global (85+ agents)"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Implementation Timeline",
+                  "type": "select",
+                  "options": [
+                    "1-2 weeks",
+                    "4-6 weeks",
+                    "12-16 weeks",
+                    "20-24 weeks"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Industry Focus",
+                  "type": "select",
+                  "options": [
+                    "Technology",
+                    "Financial Services",
+                    "Healthcare",
+                    "Manufacturing",
+                    "Retail",
+                    "General"
+                  ],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "name": "Customer Success",
+              "key": "CS",
+              "description": "Customer support, success programs, and continuous value delivery",
+              "team_lead": "Chief Customer Officer",
+              "workflows": [
+                {
+                  "name": "Onboarding",
+                  "type": "unstarted",
+                  "position": 1,
+                  "description": "Customer onboarding and training"
+                },
+                {
+                  "name": "Value Realization",
+                  "type": "started",
+                  "position": 2,
+                  "description": "Ensuring customer value achievement"
+                },
+                {
+                  "name": "Success Optimization",
+                  "type": "started",
+                  "position": 3,
+                  "description": "Optimizing customer success metrics"
+                },
+                {
+                  "name": "Growth & Expansion",
+                  "type": "started",
+                  "position": 4,
+                  "description": "Account growth and capability expansion"
+                },
+                {
+                  "name": "Autonomous Excellence",
+                  "type": "completed",
+                  "position": 5,
+                  "description": "Customer achieving autonomous excellence"
+                }
+              ],
+              "custom_fields": [
+                {
+                  "name": "Success Metrics",
+                  "type": "select",
+                  "options": [
+                    "Efficiency Gains",
+                    "Cost Reduction",
+                    "Revenue Growth",
+                    "Satisfaction Score"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Customer Health",
+                  "type": "select",
+                  "options": [
+                    "Thriving",
+                    "Healthy",
+                    "At Risk",
+                    "Requires Attention"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Expansion Potential",
+                  "type": "select",
+                  "options": [
+                    "High",
+                    "Medium",
+                    "Low",
+                    "Not Applicable"
+                  ],
+                  "required": false
+                }
+              ]
+            }
+          ],
+          "initiatives": [
+            {
+              "name": "Autonomous Enterprise Vision",
+              "level": 1,
+              "description": "Complete vision and strategy for autonomous enterprise transformation",
+              "owner": "Chief Strategy Officer",
+              "timeline": "2025-Q4",
+              "success_metrics": [
+                "Market leadership in autonomous enterprises",
+                "95%+ customer transformation success rate",
+                "Industry recognition as transformation leader"
+              ],
+              "sub_initiatives": [
+                {
+                  "name": "Market Positioning Excellence",
+                  "level": 2,
+                  "description": "Establish Symphony as the definitive autonomous enterprise platform",
+                  "timeline": "2025-Q2",
+                  "linked_projects": [
+                    "competitive_differentiation",
+                    "thought_leadership"
+                  ]
+                },
+                {
+                  "name": "Business Model Optimization",
+                  "level": 2,
+                  "description": "Perfect the autonomous enterprise business model",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "roi_framework_development",
+                    "value_proposition_refinement"
+                  ]
+                },
+                {
+                  "name": "Strategic Partnerships",
+                  "level": 2,
+                  "description": "Build strategic ecosystem partnerships",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "partner_integration_platform",
+                    "ecosystem_development"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Platform Architecture Excellence",
+              "level": 1,
+              "description": "Complete autonomous enterprise platform architecture and development",
+              "owner": "Chief Technology Officer",
+              "timeline": "2025-Q4",
+              "success_metrics": [
+                "99.99% platform uptime across all customers",
+                "85+ coordinated agents with perfect handoffs",
+                "Sub-30 minute decision response times"
+              ],
+              "sub_initiatives": [
+                {
+                  "name": "Core Platform Development",
+                  "level": 2,
+                  "description": "Develop the foundational autonomous enterprise platform",
+                  "timeline": "2025-Q2",
+                  "linked_projects": [
+                    "platform_core_v2",
+                    "integration_framework"
+                  ]
+                },
+                {
+                  "name": "Agent Ecosystem Mastery",
+                  "level": 2,
+                  "description": "Perfect 85+ agent coordination and autonomous operations",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "agent_coordination_engine",
+                    "maestro_optimization"
+                  ]
+                },
+                {
+                  "name": "Security & Compliance",
+                  "level": 2,
+                  "description": "Enterprise-grade security and regulatory compliance",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "security_framework_v2",
+                    "compliance_automation"
+                  ]
+                },
+                {
+                  "name": "Technical Excellence",
+                  "level": 2,
+                  "description": "Technical specifications and development standards",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "api_excellence",
+                    "integration_standards"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Operational Excellence Mastery",
+              "level": 1,
+              "description": "Perfect operational standards and workflow management",
+              "owner": "Chief Operating Officer",
+              "timeline": "2025-Q4",
+              "success_metrics": [
+                ">99% successful agent handoffs",
+                ">95% process automation coverage",
+                "100% executive-ready output quality"
+              ],
+              "sub_initiatives": [
+                {
+                  "name": "Operational Standards",
+                  "level": 2,
+                  "description": "Define and implement comprehensive operational standards",
+                  "timeline": "2025-Q2",
+                  "linked_projects": [
+                    "quality_framework",
+                    "trust_infrastructure"
+                  ]
+                },
+                {
+                  "name": "Workflow Management Excellence",
+                  "level": 2,
+                  "description": "Perfect workflow management and state persistence",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "workflow_engine_v2",
+                    "state_management"
+                  ]
+                },
+                {
+                  "name": "Agent Coordination Protocols",
+                  "level": 2,
+                  "description": "Seamless agent handoff and coordination protocols",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "handoff_protocol_v2",
+                    "coordination_optimization"
+                  ]
+                },
+                {
+                  "name": "Execution Environment",
+                  "level": 2,
+                  "description": "Optimal execution workspace and environment",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "execution_optimization",
+                    "performance_monitoring"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Implementation Excellence",
+              "level": 1,
+              "description": "Perfect customer implementation and deployment processes",
+              "owner": "Implementation Director",
+              "timeline": "2025-Q4",
+              "success_metrics": [
+                "100% successful customer implementations",
+                "Achievement of promised timelines",
+                "Immediate autonomous value delivery"
+              ],
+              "sub_initiatives": [
+                {
+                  "name": "Development Tooling",
+                  "level": 2,
+                  "description": "Advanced development tools and automation",
+                  "timeline": "2025-Q2",
+                  "linked_projects": [
+                    "dev_automation_suite",
+                    "deployment_pipeline"
+                  ]
+                },
+                {
+                  "name": "Implementation Patterns",
+                  "level": 2,
+                  "description": "Proven implementation methodologies and frameworks",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "implementation_methodology",
+                    "pattern_library"
+                  ]
+                },
+                {
+                  "name": "Deployment Automation",
+                  "level": 2,
+                  "description": "Fully automated deployment and go-live processes",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "deployment_automation_v2",
+                    "go_live_excellence"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Customer Success Excellence",
+              "level": 1,
+              "description": "Perfect customer support and continuous value delivery",
+              "owner": "Chief Customer Officer",
+              "timeline": "2025-Q4",
+              "success_metrics": [
+                ">95% customer satisfaction scores",
+                "10x operational efficiency improvements",
+                "60-80% cost reduction achievements"
+              ],
+              "sub_initiatives": [
+                {
+                  "name": "Reference Documentation",
+                  "level": 2,
+                  "description": "Comprehensive documentation and knowledge base",
+                  "timeline": "2025-Q2",
+                  "linked_projects": [
+                    "documentation_platform",
+                    "knowledge_automation"
+                  ]
+                },
+                {
+                  "name": "Industry Solutions",
+                  "level": 2,
+                  "description": "Industry-specific solutions and templates",
+                  "timeline": "2025-Q3",
+                  "linked_projects": [
+                    "industry_template_suite",
+                    "vertical_solutions"
+                  ]
+                },
+                {
+                  "name": "Support Excellence",
+                  "level": 2,
+                  "description": "Autonomous support and success programs",
+                  "timeline": "2025-Q4",
+                  "linked_projects": [
+                    "support_automation",
+                    "success_optimization"
+                  ]
+                }
+              ]
+            }
+          ],
+          "projects": [
+            {
+              "template_name": "startup_package",
+              "name": "${customer_name} Startup Package Implementation",
+              "description": "15-agent autonomous enterprise implementation for startup customers",
+              "assignable_teams": [
+                "Customer Implementation",
+                "Agent Ecosystem",
+                "Customer Success"
+              ],
+              "package_details": {
+                "agent_count": 15,
+                "timeline": "1-2 weeks",
+                "investment": "$2K-8K/month",
+                "roi_timeline": "3-6 months"
+              },
+              "milestones": [
+                {
+                  "name": "Discovery & Requirements",
+                  "description": "Customer needs analysis and requirements gathering",
+                  "timeline": "2 days"
+                },
+                {
+                  "name": "Platform Configuration",
+                  "description": "Configure core platform for startup operations",
+                  "timeline": "3 days"
+                },
+                {
+                  "name": "Agent Deployment",
+                  "description": "Deploy and configure 15 essential agents",
+                  "timeline": "4 days"
+                },
+                {
+                  "name": "Integration & Testing",
+                  "description": "Integrate with customer systems and validate",
+                  "timeline": "2 days"
+                },
+                {
+                  "name": "Go-Live & Training",
+                  "description": "Production deployment and customer training",
+                  "timeline": "3 days"
+                }
+              ],
+              "success_metrics": [
+                "50%+ operational efficiency improvement",
+                "30%+ cost reduction",
+                "Autonomous operations within 2 weeks"
+              ]
+            },
+            {
+              "template_name": "smb_package",
+              "name": "${customer_name} SMB Package Implementation",
+              "description": "35-agent autonomous enterprise implementation for SMB customers",
+              "assignable_teams": [
+                "Customer Implementation",
+                "Agent Ecosystem",
+                "Operations Excellence",
+                "Customer Success"
+              ],
+              "package_details": {
+                "agent_count": 35,
+                "timeline": "4-6 weeks",
+                "investment": "$15K-35K/month",
+                "roi_timeline": "6-9 months"
+              },
+              "milestones": [
+                {
+                  "name": "Comprehensive Discovery",
+                  "description": "Deep business analysis and solution design",
+                  "timeline": "1 week"
+                },
+                {
+                  "name": "Platform Architecture",
+                  "description": "Configure platform for SMB scale operations",
+                  "timeline": "1 week"
+                },
+                {
+                  "name": "Core Agent Deployment",
+                  "description": "Deploy foundational 35-agent ecosystem",
+                  "timeline": "2 weeks"
+                },
+                {
+                  "name": "Advanced Integration",
+                  "description": "Advanced system integrations and workflow setup",
+                  "timeline": "1 week"
+                },
+                {
+                  "name": "Optimization & Go-Live",
+                  "description": "Performance optimization and production deployment",
+                  "timeline": "1 week"
+                }
+              ],
+              "success_metrics": [
+                "70%+ operational efficiency improvement",
+                "50%+ cost reduction",
+                "Autonomous excellence within 6 weeks"
+              ]
+            },
+            {
+              "template_name": "enterprise_package",
+              "name": "${customer_name} Enterprise Package Implementation",
+              "description": "65+ agent autonomous enterprise implementation for enterprise customers",
+              "assignable_teams": [
+                "Customer Implementation",
+                "Agent Ecosystem",
+                "Platform Engineering",
+                "Operations Excellence",
+                "Customer Success"
+              ],
+              "package_details": {
+                "agent_count": "65+",
+                "timeline": "12-16 weeks",
+                "investment": "$50K+/month",
+                "roi_timeline": "9-12 months"
+              },
+              "milestones": [
+                {
+                  "name": "Enterprise Assessment",
+                  "description": "Comprehensive enterprise analysis and architecture design",
+                  "timeline": "2 weeks"
+                },
+                {
+                  "name": "Platform Foundation",
+                  "description": "Enterprise-grade platform configuration and setup",
+                  "timeline": "3 weeks"
+                },
+                {
+                  "name": "Agent Ecosystem Deployment",
+                  "description": "Deploy complete 65+ agent autonomous ecosystem",
+                  "timeline": "4 weeks"
+                },
+                {
+                  "name": "Enterprise Integration",
+                  "description": "Complex enterprise system integrations",
+                  "timeline": "3 weeks"
+                },
+                {
+                  "name": "Security & Compliance",
+                  "description": "Enterprise security implementation and compliance validation",
+                  "timeline": "2 weeks"
+                },
+                {
+                  "name": "Excellence & Go-Live",
+                  "description": "Performance tuning and production deployment",
+                  "timeline": "2 weeks"
+                }
+              ],
+              "success_metrics": [
+                "80%+ operational efficiency improvement",
+                "60%+ cost reduction",
+                "Enterprise autonomous excellence within 16 weeks"
+              ]
+            },
+            {
+              "template_name": "global_package",
+              "name": "${customer_name} Global Package Implementation",
+              "description": "85+ agent ultimate autonomous enterprise implementation for global customers",
+              "assignable_teams": [
+                "Strategic Leadership",
+                "Customer Implementation",
+                "Platform Engineering",
+                "Agent Ecosystem",
+                "Operations Excellence",
+                "Customer Success"
+              ],
+              "package_details": {
+                "agent_count": "85+",
+                "timeline": "20-24 weeks",
+                "investment": "Enterprise+ pricing",
+                "roi_timeline": "12-18 months"
+              },
+              "milestones": [
+                {
+                  "name": "Global Strategy & Architecture",
+                  "description": "Global enterprise strategy and comprehensive architecture",
+                  "timeline": "3 weeks"
+                },
+                {
+                  "name": "Platform Excellence Foundation",
+                  "description": "Ultimate platform configuration for global scale",
+                  "timeline": "4 weeks"
+                },
+                {
+                  "name": "Complete Agent Ecosystem",
+                  "description": "Deploy all 85+ agents with perfect coordination",
+                  "timeline": "6 weeks"
+                },
+                {
+                  "name": "Global Integration Excellence",
+                  "description": "Comprehensive global system integrations",
+                  "timeline": "4 weeks"
+                },
+                {
+                  "name": "Security & Compliance Mastery",
+                  "description": "Global security and multi-jurisdictional compliance",
+                  "timeline": "3 weeks"
+                },
+                {
+                  "name": "Operational Excellence Achievement",
+                  "description": "Global operational excellence and autonomous mastery",
+                  "timeline": "4 weeks"
+                }
+              ],
+              "success_metrics": [
+                "90%+ operational efficiency improvement",
+                "70%+ cost reduction",
+                "Global autonomous excellence within 24 weeks",
+                "Industry leadership recognition"
+              ]
+            },
+            {
+              "template_name": "platform_development",
+              "name": "${feature_name} Platform Development",
+              "description": "Core platform feature development and enhancement",
+              "assignable_teams": [
+                "Platform Engineering",
+                "Agent Ecosystem"
+              ],
+              "milestones": [
+                {
+                  "name": "Architecture & Design",
+                  "description": "Technical architecture and detailed design"
+                },
+                {
+                  "name": "Core Development",
+                  "description": "Implementation of core functionality"
+                },
+                {
+                  "name": "Agent Integration",
+                  "description": "Integration with agent ecosystem"
+                },
+                {
+                  "name": "Testing & Validation",
+                  "description": "Comprehensive testing and validation"
+                },
+                {
+                  "name": "Security Review",
+                  "description": "Security assessment and compliance validation"
+                },
+                {
+                  "name": "Production Deployment",
+                  "description": "Production deployment and monitoring"
+                }
+              ],
+              "timeline": "8-12 weeks",
+              "custom_fields": [
+                {
+                  "name": "Platform Layer",
+                  "type": "select",
+                  "options": [
+                    "Core",
+                    "Agent Ecosystem",
+                    "Integration",
+                    "Security",
+                    "UI/UX"
+                  ],
+                  "required": true
+                }
+              ]
+            },
+            {
+              "template_name": "agent_development",
+              "name": "${agent_name} Agent Development",
+              "description": "Individual agent development and ecosystem integration",
+              "assignable_teams": [
+                "Agent Ecosystem"
+              ],
+              "milestones": [
+                {
+                  "name": "Agent Specification",
+                  "description": "Detailed agent capability specification"
+                },
+                {
+                  "name": "Agent Implementation",
+                  "description": "Agent development and training"
+                },
+                {
+                  "name": "Coordination Integration",
+                  "description": "Integration with agent coordination system"
+                },
+                {
+                  "name": "Performance Optimization",
+                  "description": "Agent performance tuning and optimization"
+                },
+                {
+                  "name": "Ecosystem Testing",
+                  "description": "Multi-agent coordination testing"
+                },
+                {
+                  "name": "Production Ready",
+                  "description": "Agent ready for customer deployment"
+                }
+              ],
+              "timeline": "4-6 weeks",
+              "custom_fields": [
+                {
+                  "name": "Agent Type",
+                  "type": "select",
+                  "options": [
+                    "Coordinator",
+                    "Lead",
+                    "Manager",
+                    "Specialist",
+                    "Maestro"
+                  ],
+                  "required": true
+                },
+                {
+                  "name": "Coordination Complexity",
+                  "type": "select",
+                  "options": [
+                    "Simple",
+                    "Moderate",
+                    "Complex",
+                    "Ultra-Complex"
+                  ],
+                  "required": true
+                }
+              ]
+            }
+          ],
+          "symphony_integration": {
+            "agent_assignments": {
+              "Strategic Leadership": [
+                "Chief Strategy Officer Agent",
+                "Market Intelligence Agent",
+                "Competitive Analysis Agent",
+                "Business Development Agent",
+                "Strategic Planning Agent"
+              ],
+              "Platform Engineering": [
+                "Chief Technology Officer Agent",
+                "Platform Architect Agent",
+                "Integration Specialist Agent",
+                "Security Architecture Agent",
+                "Performance Optimization Agent",
+                "DevOps Orchestration Agent"
+              ],
+              "Agent Ecosystem": [
+                "Maestro Agent",
+                "Agent Coordinator Agent",
+                "Agent Performance Monitor Agent",
+                "Agent Development Agent",
+                "Handoff Coordination Agent",
+                "Ecosystem Optimization Agent"
+              ],
+              "Operations Excellence": [
+                "Chief Operating Officer Agent",
+                "Operations Coordinator Agent",
+                "Quality Assurance Agent",
+                "Process Optimization Agent",
+                "Workflow Management Agent",
+                "Excellence Monitoring Agent"
+              ],
+              "Customer Implementation": [
+                "Implementation Director Agent",
+                "Solution Architect Agent",
+                "Deployment Automation Agent",
+                "Configuration Management Agent",
+                "Go-Live Coordination Agent"
+              ],
+              "Customer Success": [
+                "Chief Customer Officer Agent",
+                "Customer Success Manager Agent",
+                "Success Optimization Agent",
+                "Support Automation Agent",
+                "Growth Strategy Agent"
+              ]
+            },
+            "automation": {
+              "issue_creation": true,
+              "status_sync": true,
+              "reporting": true,
+              "template_updates": true,
+              "performance_monitoring": true,
+              "predictive_optimization": true,
+              "autonomous_problem_resolution": true,
+              "continuous_improvement": true
+            },
+            "defaults_override": {
+              "use_symphony_defaults": true,
+              "allow_customization": true,
+              "auto_sync": true,
+              "intelligent_prioritization": true,
+              "autonomous_escalation": true
+            },
+            "platform_features": {
+              "self_managing": true,
+              "recursive_improvement": true,
+              "auto_optimization": true,
+              "predictive_scaling": true,
+              "autonomous_healing": true,
+              "continuous_evolution": true
+            },
+            "ecosystem_integration": {
+              "maestro_coordination": true,
+              "agent_performance_tracking": true,
+              "handoff_optimization": true,
+              "coordination_analytics": true,
+              "ecosystem_health_monitoring": true
+            }
+          },
+          "variables": {
+            "global": {
+              "platform_name": "Symphony Autonomous Enterprise Platform",
+              "current_year": "2025",
+              "platform_version": "2.0",
+              "total_agents": 85
+            },
+            "business": {
+              "startup_agents": 15,
+              "smb_agents": 35,
+              "enterprise_agents": 65,
+              "global_agents": 85
+            },
+            "timeline": {
+              "startup_timeline": "1-2 weeks",
+              "smb_timeline": "4-6 weeks",
+              "enterprise_timeline": "12-16 weeks",
+              "global_timeline": "20-24 weeks"
+            },
+            "success_metrics": {
+              "efficiency_improvement": "10x",
+              "cost_reduction": "60-80%",
+              "customer_satisfaction": "95%+",
+              "decision_speed": "30 minutes",
+              "uptime_target": "99.99%"
+            }
+          },
+          "template_version": "2025.1-enterprise",
+          "created_by": "Symphony Autonomous Enterprise Platform",
+          "created_date": "2025-01-01",
+          "configuration_type": "master_autonomous_enterprise",
+          "inherits_from": [
+            "base/workspace-base"
+          ],
+          "meta_implementation": {
+            "description": "This configuration represents Symphony's complete autonomous enterprise platform delivery capability. It demonstrates the platform's ability to coordinate 85+ agents across 5 architectural levels to deliver transformational customer outcomes. This is the operational foundation for Symphony's autonomous enterprise promise.",
+            "self_validating": true,
+            "autonomous_enterprise_proof": "Symphony uses Symphony to manage Symphony's delivery of autonomous enterprises to customers"
+          }
+        },
+        "template_type": "linear_workspace",
+        "workspace_config": {
+          "name": "Symphony Autonomous Enterprise Platform",
+          "description": "The complete operational framework for AI-first autonomous enterprise transformations"
+        },
+        "team_structure": [
+          {
+            "name": "Strategic Leadership",
+            "key": "STRAT",
+            "description": "Vision, strategy, and business transformation leadership",
+            "team_lead": "Chief Strategy Officer",
+            "workflows": [
+              {
+                "name": "Vision Development",
+                "type": "unstarted",
+                "position": 1,
+                "description": "Developing strategic vision and transformation roadmaps"
+              },
+              {
+                "name": "Strategy Planning",
+                "type": "started",
+                "position": 2,
+                "description": "Active strategy development and planning"
+              },
+              {
+                "name": "Market Analysis",
+                "type": "started",
+                "position": 3,
+                "description": "Competitive and market intelligence analysis"
+              },
+              {
+                "name": "Business Case",
+                "type": "started",
+                "position": 4,
+                "description": "ROI validation and business case development"
+              },
+              {
+                "name": "Executive Approval",
+                "type": "completed",
+                "position": 5,
+                "description": "Executive-approved strategies and initiatives"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Strategic Priority",
+                "type": "select",
+                "options": [
+                  "Transformational",
+                  "Core",
+                  "Optimization",
+                  "Innovation"
+                ],
+                "required": true
+              },
+              {
+                "name": "Business Impact",
+                "type": "select",
+                "options": [
+                  "Revolutionary",
+                  "High",
+                  "Medium",
+                  "Supporting"
+                ],
+                "required": true
+              },
+              {
+                "name": "Timeline Horizon",
+                "type": "select",
+                "options": [
+                  "Immediate",
+                  "Quarter",
+                  "Year",
+                  "Multi-Year"
+                ],
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Platform Engineering",
+            "key": "PLAT",
+            "description": "Core autonomous enterprise platform development and architecture",
+            "team_lead": "Chief Technology Officer",
+            "workflows": [
+              {
+                "name": "Architecture Design",
+                "type": "unstarted",
+                "position": 1,
+                "description": "System architecture and technical design"
+              },
+              {
+                "name": "Development",
+                "type": "started",
+                "position": 2,
+                "description": "Active development and implementation"
+              },
+              {
+                "name": "Integration Testing",
+                "type": "started",
+                "position": 3,
+                "description": "Integration and system testing"
+              },
+              {
+                "name": "Security Review",
+                "type": "started",
+                "position": 4,
+                "description": "Security validation and compliance review"
+              },
+              {
+                "name": "Production Ready",
+                "type": "completed",
+                "position": 5,
+                "description": "Production-ready platform components"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Architecture Layer",
+                "type": "select",
+                "options": [
+                  "Core Platform",
+                  "Agent Ecosystem",
+                  "Security",
+                  "Integration",
+                  "UI/UX"
+                ],
+                "required": true
+              },
+              {
+                "name": "Technical Complexity",
+                "type": "number",
+                "range": [
+                  1,
+                  10
+                ],
+                "description": "Engineering complexity rating",
+                "required": true
+              },
+              {
+                "name": "Security Level",
+                "type": "select",
+                "options": [
+                  "Critical",
+                  "High",
+                  "Standard",
+                  "Low"
+                ],
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Agent Ecosystem",
+            "key": "AGENTS",
+            "description": "85+ autonomous agent development, coordination, and optimization",
+            "team_lead": "Agent Ecosystem Director",
+            "workflows": [
+              {
+                "name": "Agent Design",
+                "type": "unstarted",
+                "position": 1,
+                "description": "Agent specification and capability design"
+              },
+              {
+                "name": "Agent Development",
+                "type": "started",
+                "position": 2,
+                "description": "Agent implementation and training"
+              },
+              {
+                "name": "Coordination Testing",
+                "type": "started",
+                "position": 3,
+                "description": "Multi-agent coordination and handoff testing"
+              },
+              {
+                "name": "Performance Optimization",
+                "type": "started",
+                "position": 4,
+                "description": "Agent performance tuning and optimization"
+              },
+              {
+                "name": "Ecosystem Ready",
+                "type": "completed",
+                "position": 5,
+                "description": "Fully coordinated agent ecosystem"
+              }
+            ],
+            "sub_teams": [
+              {
+                "name": "Coordinators",
+                "key": "COORD",
+                "description": "Business coordination and orchestration agents"
+              },
+              {
+                "name": "Technical Leads",
+                "key": "LEADS",
+                "description": "Technical leadership and strategy agents"
+              },
+              {
+                "name": "Managers",
+                "key": "MGMT",
+                "description": "Management tier coordination agents"
+              },
+              {
+                "name": "Specialists",
+                "key": "SPEC",
+                "description": "Domain-specific expertise agents"
+              },
+              {
+                "name": "Maestro",
+                "key": "MAESTRO",
+                "description": "Ultimate coordination and orchestration"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Agent Category",
+                "type": "select",
+                "options": [
+                  "Coordinator",
+                  "Lead",
+                  "Manager",
+                  "Specialist",
+                  "Maestro"
+                ],
+                "required": true
+              },
+              {
+                "name": "Agent Count",
+                "type": "number",
+                "range": [
+                  1,
+                  85
+                ],
+                "description": "Number of agents in this initiative",
+                "required": true
+              },
+              {
+                "name": "Coordination Complexity",
+                "type": "select",
+                "options": [
+                  "Simple",
+                  "Moderate",
+                  "Complex",
+                  "Ultra-Complex"
+                ],
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Operations Excellence",
+            "key": "OPS",
+            "description": "Operational standards, workflow management, and execution excellence",
+            "team_lead": "Chief Operating Officer",
+            "workflows": [
+              {
+                "name": "Standards Definition",
+                "type": "unstarted",
+                "position": 1,
+                "description": "Defining operational standards and protocols"
+              },
+              {
+                "name": "Process Implementation",
+                "type": "started",
+                "position": 2,
+                "description": "Implementing operational processes"
+              },
+              {
+                "name": "Quality Assurance",
+                "type": "started",
+                "position": 3,
+                "description": "Quality validation and compliance checking"
+              },
+              {
+                "name": "Continuous Optimization",
+                "type": "started",
+                "position": 4,
+                "description": "Ongoing process optimization and improvement"
+              },
+              {
+                "name": "Excellence Achieved",
+                "type": "completed",
+                "position": 5,
+                "description": "Operational excellence standards met"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Operations Domain",
+                "type": "select",
+                "options": [
+                  "Workflow Management",
+                  "Agent Handoffs",
+                  "Quality Standards",
+                  "Performance Monitoring"
+                ],
+                "required": true
+              },
+              {
+                "name": "Automation Level",
+                "type": "number",
+                "range": [
+                  0,
+                  100
+                ],
+                "description": "Percentage of process automation",
+                "required": true
+              },
+              {
+                "name": "Excellence Score",
+                "type": "number",
+                "range": [
+                  1,
+                  10
+                ],
+                "description": "Operational excellence rating"
+              }
+            ]
+          },
+          {
+            "name": "Customer Implementation",
+            "key": "IMPL",
+            "description": "Customer deployment, implementation patterns, and go-live processes",
+            "team_lead": "Implementation Director",
+            "workflows": [
+              {
+                "name": "Discovery & Requirements",
+                "type": "unstarted",
+                "position": 1,
+                "description": "Customer needs analysis and requirements gathering"
+              },
+              {
+                "name": "Solution Design",
+                "type": "started",
+                "position": 2,
+                "description": "Customized solution architecture and design"
+              },
+              {
+                "name": "Configuration & Setup",
+                "type": "started",
+                "position": 3,
+                "description": "Platform configuration and environment setup"
+              },
+              {
+                "name": "Agent Deployment",
+                "type": "started",
+                "position": 4,
+                "description": "Agent ecosystem deployment and training"
+              },
+              {
+                "name": "Go-Live & Support",
+                "type": "completed",
+                "position": 5,
+                "description": "Production deployment with autonomous operations"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Customer Package",
+                "type": "select",
+                "options": [
+                  "Startup (15 agents)",
+                  "SMB (35 agents)",
+                  "Enterprise (65+ agents)",
+                  "Global (85+ agents)"
+                ],
+                "required": true
+              },
+              {
+                "name": "Implementation Timeline",
+                "type": "select",
+                "options": [
+                  "1-2 weeks",
+                  "4-6 weeks",
+                  "12-16 weeks",
+                  "20-24 weeks"
+                ],
+                "required": true
+              },
+              {
+                "name": "Industry Focus",
+                "type": "select",
+                "options": [
+                  "Technology",
+                  "Financial Services",
+                  "Healthcare",
+                  "Manufacturing",
+                  "Retail",
+                  "General"
+                ],
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Customer Success",
+            "key": "CS",
+            "description": "Customer support, success programs, and continuous value delivery",
+            "team_lead": "Chief Customer Officer",
+            "workflows": [
+              {
+                "name": "Onboarding",
+                "type": "unstarted",
+                "position": 1,
+                "description": "Customer onboarding and training"
+              },
+              {
+                "name": "Value Realization",
+                "type": "started",
+                "position": 2,
+                "description": "Ensuring customer value achievement"
+              },
+              {
+                "name": "Success Optimization",
+                "type": "started",
+                "position": 3,
+                "description": "Optimizing customer success metrics"
+              },
+              {
+                "name": "Growth & Expansion",
+                "type": "started",
+                "position": 4,
+                "description": "Account growth and capability expansion"
+              },
+              {
+                "name": "Autonomous Excellence",
+                "type": "completed",
+                "position": 5,
+                "description": "Customer achieving autonomous excellence"
+              }
+            ],
+            "custom_fields": [
+              {
+                "name": "Success Metrics",
+                "type": "select",
+                "options": [
+                  "Efficiency Gains",
+                  "Cost Reduction",
+                  "Revenue Growth",
+                  "Satisfaction Score"
+                ],
+                "required": true
+              },
+              {
+                "name": "Customer Health",
+                "type": "select",
+                "options": [
+                  "Thriving",
+                  "Healthy",
+                  "At Risk",
+                  "Requires Attention"
+                ],
+                "required": true
+              },
+              {
+                "name": "Expansion Potential",
+                "type": "select",
+                "options": [
+                  "High",
+                  "Medium",
+                  "Low",
+                  "Not Applicable"
+                ],
+                "required": false
+              }
+            ]
+          }
+        ],
+        "project_templates": [
+          {
+            "template_name": "startup_package",
+            "name": "${customer_name} Startup Package Implementation",
+            "description": "15-agent autonomous enterprise implementation for startup customers",
+            "assignable_teams": [
+              "Customer Implementation",
+              "Agent Ecosystem",
+              "Customer Success"
+            ],
+            "package_details": {
+              "agent_count": 15,
+              "timeline": "1-2 weeks",
+              "investment": "$2K-8K/month",
+              "roi_timeline": "3-6 months"
+            },
+            "milestones": [
+              {
+                "name": "Discovery & Requirements",
+                "description": "Customer needs analysis and requirements gathering",
+                "timeline": "2 days"
+              },
+              {
+                "name": "Platform Configuration",
+                "description": "Configure core platform for startup operations",
+                "timeline": "3 days"
+              },
+              {
+                "name": "Agent Deployment",
+                "description": "Deploy and configure 15 essential agents",
+                "timeline": "4 days"
+              },
+              {
+                "name": "Integration & Testing",
+                "description": "Integrate with customer systems and validate",
+                "timeline": "2 days"
+              },
+              {
+                "name": "Go-Live & Training",
+                "description": "Production deployment and customer training",
+                "timeline": "3 days"
+              }
+            ],
+            "success_metrics": [
+              "50%+ operational efficiency improvement",
+              "30%+ cost reduction",
+              "Autonomous operations within 2 weeks"
+            ]
+          },
+          {
+            "template_name": "smb_package",
+            "name": "${customer_name} SMB Package Implementation",
+            "description": "35-agent autonomous enterprise implementation for SMB customers",
+            "assignable_teams": [
+              "Customer Implementation",
+              "Agent Ecosystem",
+              "Operations Excellence",
+              "Customer Success"
+            ],
+            "package_details": {
+              "agent_count": 35,
+              "timeline": "4-6 weeks",
+              "investment": "$15K-35K/month",
+              "roi_timeline": "6-9 months"
+            },
+            "milestones": [
+              {
+                "name": "Comprehensive Discovery",
+                "description": "Deep business analysis and solution design",
+                "timeline": "1 week"
+              },
+              {
+                "name": "Platform Architecture",
+                "description": "Configure platform for SMB scale operations",
+                "timeline": "1 week"
+              },
+              {
+                "name": "Core Agent Deployment",
+                "description": "Deploy foundational 35-agent ecosystem",
+                "timeline": "2 weeks"
+              },
+              {
+                "name": "Advanced Integration",
+                "description": "Advanced system integrations and workflow setup",
+                "timeline": "1 week"
+              },
+              {
+                "name": "Optimization & Go-Live",
+                "description": "Performance optimization and production deployment",
+                "timeline": "1 week"
+              }
+            ],
+            "success_metrics": [
+              "70%+ operational efficiency improvement",
+              "50%+ cost reduction",
+              "Autonomous excellence within 6 weeks"
+            ]
+          },
+          {
+            "template_name": "enterprise_package",
+            "name": "${customer_name} Enterprise Package Implementation",
+            "description": "65+ agent autonomous enterprise implementation for enterprise customers",
+            "assignable_teams": [
+              "Customer Implementation",
+              "Agent Ecosystem",
+              "Platform Engineering",
+              "Operations Excellence",
+              "Customer Success"
+            ],
+            "package_details": {
+              "agent_count": "65+",
+              "timeline": "12-16 weeks",
+              "investment": "$50K+/month",
+              "roi_timeline": "9-12 months"
+            },
+            "milestones": [
+              {
+                "name": "Enterprise Assessment",
+                "description": "Comprehensive enterprise analysis and architecture design",
+                "timeline": "2 weeks"
+              },
+              {
+                "name": "Platform Foundation",
+                "description": "Enterprise-grade platform configuration and setup",
+                "timeline": "3 weeks"
+              },
+              {
+                "name": "Agent Ecosystem Deployment",
+                "description": "Deploy complete 65+ agent autonomous ecosystem",
+                "timeline": "4 weeks"
+              },
+              {
+                "name": "Enterprise Integration",
+                "description": "Complex enterprise system integrations",
+                "timeline": "3 weeks"
+              },
+              {
+                "name": "Security & Compliance",
+                "description": "Enterprise security implementation and compliance validation",
+                "timeline": "2 weeks"
+              },
+              {
+                "name": "Excellence & Go-Live",
+                "description": "Performance tuning and production deployment",
+                "timeline": "2 weeks"
+              }
+            ],
+            "success_metrics": [
+              "80%+ operational efficiency improvement",
+              "60%+ cost reduction",
+              "Enterprise autonomous excellence within 16 weeks"
+            ]
+          },
+          {
+            "template_name": "global_package",
+            "name": "${customer_name} Global Package Implementation",
+            "description": "85+ agent ultimate autonomous enterprise implementation for global customers",
+            "assignable_teams": [
+              "Strategic Leadership",
+              "Customer Implementation",
+              "Platform Engineering",
+              "Agent Ecosystem",
+              "Operations Excellence",
+              "Customer Success"
+            ],
+            "package_details": {
+              "agent_count": "85+",
+              "timeline": "20-24 weeks",
+              "investment": "Enterprise+ pricing",
+              "roi_timeline": "12-18 months"
+            },
+            "milestones": [
+              {
+                "name": "Global Strategy & Architecture",
+                "description": "Global enterprise strategy and comprehensive architecture",
+                "timeline": "3 weeks"
+              },
+              {
+                "name": "Platform Excellence Foundation",
+                "description": "Ultimate platform configuration for global scale",
+                "timeline": "4 weeks"
+              },
+              {
+                "name": "Complete Agent Ecosystem",
+                "description": "Deploy all 85+ agents with perfect coordination",
+                "timeline": "6 weeks"
+              },
+              {
+                "name": "Global Integration Excellence",
+                "description": "Comprehensive global system integrations",
+                "timeline": "4 weeks"
+              },
+              {
+                "name": "Security & Compliance Mastery",
+                "description": "Global security and multi-jurisdictional compliance",
+                "timeline": "3 weeks"
+              },
+              {
+                "name": "Operational Excellence Achievement",
+                "description": "Global operational excellence and autonomous mastery",
+                "timeline": "4 weeks"
+              }
+            ],
+            "success_metrics": [
+              "90%+ operational efficiency improvement",
+              "70%+ cost reduction",
+              "Global autonomous excellence within 24 weeks",
+              "Industry leadership recognition"
+            ]
+          },
+          {
+            "template_name": "platform_development",
+            "name": "${feature_name} Platform Development",
+            "description": "Core platform feature development and enhancement",
+            "assignable_teams": [
+              "Platform Engineering",
+              "Agent Ecosystem"
+            ],
+            "milestones": [
+              {
+                "name": "Architecture & Design",
+                "description": "Technical architecture and detailed design"
+              },
+              {
+                "name": "Core Development",
+                "description": "Implementation of core functionality"
+              },
+              {
+                "name": "Agent Integration",
+                "description": "Integration with agent ecosystem"
+              },
+              {
+                "name": "Testing & Validation",
+                "description": "Comprehensive testing and validation"
+              },
+              {
+                "name": "Security Review",
+                "description": "Security assessment and compliance validation"
+              },
+              {
+                "name": "Production Deployment",
+                "description": "Production deployment and monitoring"
+              }
+            ],
+            "timeline": "8-12 weeks",
+            "custom_fields": [
+              {
+                "name": "Platform Layer",
+                "type": "select",
+                "options": [
+                  "Core",
+                  "Agent Ecosystem",
+                  "Integration",
+                  "Security",
+                  "UI/UX"
+                ],
+                "required": true
+              }
+            ]
+          },
+          {
+            "template_name": "agent_development",
+            "name": "${agent_name} Agent Development",
+            "description": "Individual agent development and ecosystem integration",
+            "assignable_teams": [
+              "Agent Ecosystem"
+            ],
+            "milestones": [
+              {
+                "name": "Agent Specification",
+                "description": "Detailed agent capability specification"
+              },
+              {
+                "name": "Agent Implementation",
+                "description": "Agent development and training"
+              },
+              {
+                "name": "Coordination Integration",
+                "description": "Integration with agent coordination system"
+              },
+              {
+                "name": "Performance Optimization",
+                "description": "Agent performance tuning and optimization"
+              },
+              {
+                "name": "Ecosystem Testing",
+                "description": "Multi-agent coordination testing"
+              },
+              {
+                "name": "Production Ready",
+                "description": "Agent ready for customer deployment"
+              }
+            ],
+            "timeline": "4-6 weeks",
+            "custom_fields": [
+              {
+                "name": "Agent Type",
+                "type": "select",
+                "options": [
+                  "Coordinator",
+                  "Lead",
+                  "Manager",
+                  "Specialist",
+                  "Maestro"
+                ],
+                "required": true
+              },
+              {
+                "name": "Coordination Complexity",
+                "type": "select",
+                "options": [
+                  "Simple",
+                  "Moderate",
+                  "Complex",
+                  "Ultra-Complex"
+                ],
+                "required": true
+              }
+            ]
+          }
+        ],
+        "symphony_integration": {
+          "agent_assignments": {
+            "Strategic Leadership": [
+              "Chief Strategy Officer Agent",
+              "Market Intelligence Agent",
+              "Competitive Analysis Agent",
+              "Business Development Agent",
+              "Strategic Planning Agent"
+            ],
+            "Platform Engineering": [
+              "Chief Technology Officer Agent",
+              "Platform Architect Agent",
+              "Integration Specialist Agent",
+              "Security Architecture Agent",
+              "Performance Optimization Agent",
+              "DevOps Orchestration Agent"
+            ],
+            "Agent Ecosystem": [
+              "Maestro Agent",
+              "Agent Coordinator Agent",
+              "Agent Performance Monitor Agent",
+              "Agent Development Agent",
+              "Handoff Coordination Agent",
+              "Ecosystem Optimization Agent"
+            ],
+            "Operations Excellence": [
+              "Chief Operating Officer Agent",
+              "Operations Coordinator Agent",
+              "Quality Assurance Agent",
+              "Process Optimization Agent",
+              "Workflow Management Agent",
+              "Excellence Monitoring Agent"
+            ],
+            "Customer Implementation": [
+              "Implementation Director Agent",
+              "Solution Architect Agent",
+              "Deployment Automation Agent",
+              "Configuration Management Agent",
+              "Go-Live Coordination Agent"
+            ],
+            "Customer Success": [
+              "Chief Customer Officer Agent",
+              "Customer Success Manager Agent",
+              "Success Optimization Agent",
+              "Support Automation Agent",
+              "Growth Strategy Agent"
+            ]
+          },
+          "automation": {
+            "issue_creation": true,
+            "status_sync": true,
+            "reporting": true,
+            "template_updates": true,
+            "performance_monitoring": true,
+            "predictive_optimization": true,
+            "autonomous_problem_resolution": true,
+            "continuous_improvement": true
+          },
+          "defaults_override": {
+            "use_symphony_defaults": true,
+            "allow_customization": true,
+            "auto_sync": true,
+            "intelligent_prioritization": true,
+            "autonomous_escalation": true
+          },
+          "platform_features": {
+            "self_managing": true,
+            "recursive_improvement": true,
+            "auto_optimization": true,
+            "predictive_scaling": true,
+            "autonomous_healing": true,
+            "continuous_evolution": true
+          },
+          "ecosystem_integration": {
+            "maestro_coordination": true,
+            "agent_performance_tracking": true,
+            "handoff_optimization": true,
+            "coordination_analytics": true,
+            "ecosystem_health_monitoring": true
+          }
+        }
+      }
+    },
+    {
+      "step_id": "setup_compliance",
+      "name": "Compliance Setup",
+      "description": "Configure enterprise compliance and security requirements",
+      "required": true,
+      "estimated_duration": 240,
+      "dependencies": [
+        "setup_integrations"
+      ],
+      "status": "completed",
+      "started_at": "2025-09-01T13:59:00.036639+00:00",
+      "completed_at": "2025-09-01T13:59:01.045474+00:00",
+      "error_message": null,
+      "result_data": {
+        "message": "Step Compliance Setup executed with default handler",
+        "timestamp": "2025-09-01T13:59:01.045459+00:00"
+      },
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "deploy_agents",
+      "name": "Agent Deployment",
+      "description": "Deploy and configure Symphony agents",
+      "required": true,
+      "estimated_duration": 180,
+      "dependencies": [
+        "create_customer",
+        "setup_integrations"
+      ],
+      "status": "pending",
+      "started_at": "2025-09-01T13:59:01.045487+00:00",
+      "completed_at": null,
+      "error_message": "Failed to deploy agents: 'AgentManager' object has no attribute 'deploy_core_agents'",
+      "result_data": {},
+      "retry_count": 1,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "validate_deployment",
+      "name": "Deployment Validation",
+      "description": "Validate complete deployment and integration health",
+      "required": true,
+      "estimated_duration": 120,
+      "dependencies": [
+        "deploy_agents"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "go_live",
+      "name": "Go Live",
+      "description": "Finalize setup and activate customer environment",
+      "required": true,
+      "estimated_duration": 60,
+      "dependencies": [
+        "validate_deployment"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    }
+  ],
+  "configuration": {},
+  "integrations": {},
+  "error_history": [
+    {
+      "timestamp": "2025-09-01T13:59:01.050970+00:00",
+      "error": "Step Deployment Validation has unmet dependencies: ['deploy_agents']",
+      "current_step": "deploy_agents"
+    }
+  ],
+  "metadata": {
+    "package_type": "enterprise",
+    "industry": "technology",
+    "estimated_duration": 1290,
+    "total_steps": 7,
+    "required_steps": 7
+  }
+}

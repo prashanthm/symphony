@@ -1,0 +1,9 @@
+{
+  "customer_id": "test-dependency-fix",
+  "organization_name": "test-dependency-fix",
+  "industry": "technology",
+  "package_type": "enterprise",
+  "created_date": "2025-09-01T14:06:33.186507+00:00",
+  "last_updated": "2025-09-01T14:06:33.209084+00:00",
+  "config_hash": "204888be6d3d0719"
+}

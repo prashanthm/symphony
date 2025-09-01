@@ -1,0 +1,107 @@
+initiatives:
+- description: Perfect autonomous enterprise platform
+  level: 1
+  name: Symphony Platform Excellence
+  sub_initiatives:
+  - description: Perfect Linear workspace management
+    level: 2
+    name: Linear Integration Mastery
+  - description: 85+ agent coordination perfection
+    level: 2
+    name: Agent Ecosystem Excellence
+  - description: Perfect customer implementations
+    level: 2
+    name: Customer Success Optimization
+organization:
+  customer_name: Symphony
+  industry: !!python/object/apply:symphony_integrations.linear.template_models.IndustryType
+  - technology
+  regions:
+  - global
+  size: !!python/object/apply:symphony_integrations.linear.template_models.OrganizationSize
+  - startup
+symphony_integration:
+  agent_assignments:
+    All Hands:
+    - Configuration Management Agent
+    - Workspace Setup Agent
+    - Template Generation Agent
+    - Development Assistant Agent
+    - Project Tracking Agent
+    - Basic Reporting Agent
+  auto_optimization: true
+  automation:
+    issue_creation: true
+    reporting: true
+    status_sync: true
+    template_updates: false
+  defaults_override:
+    allow_customization: true
+    auto_sync: true
+    use_symphony_defaults: true
+  recursive_improvement: true
+  self_managing: true
+  use_symphony_defaults: true
+teams:
+- description: Symphony platform development
+  key: DEV
+  name: Platform Development
+  sub_teams:
+  - description: Linear workspace management
+    key: LINEAR
+    name: Linear Integration
+  - description: Agent development and coordination
+    key: AGENTS
+    name: Agent Ecosystem
+  - description: Template and configuration systems
+    key: CONFIG
+    name: Configuration Systems
+  workflows:
+  - description: Items in backlog
+    name: Backlog
+    position: 0
+    type: backlog
+  - description: Ready to start
+    name: Todo
+    position: 1
+    type: unstarted
+  - description: Active work
+    name: In Progress
+    position: 2
+    type: started
+  - description: Under review
+    name: Review
+    position: 3
+    type: started
+  - description: Completed work
+    name: Done
+    position: 4
+    type: completed
+  - description: Canceled work
+    name: Canceled
+    position: 5
+    type: canceled
+- description: Symphony customer implementations
+  key: CS
+  name: Customer Success
+  workflows:
+  - description: Customer needs analysis
+    name: Discovery
+    position: 1
+    type: unstarted
+  - description: Symphony deployment
+    name: Implementation
+    position: 2
+    type: started
+  - description: Performance optimization
+    name: Optimization
+    position: 3
+    type: started
+  - description: Autonomous excellence achieved
+    name: Excellence
+    position: 4
+    type: completed
+template_version: '2025.1'
+workspace:
+  description: Symphony uses Symphony to manage Symphony development
+  name: Symphony Internal Operations

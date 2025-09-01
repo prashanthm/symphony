@@ -41,6 +41,20 @@ except ImportError as e:
     click.echo(f"Warning: Could not import Integration commands: {e}")
     integration = None
 
+# Import onboarding commands
+try:
+    from .commands.onboarding_commands import onboard
+except ImportError as e:
+    click.echo(f"Warning: Could not import Onboarding commands: {e}")
+    onboard = None
+
+# Import authentication commands
+try:
+    from .commands.auth_commands import auth
+except ImportError as e:
+    click.echo(f"Warning: Could not import Authentication commands: {e}")
+    auth = None
+
 console = Console()
 
 __version__ = "2.0.0"
@@ -85,14 +99,19 @@ def env():
     current = Path(__file__).parent
     symphony_root = None
 
-    while current.parent != current:
+    # Traverse up to find Symphony root
+    max_depth = 10  # Prevent infinite loops in tests
+    depth = 0
+    while current.parent != current and depth < max_depth:
         if (current / "pyproject.toml").exists() and (current / "libs").exists():
             symphony_root = current
             break
         current = current.parent
+        depth += 1
 
     if not symphony_root:
         console.print("[red]❌ Could not find Symphony root directory[/red]")
+        console.print(f"[yellow]Please run from Symphony project root[/yellow]")
         return
 
     env_file = symphony_root / ".env"
@@ -158,7 +177,10 @@ def init(org_name: str):
         except Exception as e:
             console.print(f"[red]❌ Failed to initialize workspace: {e}[/red]")
 
-    asyncio.run(run_init())
+    try:
+        asyncio.run(run_init())
+    except Exception as e:
+        console.print(f"[red]❌ Async execution failed: {e}[/red]")
 
 
 @linear.command()
@@ -244,7 +266,10 @@ def deploy(customer_id: Optional[str], package: str, core_only: bool):
                     result = await deploy_core_agents(manager)
                     console.print(f"✅ Core agents deployed: {result}")
 
-            asyncio.run(run_deployment())
+            try:
+                asyncio.run(run_deployment())
+            except Exception as e:
+                console.print(f"[red]❌ Deployment execution failed: {e}[/red]")
         else:
             console.print(
                 "[yellow]Please specify a package type: startup, smb, enterprise, or global[/yellow]"
@@ -313,7 +338,10 @@ def status(customer_id: Optional[str], agent_type: Optional[str]):
 
                 console.print(table)
 
-        asyncio.run(show_status())
+        try:
+            asyncio.run(show_status())
+        except Exception as e:
+            console.print(f"[red]❌ Status check execution failed: {e}[/red]")
 
     except ImportError as e:
         console.print(f"[red]❌ Import error: {e}[/red]")
@@ -365,7 +393,10 @@ def handoff(
             else:
                 console.print(f"[red]❌ Handoff failed: {result['error']}[/red]")
 
-        asyncio.run(run_handoff())
+        try:
+            asyncio.run(run_handoff())
+        except Exception as e:
+            console.print(f"[red]❌ Handoff execution failed: {e}[/red]")
 
     except ImportError as e:
         console.print(f"[red]❌ Import error: {e}[/red]")
@@ -409,7 +440,10 @@ def execute(agent_id: str, task_description: str, priority: str):
             else:
                 console.print(f"[red]❌ Task failed: {result['error']}[/red]")
 
-        asyncio.run(run_task())
+        try:
+            asyncio.run(run_task())
+        except Exception as e:
+            console.print(f"[red]❌ Task execution failed: {e}[/red]")
 
     except ImportError as e:
         console.print(f"[red]❌ Import error: {e}[/red]")
@@ -462,7 +496,10 @@ def monitor(interval: int, duration: int):
 
             console.print("[green]✅ Monitoring session completed[/green]")
 
-        asyncio.run(run_monitoring())
+        try:
+            asyncio.run(run_monitoring())
+        except Exception as e:
+            console.print(f"[red]❌ Monitoring execution failed: {e}[/red]")
 
     except ImportError as e:
         console.print(f"[red]❌ Import error: {e}[/red]")
@@ -569,13 +606,14 @@ def status():
     console.print(status_table)
 
     console.print("\n[bold]Quick Implementation Commands:[/bold]")
-    console.print("  symphony setup env                    # Setup environment")
-    console.print(
-        "  symphony linear init myorg           # Initialize Linear workspace"
-    )
-    console.print("  symphony github create myorg         # Create GitHub repository")
-    console.print("  symphony agent status                # Show agent status")
-    console.print("  symphony monitor dashboard           # Show monitoring")
+    console.print("  symphony onboard start mycorp        # Start customer onboarding")
+    console.print("  symphony onboard start mycorp --config-file template.yaml  # Use external template")
+    console.print("  symphony onboard validate-template template.yaml  # Validate template file")
+    console.print("  symphony auth login --service linear # Authenticate with Linear")
+    console.print("  symphony auth login --service github # Authenticate with GitHub")
+    console.print("  symphony setup env                   # Setup environment")
+    console.print("  symphony agent status               # Show agent status")
+    console.print("  symphony monitor dashboard          # Show monitoring")
 
 
 # Register hierarchy commands if available
@@ -585,6 +623,14 @@ if hierarchy:
 # Register integration commands if available
 if integration:
     cli.add_command(integration, name="integration")
+
+# Register onboarding commands if available
+if onboard:
+    cli.add_command(onboard, name="onboard")
+
+# Register authentication commands if available
+if auth:
+    cli.add_command(auth, name="auth")
 
 
 if __name__ == "__main__":

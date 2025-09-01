@@ -1,0 +1,197 @@
+agent_configuration:
+  agents:
+    coordination:
+    - agent: maestro/ultimate-coordinator
+      priority: critical
+      role: Supreme orchestration
+    - agent: coordinators/enterprise-orchestrator
+      priority: critical
+      role: Enterprise-wide coordination
+    - agent: coordinators/multi-department-coordinator
+      priority: high
+      role: Department coordination
+    leadership:
+    - agent: executives/cto
+      priority: critical
+      role: Chief Technology Officer
+    - agent: executives/cfo
+      priority: critical
+      role: Chief Financial Officer
+    - agent: executives/cmo
+      priority: high
+      role: Chief Marketing Officer
+    - agent: executives/coo
+      priority: high
+      role: Chief Operating Officer
+    - agent: leads/technical-lead
+      priority: high
+      role: Technical leadership
+    - agent: leads/business-lead
+      priority: high
+      role: Business leadership
+    - agent: managers/enterprise-operations-manager
+      priority: high
+      role: Operations management
+    - agent: managers/program-manager
+      priority: medium
+      role: Program coordination
+    specialists:
+    - agent: specialists/senior-business-analyst
+      priority: high
+      role: Advanced business analysis
+    - agent: specialists/enterprise-customer-success
+      priority: high
+      role: Enterprise customer management
+    - agent: specialists/senior-financial-analyst
+      priority: high
+      role: Financial planning and analysis
+    - agent: specialists/enterprise-marketing-manager
+      priority: high
+      role: Marketing strategy and execution
+    - agent: specialists/enterprise-sales-manager
+      priority: high
+      role: Enterprise sales process
+    - agent: specialists/enterprise-architect
+      priority: high
+      role: System architecture
+    - agent: specialists/security-architect
+      priority: high
+      role: Security design and implementation
+    - agent: specialists/compliance-manager
+      priority: high
+      role: Regulatory compliance
+    - agent: specialists/data-architect
+      priority: high
+      role: Data strategy and governance
+    - agent: specialists/integration-specialist
+      priority: high
+      role: System integrations
+    - agent: specialists/process-excellence-manager
+      priority: medium
+      role: Process optimization
+    - agent: specialists/quality-assurance-manager
+      priority: medium
+      role: Quality management
+    - agent: specialists/performance-analyst
+      priority: medium
+      role: Performance monitoring
+    - agent: specialists/risk-manager
+      priority: medium
+      role: Risk assessment and mitigation
+  performance_targets:
+    agent_success_rate: 99.5
+    customer_satisfaction: 4.8
+    handoff_success_rate: 99.0
+    response_time: 5
+    uptime: 99.9
+  selected_package: enterprise
+business_objectives:
+  cost_reduction: 60%
+  customer_satisfaction: 4.8/5
+  efficiency_improvement: 75%
+  regulatory_compliance: 100%
+  revenue_growth: 40%
+created_by: symphony-cli
+created_date: '2025-09-01T13:58:59.996714+00:00'
+customer_profile:
+  business_domain: general
+  customer_id: symphony
+  implementation_timeline: 12-16 weeks
+  industry: technology
+  organization_name: symphony
+  primary_contact: {}
+  team_size: 10
+  technical_contact: {}
+implementation:
+  weeks_13_16:
+  - Final validation and testing
+  - Advanced training and certification
+  - Go-live and monitoring setup
+  - Success metrics validation
+  weeks_1_4:
+  - Enterprise assessment and planning
+  - Infrastructure setup and security configuration
+  - Core agent deployment (Maestro, executives)
+  - Primary integration setup
+  weeks_5_8:
+  - Department-specific agent deployment
+  - Advanced integration configuration
+  - Compliance and security validation
+  - Initial training and knowledge transfer
+  weeks_9_12:
+  - Specialized agent deployment
+  - End-to-end process automation
+  - Advanced reporting and analytics setup
+  - Performance optimization
+integrations:
+  github:
+    enabled: true
+  hubspot:
+    enabled: false
+  linear:
+    enabled: true
+  quickbooks:
+    enabled: false
+  slack:
+    enabled: false
+maintenance:
+  included_services:
+  - 24/7 monitoring and alerting
+  - Real-time performance dashboards
+  - Weekly optimization reports
+  - Premium customer support
+  - Advanced customization and development
+  - Dedicated customer success manager
+  - Quarterly business reviews
+  performance_reviews: monthly
+  support_level: premium
+  update_schedule: weekly
+metadata:
+  deployment_status: not_deployed
+  package_info:
+    agent_count: 65
+    description: Comprehensive agent ecosystem for large enterprises
+    implementation_time: 12-16 weeks
+    name: enterprise
+    pricing_range: $50,000+/month
+    target_customers: Large enterprises, corporations, complex organizations
+  validation_status: pending
+  version_history: []
+monitoring:
+  alert_thresholds:
+    error_rate: 0.5
+    performance_degradation: 98
+  reporting_frequency:
+    daily_reports: true
+    monthly_assessments: true
+    quarterly_reviews: true
+    real_time_dashboards: true
+    weekly_summaries: true
+operational_constraints:
+  compliance_requirements:
+  - sox
+  - pci
+  - hipaa
+  - gdpr
+  - iso27001
+  security_requirements: enterprise
+schema_version: '2025.1'
+security:
+  access_controls: []
+  audit_logging: true
+  compliance_monitoring: true
+  data_encryption: standard
+technical_environment:
+  deployment_preference: hybrid
+  recommended_integrations:
+  - linear
+  - github
+  - slack
+  - salesforce
+  - servicenow
+  - jira
+  - confluence
+  - azure-devops
+  - aws
+  - microsoft-365
+  security_requirements: enterprise-grade

@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(rmdir:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "./platform/agents",
+      "./platform/governance",
+      "./templates/agent-templates"
+    ]
+  },
+  "symphonyContext": {
+    "agentsEnabled": true,
+    "orchestrationMode": true,
+    "governanceEnabled": true,
+    "templateAccess": true,
+    "mandatoryReferences": [
+      "./docs/symphony-structure-guide.md"
+    ]
+  },
+  "autoLoad": {
+    "structureGuide": "./docs/symphony-structure-guide.md",
+    "description": "MANDATORY - Always load this file first in every Claude session"
+  },
+  "projectInfo": {
+    "name": "Symphony Autonomous Enterprise Platform",
+    "type": "ai-agent-coordination",
+    "structure": "4-tier-scale-aware",
+    "documentation": "5-category-hierarchy"
+  }
+}

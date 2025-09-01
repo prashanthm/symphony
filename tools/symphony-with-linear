@@ -1,0 +1,545 @@
+#!/bin/bash
+
+#####################################################################
+# Symphony Universal CLI - Extended with Linear Support
+#####################################################################
+#
+# This extends the Symphony CLI with Linear integration commands.
+# Copy this over the existing tools/symphony file if desired.
+#
+#####################################################################
+
+set -e  # Exit on any error
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Symphony root directory
+SYMPHONY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$SYMPHONY_ROOT"
+
+# Ensure UV is available
+if ! command -v uv &> /dev/null; then
+    echo -e "${RED}Error: UV package manager not found${NC}"
+    echo "Install UV: curl -LsSf https://astral.sh/uv/install.sh | sh"
+    exit 1
+fi
+
+# Ensure virtual environment is set up
+if [[ ! -d ".venv" ]]; then
+    echo -e "${YELLOW}Setting up virtual environment...${NC}"
+    export PATH="$HOME/.local/bin:$PATH"
+    uv sync --all-packages
+fi
+
+# Activate virtual environment
+export PATH="$SYMPHONY_ROOT/.venv/bin:$PATH"
+
+# Set up Python paths for Linear integration
+export PYTHONPATH="$SYMPHONY_ROOT/apps/symphony-cli/src:$SYMPHONY_ROOT/libs/symphony-integrations/src:$SYMPHONY_ROOT/libs/symphony-core/src:$PYTHONPATH"
+
+#####################################################################
+# Helper Functions
+#####################################################################
+
+show_header() {
+    echo -e "${PURPLE}🎼 Symphony Universal CLI${NC}"
+    echo -e "${PURPLE}═══════════════════════════${NC}"
+    echo
+}
+
+show_help() {
+    show_header
+    cat << 'EOF'
+The single command interface to the entire Symphony monorepo.
+
+USAGE:
+    ./tools/symphony <COMMAND> [SUBCOMMAND] [OPTIONS]
+
+COMMANDS:
+    status              Show overall monorepo status
+    platform            Platform operations (build, test, deploy)
+    org                 Organization management
+    docs                Documentation operations  
+    business            Business operations
+    dev                 Development operations
+    build               Build system operations
+    test                Testing operations
+    monitor             Monitoring and health checks
+    linear              Linear workspace management
+
+EXAMPLES:
+    ./tools/symphony status
+    ./tools/symphony platform build
+    ./tools/symphony org create acme-corp enterprise
+    ./tools/symphony docs build external
+    ./tools/symphony dev validate
+    ./tools/symphony linear status
+    ./tools/symphony linear configure --help
+
+For more help on a specific command:
+    ./tools/symphony <command> --help
+
+EOF
+}
+
+show_status() {
+    show_header
+    echo -e "${CYAN}📊 Symphony Monorepo Status${NC}"
+    echo
+
+    # Python and UV versions
+    echo -e "${BLUE}Environment:${NC}"
+    python3 --version 2>/dev/null || echo "  Python: Not available"
+    uv --version 2>/dev/null || echo "  UV: Not available"
+    echo
+
+    # Virtual environment status
+    echo -e "${BLUE}Virtual Environment:${NC}"
+    if [[ -d ".venv" ]]; then
+        echo -e "  ${GREEN}✓${NC} .venv exists"
+        if [[ "$PATH" == *".venv/bin"* ]]; then
+            echo -e "  ${GREEN}✓${NC} Virtual environment active"
+        else
+            echo -e "  ${YELLOW}⚠${NC} Virtual environment not fully active"
+        fi
+    else
+        echo -e "  ${RED}✗${NC} .venv not found"
+    fi
+    echo
+
+    # Linear Integration Status
+    echo -e "${BLUE}Linear Integration:${NC}"
+    if [[ -f "configs/symphony_linear_workspace.json" ]]; then
+        echo -e "  ${GREEN}✓${NC} Linear workspace configured"
+        
+        # Extract workspace info using Python
+        local workspace_info=$(.venv/bin/python -c "
+import json
+try:
+    with open('configs/symphony_linear_workspace.json', 'r') as f:
+        data = json.load(f)
+    print(f'Organization: {data[\"organization_name\"]}')
+    print(f'Team: {data[\"team\"][\"name\"]} ({data[\"team\"][\"key\"]})')
+    print(f'Projects: {len(data[\"projects\"])}')
+except Exception as e:
+    print(f'Error reading workspace: {e}')
+" 2>/dev/null)
+        
+        if [[ -n "$workspace_info" ]]; then
+            echo "$workspace_info" | sed 's/^/    /'
+        fi
+    else
+        echo -e "  ${YELLOW}○${NC} Linear workspace not configured"
+    fi
+
+    if [[ -f "configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml" ]]; then
+        echo -e "  ${GREEN}✓${NC} Enterprise template available"
+    else
+        echo -e "  ${YELLOW}○${NC} Enterprise template not found"
+    fi
+    echo
+
+    # Workspace packages
+    echo -e "${BLUE}Workspace Packages:${NC}"
+    for pkg in libs/symphony-core libs/symphony-integrations libs/symphony-templates apps/symphony-cli; do
+        if [[ -d "$pkg" ]]; then
+            echo -e "  ${GREEN}✓${NC} $pkg"
+        else
+            echo -e "  ${RED}✗${NC} $pkg"
+        fi
+    done
+    echo
+
+    # Configuration files
+    echo -e "${BLUE}Configuration:${NC}"
+    for file in pyproject.toml CLAUDE.md .env; do
+        if [[ -f "$file" ]]; then
+            echo -e "  ${GREEN}✓${NC} $file"
+        else
+            echo -e "  ${RED}✗${NC} $file"
+        fi
+    done
+}
+
+#####################################################################
+# Linear Commands
+#####################################################################
+
+cmd_linear() {
+    case "${2:-}" in
+        "status")
+            echo -e "${CYAN}🔗 Linear Workspace Status${NC}"
+            if [[ -f "configs/symphony_linear_workspace.json" ]]; then
+                .venv/bin/python -c "
+import json
+try:
+    with open('configs/symphony_linear_workspace.json', 'r') as f:
+        workspace = json.load(f)
+    
+    print(f'Organization: {workspace[\"organization_name\"]}')
+    print(f'Team: {workspace[\"team\"][\"name\"]} ({workspace[\"team\"][\"key\"]})')
+    print(f'Team ID: {workspace[\"team\"][\"id\"]}')
+    print(f'Projects: {len(workspace[\"projects\"])}')
+    print()
+    print('Projects:')
+    for name, info in workspace['projects'].items():
+        print(f'  - {name}')
+        print(f'    URL: {info[\"url\"]}')
+    print()
+    print(f'Workflow States: {len(workspace[\"workflow_states\"])}')
+    for state in workspace['workflow_states']:
+        print(f'  - {state[\"name\"]} ({state[\"type\"]})')
+    print()
+    print('🔗 Access workspace: https://linear.app/testsym123/')
+except Exception as e:
+    print(f'Error reading workspace: {e}')
+"
+            else
+                echo -e "${RED}✗ Linear workspace not configured${NC}"
+                echo "Run: ./tools/symphony linear init"
+            fi
+            ;;
+            
+        "init")
+            echo -e "${CYAN}🔗 Initializing Linear Workspace${NC}"
+            .venv/bin/python apps/symphony-cli/src/symphony_cli/main.py linear init symphony
+            ;;
+            
+        "configure")
+            shift 2  # Remove 'linear' and 'configure' from arguments
+            echo -e "${CYAN}⚙️ Configuring Linear Workspace${NC}"
+            
+            # Check if enterprise template is being used
+            local use_enterprise=false
+            for arg in "$@"; do
+                if [[ "$arg" == *"symphony-autonomous-enterprise.yaml" ]]; then
+                    use_enterprise=true
+                    break
+                fi
+            done
+            
+            if $use_enterprise; then
+                echo -e "${PURPLE}Using Symphony Enterprise Template${NC}"
+            fi
+            
+            .venv/bin/python -c "
+import sys
+sys.path.append('apps/symphony-cli/src')
+from symphony_cli.commands.linear_hierarchy import configure
+import click
+
+try:
+    ctx = click.Context(configure)
+    configure.main(['$@'], standalone_mode=False)
+except Exception as e:
+    print(f'Configuration error: {e}')
+    print('Usage: ./tools/symphony linear configure --help')
+"
+            ;;
+            
+        "enterprise")
+            echo -e "${CYAN}🏢 Symphony Enterprise Linear Configuration${NC}"
+            if [[ -f "configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml" ]]; then
+                echo -e "${GREEN}✓ Enterprise template found${NC}"
+                echo
+                echo "Enterprise Template Details:"
+                .venv/bin/python -c "
+import yaml
+with open('configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml', 'r') as f:
+    config = yaml.safe_load(f)
+
+print(f'Workspace: {config[\"workspace\"][\"name\"]}')
+print(f'Teams: {len(config[\"teams\"])}')
+for team in config['teams']:
+    print(f'  - {team[\"name\"]} ({team[\"key\"]})')
+print(f'Initiatives: {len(config[\"initiatives\"])}')
+print(f'Projects: {len(config[\"projects\"])}')
+print(f'Agent Assignments: {len(config[\"symphony_integration\"][\"agent_assignments\"])}')
+"
+                echo
+                echo "To preview this configuration:"
+                echo "  ./tools/symphony linear configure --config configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml --preview"
+            else
+                echo -e "${RED}✗ Enterprise template not found${NC}"
+                echo "Expected: configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml"
+            fi
+            ;;
+            
+        "help"|"--help")
+            echo -e "${CYAN}🔗 Linear Integration Commands${NC}"
+            echo
+            echo "USAGE:"
+            echo "    ./tools/symphony linear <SUBCOMMAND> [OPTIONS]"
+            echo
+            echo "SUBCOMMANDS:"
+            echo "    status              Show Linear workspace status"
+            echo "    init                Initialize Linear workspace"
+            echo "    configure           Configure Linear workspace"
+            echo "    enterprise          Show enterprise template details"
+            echo
+            echo "EXAMPLES:"
+            echo "    ./tools/symphony linear status"
+            echo "    ./tools/symphony linear init"
+            echo "    ./tools/symphony linear enterprise"
+            echo "    ./tools/symphony linear configure --config configs/linear-templates/enterprise/symphony-autonomous-enterprise.yaml --preview"
+            echo
+            ;;
+            
+        *)
+            echo -e "${RED}Unknown linear command: ${2:-}${NC}"
+            echo "Run: ./tools/symphony linear help"
+            ;;
+    esac
+}
+
+#####################################################################
+# Existing Commands (same as original)
+#####################################################################
+
+cmd_platform() {
+    case "${2:-}" in
+        "build")
+            echo -e "${CYAN}🔨 Building Symphony Platform${NC}"
+            export PATH="$HOME/.local/bin:$PATH"
+            uv sync --all-packages
+            echo -e "${GREEN}✓ Platform build complete${NC}"
+            ;;
+        "test")
+            echo -e "${CYAN}🧪 Testing Symphony Platform${NC}"
+            if command -v pytest &> /dev/null; then
+                pytest tests/ -v
+            else
+                echo -e "${YELLOW}Installing pytest...${NC}"
+                uv add --group dev pytest pytest-asyncio
+                .venv/bin/pytest tests/ -v
+            fi
+            ;;
+        "deploy")
+            echo -e "${CYAN}🚀 Deploying Symphony Platform${NC}"
+            echo "Deploy functionality coming soon..."
+            ;;
+        *)
+            echo "Usage: ./tools/symphony platform {build|test|deploy}"
+            ;;
+    esac
+}
+
+cmd_org() {
+    case "${2:-}" in
+        "create")
+            local name="${3:-}"
+            local type="${4:-startup}"
+            if [[ -z "$name" ]]; then
+                echo "Usage: ./tools/symphony org create <name> [startup|smb|enterprise|global]"
+                exit 1
+            fi
+            echo -e "${CYAN}🏢 Creating Organization: $name ($type)${NC}"
+            mkdir -p "organizations/customers/$name"
+            echo "# $name Organization Configuration" > "organizations/customers/$name/README.md"
+            echo "Organization type: $type" >> "organizations/customers/$name/README.md"
+            echo -e "${GREEN}✓ Organization '$name' created${NC}"
+            ;;
+        "list")
+            echo -e "${CYAN}📋 Organizations${NC}"
+            if [[ -d "organizations/customers" ]]; then
+                ls -la organizations/customers/ || echo "No organizations found"
+            else
+                echo "No organizations directory found"
+            fi
+            ;;
+        "deploy")
+            echo -e "${CYAN}🚀 Deploying Organization${NC}"
+            echo "Deploy functionality coming soon..."
+            ;;
+        *)
+            echo "Usage: ./tools/symphony org {create|list|deploy}"
+            ;;
+    esac
+}
+
+cmd_docs() {
+    case "${2:-}" in
+        "build")
+            local target="${3:-all}"
+            echo -e "${CYAN}📚 Building Documentation: $target${NC}"
+            if command -v mkdocs &> /dev/null; then
+                mkdocs build
+            else
+                echo "Documentation build functionality coming soon..."
+            fi
+            ;;
+        "serve")
+            echo -e "${CYAN}🌐 Serving Documentation${NC}"
+            if command -v mkdocs &> /dev/null; then
+                mkdocs serve
+            else
+                echo "Documentation serve functionality coming soon..."
+            fi
+            ;;
+        "publish")
+            local target="${3:-external}"
+            echo -e "${CYAN}📤 Publishing Documentation: $target${NC}"
+            echo "Documentation publishing coming soon..."
+            ;;
+        *)
+            echo "Usage: ./tools/symphony docs {build|serve|publish}"
+            ;;
+    esac
+}
+
+cmd_business() {
+    case "${2:-}" in
+        "customers")
+            echo -e "${CYAN}👥 Customer Management${NC}"
+            cmd_org list
+            ;;
+        "analytics")
+            echo -e "${CYAN}📊 Business Analytics${NC}"
+            echo "Analytics functionality coming soon..."
+            ;;
+        "sales")
+            echo -e "${CYAN}💰 Sales Operations${NC}"
+            echo "Sales operations coming soon..."
+            ;;
+        *)
+            echo "Usage: ./tools/symphony business {customers|analytics|sales}"
+            ;;
+    esac
+}
+
+cmd_dev() {
+    case "${2:-}" in
+        "workspace")
+            echo -e "${CYAN}🚀 Development Workspace${NC}"
+            export PATH="$HOME/.local/bin:$PATH"
+            uv sync --all-packages
+            echo -e "${GREEN}✓ Workspace ready${NC}"
+            ;;
+        "validate")
+            echo -e "${CYAN}✅ Validating Monorepo${NC}"
+            echo "Running validation checks..."
+            
+            # Check pyproject.toml files
+            local valid=true
+            for pkg in libs/symphony-core libs/symphony-integrations libs/symphony-templates apps/symphony-cli; do
+                if [[ ! -f "$pkg/pyproject.toml" ]]; then
+                    echo -e "${RED}✗ Missing: $pkg/pyproject.toml${NC}"
+                    valid=false
+                else
+                    echo -e "${GREEN}✓ $pkg/pyproject.toml${NC}"
+                fi
+            done
+            
+            if $valid; then
+                echo -e "${GREEN}✓ Monorepo validation passed${NC}"
+            else
+                echo -e "${RED}✗ Monorepo validation failed${NC}"
+                exit 1
+            fi
+            ;;
+        "monitor")
+            echo -e "${CYAN}📈 Development Monitoring${NC}"
+            show_status
+            ;;
+        *)
+            echo "Usage: ./tools/symphony dev {workspace|validate|monitor}"
+            ;;
+    esac
+}
+
+cmd_build() {
+    echo -e "${CYAN}🔨 Build System${NC}"
+    export PATH="$HOME/.local/bin:$PATH"
+    uv sync --all-packages
+    echo -e "${GREEN}✓ Build complete${NC}"
+}
+
+cmd_test() {
+    echo -e "${CYAN}🧪 Running Tests${NC}"
+    if [[ -d "tests" ]]; then
+        export PATH="$HOME/.local/bin:$PATH"
+        if [[ -f ".venv/bin/pytest" ]]; then
+            .venv/bin/pytest tests/ -v
+        else
+            echo "Installing test dependencies..."
+            uv add --group dev pytest pytest-asyncio
+            .venv/bin/pytest tests/ -v
+        fi
+    else
+        echo "No tests directory found"
+    fi
+}
+
+cmd_monitor() {
+    case "${2:-}" in
+        "init")
+            echo -e "${CYAN}📈 Initializing Monitoring${NC}"
+            mkdir -p logs
+            echo "Monitoring initialized"
+            ;;
+        "check")
+            echo -e "${CYAN}🔍 Health Check${NC}"
+            show_status
+            ;;
+        "monitor")
+            echo -e "${CYAN}📊 Live Monitoring${NC}"
+            echo "Live monitoring functionality coming soon..."
+            ;;
+        *)
+            echo "Usage: ./tools/symphony monitor {init|check|monitor}"
+            ;;
+    esac
+}
+
+#####################################################################
+# Main Command Dispatcher
+#####################################################################
+
+case "${1:-}" in
+    "status")
+        show_status
+        ;;
+    "platform")
+        cmd_platform "$@"
+        ;;
+    "org")
+        cmd_org "$@"
+        ;;
+    "docs")
+        cmd_docs "$@"
+        ;;
+    "business")
+        cmd_business "$@"
+        ;;
+    "dev")
+        cmd_dev "$@"
+        ;;
+    "build")
+        cmd_build "$@"
+        ;;
+    "test")
+        cmd_test "$@"
+        ;;
+    "monitor")
+        cmd_monitor "$@"
+        ;;
+    "linear")
+        cmd_linear "$@"
+        ;;
+    "--help"|"-h"|"help"|"")
+        show_help
+        ;;
+    *)
+        echo -e "${RED}Unknown command: ${1}${NC}"
+        echo
+        show_help
+        exit 1
+        ;;
+esac

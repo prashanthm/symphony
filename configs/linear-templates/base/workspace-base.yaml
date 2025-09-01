@@ -1,0 +1,113 @@
+# Base Linear Workspace Template
+# Provides foundational structure for all Symphony customer workspaces
+
+workspace:
+  name: "${customer_name} Operations"
+  description: "Autonomous enterprise coordination for ${customer_name}"
+
+organization:
+  customer_name: "${customer_name}"
+  industry: "${industry}"
+  size: "${size}"
+  regions: []
+  timezone: "UTC"
+  locale: "en-US"
+
+# Base team structure - minimal foundation
+teams:
+  - name: "Operations"
+    key: "OPS"
+    description: "Core business operations and coordination"
+    workflows:
+      - name: "Backlog"
+        type: "backlog"
+        position: 0
+        description: "Items in backlog"
+      - name: "Todo" 
+        type: "unstarted"
+        position: 1
+        description: "Ready to start"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active work"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Under review"
+      - name: "Done"
+        type: "completed"
+        position: 4
+        description: "Completed work"
+    custom_fields:
+      - name: "Priority"
+        type: "select"
+        options: ["High", "Medium", "Low"]
+        required: false
+      - name: "Business Impact"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: false
+
+# Base initiative structure
+initiatives:
+  - name: "Operational Excellence"
+    level: 1
+    description: "Achieve operational excellence and efficiency"
+    timeline: "${current_year}"
+    sub_initiatives:
+      - name: "Process Optimization"
+        level: 2
+        description: "Optimize core business processes"
+      - name: "Quality Improvement"
+        level: 2
+        description: "Improve service and product quality"
+
+# Base project templates
+projects:
+  - template_name: "operational_project"
+    name: "${project_name} Implementation"
+    description: "Standard operational project implementation"
+    assignable_teams: ["Operations"]
+    milestones:
+      - name: "Planning"
+        description: "Project planning and requirements"
+        position: 0
+      - name: "Implementation"
+        description: "Project implementation phase"
+        position: 1
+      - name: "Testing"
+        description: "Quality assurance and testing"
+        position: 2
+      - name: "Deployment"
+        description: "Production deployment"
+        position: 3
+    timeline: "8 weeks"
+    auto_create: false
+
+# Symphony integration defaults
+symphony_integration:
+  agent_assignments:
+    "Operations": 
+      - "Configuration Management Agent"
+      - "Workspace Setup Agent"
+      - "Operations Coordinator Agent"
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    template_updates: false
+  defaults_override:
+    use_symphony_defaults: true
+    allow_customization: true
+    auto_sync: true
+  use_symphony_defaults: true
+  custom_templates_path: null
+  self_managing: false
+  recursive_improvement: false
+  auto_optimization: true
+
+# Template metadata
+template_version: "2025.1"
+created_by: "Symphony Platform"
+created_date: "2025-01-01"

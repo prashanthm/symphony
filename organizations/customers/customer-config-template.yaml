@@ -1,0 +1,225 @@
+# Symphony Customer Configuration Template
+# Copy this file and customize for each new customer
+
+schema_version: "2025.1"
+created_date: "${CREATED_DATE}"
+created_by: "symphony-cli"
+config_type: "customer_configuration"
+
+# Customer Profile
+customer_profile:
+  organization_name: "${ORGANIZATION_NAME}"
+  customer_id: "${CUSTOMER_ID}"  # Unique identifier (lowercase, hyphens only)
+  industry: "${INDUSTRY}"        # startup|smb|enterprise|global
+  business_domain: "${BUSINESS_DOMAIN}"  # e.g., fintech, healthcare, ecommerce
+  team_size: ${TEAM_SIZE}
+  implementation_timeline: "${IMPLEMENTATION_TIMELINE}"
+  
+  # Contact information
+  primary_contact:
+    name: "${PRIMARY_CONTACT_NAME}"
+    email: "${PRIMARY_CONTACT_EMAIL}"
+    role: "${PRIMARY_CONTACT_ROLE}"
+  
+  # Technical contact
+  technical_contact:
+    name: "${TECHNICAL_CONTACT_NAME}"
+    email: "${TECHNICAL_CONTACT_EMAIL}"
+    role: "${TECHNICAL_CONTACT_ROLE}"
+
+# Business Objectives
+business_objectives:
+  primary_challenges:
+    - "${CHALLENGE_1}"
+    - "${CHALLENGE_2}"
+    - "${CHALLENGE_3}"
+  
+  success_metrics:
+    efficiency_improvement: "${EFFICIENCY_TARGET}%"
+    cost_reduction: "${COST_REDUCTION_TARGET}%"
+    revenue_growth: "${REVENUE_GROWTH_TARGET}%"
+    customer_satisfaction: "${CUSTOMER_SATISFACTION_TARGET}/5"
+  
+  timeline_goals:
+    short_term: "${SHORT_TERM_GOALS}"  # 1-3 months
+    medium_term: "${MEDIUM_TERM_GOALS}"  # 3-12 months
+    long_term: "${LONG_TERM_GOALS}"    # 12+ months
+
+# Technical Environment
+technical_environment:
+  deployment_preference: "${DEPLOYMENT_PREFERENCE}"  # saas|onpremise|hybrid
+  
+  existing_tools:
+    project_management: "${PROJECT_MANAGEMENT_TOOL}"
+    development: "${DEVELOPMENT_PLATFORM}"
+    communication: "${COMMUNICATION_PLATFORM}"
+    crm: "${CRM_SYSTEM}"
+    financial: "${FINANCIAL_SYSTEM}"
+    documentation: "${DOCUMENTATION_SYSTEM}"
+    monitoring: "${MONITORING_SYSTEM}"
+  
+  infrastructure:
+    cloud_provider: "${CLOUD_PROVIDER}"  # aws|azure|gcp|onpremise
+    regions: ${REGIONS}
+    compliance_zones: ${COMPLIANCE_ZONES}
+
+# Operational Constraints
+operational_constraints:
+  compliance_requirements: ${COMPLIANCE_REQUIREMENTS}  # ["sox", "gdpr", "hipaa", etc.]
+  security_requirements: "${SECURITY_LEVEL}"  # standard|enhanced|custom
+  integration_constraints: ${INTEGRATION_CONSTRAINTS}  # ["api_access", "vpn_required", etc.]
+  
+  business_hours:
+    timezone: "${TIMEZONE}"
+    start_time: "${BUSINESS_START}"
+    end_time: "${BUSINESS_END}"
+    weekend_coverage: ${WEEKEND_COVERAGE}
+
+# Agent Configuration
+agent_configuration:
+  selected_package: "${SELECTED_PACKAGE}"  # startup|smb|enterprise|global
+  
+  custom_requirements:
+    additional_agents: ${ADDITIONAL_AGENTS}
+    specialized_domains: ${SPECIALIZED_DOMAINS}
+    custom_workflows: ${CUSTOM_WORKFLOWS}
+  
+  performance_requirements:
+    response_time_sla: "${RESPONSE_TIME_SLA}"
+    availability_sla: "${AVAILABILITY_SLA}%"
+    success_rate_sla: "${SUCCESS_RATE_SLA}%"
+  
+  agent_schedules:
+    morning_start: "${MORNING_START}"      # Default: 6:00 AM EST
+    midday_optimization: "${MIDDAY_OPT}"   # Default: 12:00 PM EST
+    evening_planning: "${EVENING_PLAN}"    # Default: 6:00 PM EST
+    
+    custom_schedules: ${CUSTOM_SCHEDULES}
+
+# Integration Configuration
+integrations:
+  # Core integrations (always enabled)
+  linear:
+    enabled: true
+    configuration:
+      workspace_name: "${ORGANIZATION_NAME} Operations"
+      team_structure: "${LINEAR_TEAM_STRUCTURE}"
+      project_templates: ${LINEAR_PROJECT_TEMPLATES}
+  
+  github:
+    enabled: true
+    configuration:
+      organization: "${GITHUB_ORG}"
+      repository_naming: "${REPO_NAMING_PATTERN}"
+      ci_cd_pipeline: "${CICD_PIPELINE}"
+  
+  # Optional integrations
+  slack:
+    enabled: ${SLACK_ENABLED}
+    configuration:
+      workspace: "${SLACK_WORKSPACE}"
+      channels: ${SLACK_CHANNELS}
+      bot_name: "${SLACK_BOT_NAME}"
+  
+  hubspot:
+    enabled: ${HUBSPOT_ENABLED}
+    configuration:
+      portal_id: "${HUBSPOT_PORTAL_ID}"
+      pipeline_config: "${HUBSPOT_PIPELINE}"
+  
+  quickbooks:
+    enabled: ${QUICKBOOKS_ENABLED}
+    configuration:
+      company_id: "${QUICKBOOKS_COMPANY_ID}"
+      chart_of_accounts: "${QUICKBOOKS_COA}"
+  
+  notion:
+    enabled: ${NOTION_ENABLED}
+    configuration:
+      workspace_id: "${NOTION_WORKSPACE_ID}"
+      database_structure: "${NOTION_DB_STRUCTURE}"
+
+# Monitoring and Analytics
+monitoring:
+  performance_targets:
+    agent_success_rate: ${AGENT_SUCCESS_TARGET}      # Default: 99.5
+    handoff_success_rate: ${HANDOFF_SUCCESS_TARGET}  # Default: 99.0
+    response_time: ${RESPONSE_TIME_TARGET}           # Default: 5 seconds
+    customer_satisfaction: ${CUSTOMER_SAT_TARGET}    # Default: 4.9/5
+  
+  alert_configuration:
+    notification_channels: ${ALERT_CHANNELS}
+    escalation_levels: ${ESCALATION_LEVELS}
+    business_hours_only: ${BUSINESS_HOURS_ALERTS}
+  
+  reporting:
+    daily_reports: ${DAILY_REPORTS}
+    weekly_summaries: ${WEEKLY_SUMMARIES}
+    monthly_assessments: ${MONTHLY_ASSESSMENTS}
+    custom_dashboards: ${CUSTOM_DASHBOARDS}
+
+# Security Configuration
+security:
+  data_encryption: "${ENCRYPTION_LEVEL}"     # standard|enhanced|custom
+  access_controls: ${ACCESS_CONTROLS}
+  audit_logging: ${AUDIT_LOGGING}
+  compliance_monitoring: ${COMPLIANCE_MONITORING}
+  
+  credential_management:
+    rotation_policy: "${CREDENTIAL_ROTATION}"
+    storage_method: "${CREDENTIAL_STORAGE}"
+    backup_strategy: "${CREDENTIAL_BACKUP}"
+
+# Implementation Plan
+implementation:
+  phases:
+    phase1:
+      name: "Platform Setup"
+      duration: "${PHASE1_DURATION}"
+      deliverables: ${PHASE1_DELIVERABLES}
+    
+    phase2:
+      name: "Agent Deployment"
+      duration: "${PHASE2_DURATION}"
+      deliverables: ${PHASE2_DELIVERABLES}
+    
+    phase3:
+      name: "Integration Orchestration"
+      duration: "${PHASE3_DURATION}"
+      deliverables: ${PHASE3_DELIVERABLES}
+    
+    phase4:
+      name: "Optimization & Go-Live"
+      duration: "${PHASE4_DURATION}"
+      deliverables: ${PHASE4_DELIVERABLES}
+  
+  milestones: ${IMPLEMENTATION_MILESTONES}
+  success_criteria: ${SUCCESS_CRITERIA}
+  rollback_plan: ${ROLLBACK_PLAN}
+
+# Maintenance and Support
+maintenance:
+  support_level: "${SUPPORT_LEVEL}"        # basic|standard|premium
+  update_schedule: "${UPDATE_SCHEDULE}"    # weekly|monthly|quarterly
+  backup_strategy: "${BACKUP_STRATEGY}"
+  disaster_recovery: "${DR_STRATEGY}"
+  
+  continuous_improvement:
+    performance_reviews: "${PERF_REVIEW_SCHEDULE}"
+    capability_assessments: "${CAPABILITY_ASSESSMENT_SCHEDULE}"
+    optimization_cycles: "${OPTIMIZATION_SCHEDULE}"
+
+# Notes and Comments
+notes:
+  implementation_notes: "${IMPLEMENTATION_NOTES}"
+  special_requirements: "${SPECIAL_REQUIREMENTS}"
+  risk_factors: ${RISK_FACTORS}
+  success_factors: ${SUCCESS_FACTORS}
+
+# Metadata
+metadata:
+  version_history: []
+  last_updated: "${LAST_UPDATED}"
+  updated_by: "${UPDATED_BY}"
+  validation_status: "pending"
+  deployment_status: "not_deployed"

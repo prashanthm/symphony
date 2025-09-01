@@ -1,0 +1,135 @@
+# Financial Services Startup Configuration
+# Test configuration for a financial services startup
+
+organization:
+  customer_name: "FinTech Innovators"
+  industry: "financial_services"
+  size: "startup"
+  regions: ["us-east-1"]
+  timezone: "America/New_York"
+  locale: "en-US"
+
+workspace:
+  name: "${customer_name} Compliance Operations"
+  description: "Comprehensive compliance and risk management workspace for ${industry} ${size} company"
+
+# Override some teams with custom configuration
+teams:
+  - name: "Compliance Engineering"
+    key: "COMP_ENG"
+    description: "Engineering team focused on compliance automation"
+    custom_fields:
+      - name: "Regulatory Impact"
+        type: "select"
+        options: ["None", "SOX", "GDPR", "PCI-DSS", "Basel III"]
+        required: true
+      - name: "Audit Trail Required"
+        type: "boolean"
+        default_value: true
+  
+  - name: "Risk Analytics"
+    key: "RISK_ANALYTICS"
+    description: "Advanced risk modeling and analytics"
+    workflows:
+      - name: "Model Development"
+        type: "started"
+        position: 1
+      - name: "Backtesting"
+        type: "started" 
+        position: 2
+      - name: "Regulatory Review"
+        type: "started"
+        position: 3
+      - name: "Production Deploy"
+        type: "completed"
+        position: 4
+
+# Custom initiatives
+initiatives:
+  - name: "Regulatory Excellence 2025"
+    level: 1
+    description: "Achieve best-in-class regulatory compliance"
+    timeline: "2025-Q4"
+    sub_initiatives:
+      - name: "SOX 404 Automation"
+        level: 2
+        description: "Automate SOX 404 compliance processes"
+        timeline: "2025-Q2"
+      - name: "Real-time Risk Monitoring"
+        level: 2
+        description: "Implement continuous risk monitoring"
+        timeline: "2025-Q3"
+
+# Custom project templates
+projects:
+  - template_name: "regulatory_implementation"
+    name: "${regulation} Implementation Project"
+    description: "Implementation of ${regulation} regulatory requirements for ${customer_name}"
+    assignable_teams: ["Compliance Engineering", "Risk Analytics"]
+    milestones:
+      - name: "Regulatory Gap Analysis"
+        description: "Identify gaps in current ${regulation} compliance"
+        position: 1
+      - name: "Control Design & Implementation"
+        description: "Design and implement compliance controls"
+        position: 2
+      - name: "Testing & Validation" 
+        description: "Test compliance controls and validate effectiveness"
+        position: 3
+      - name: "External Audit"
+        description: "External audit and regulatory sign-off"
+        position: 4
+    timeline: "16 weeks"
+    auto_create: false
+
+# Symphony integration with enhanced compliance features
+symphony_integration:
+  use_symphony_defaults: true
+  agent_assignments:
+    "Compliance Engineering":
+      - "Regulatory Compliance Agent"
+      - "Audit Trail Agent"
+      - "Code Review Agent"
+    "Risk Analytics":
+      - "Risk Assessment Agent"
+      - "Model Validation Agent"
+      - "Data Quality Agent"
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    compliance_monitoring: true
+    audit_trail_generation: true
+  defaults_override:
+    compliance_first: true
+    audit_everything: true
+    regulatory_notifications: true
+  custom_templates_path: "finserv/templates"
+  auto_optimization: true
+
+# Branding
+branding:
+  colors:
+    primary: "#1B365D"    # Dark blue for financial trust
+    secondary: "#E8B339"  # Gold for premium feel
+    accent: "#C41E3A"     # Red for alerts/risks
+  logo_url: "https://fintechinnovators.com/logo.png"
+
+# Variable definitions for template substitution
+variables:
+  global_vars:
+    compliance_officer: "Jane Smith, CRO"
+    primary_regulator: "Federal Reserve"
+    audit_firm: "Big Four Consulting"
+  computed_vars:
+    total_risk_score: "risk_assessments.total_score()"
+    compliance_percentage: "completed_controls.percentage()"
+  conditional_vars:
+    high_risk_monitoring:
+      risk_score_threshold: 8
+      monitoring_frequency: "daily"
+      escalation_required: true
+
+template_version: "2025.1"
+created_by: "Symphony Intelligent Defaults Generator"
+created_date: "${date.today()}"

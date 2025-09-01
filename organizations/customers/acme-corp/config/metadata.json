@@ -1,0 +1,9 @@
+{
+  "customer_id": "acme-corp",
+  "organization_name": "acme-corp",
+  "industry": "healthcare",
+  "package_type": "enterprise",
+  "created_date": "2025-09-01T07:06:41.954213+00:00",
+  "last_updated": "2025-09-01T07:06:41.964039+00:00",
+  "config_hash": "a100f1fca8291b9e"
+}

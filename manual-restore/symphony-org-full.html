@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Symphony Organization (87 Agents)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; text-align: center; }
+        .mermaid { text-align: center; margin: 20px 0; }
+        .info { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Complete Symphony Organization (87 Agents)</h1>
+    <div class="info">
+        <strong>Symphony Autonomous Enterprise Platform</strong><br/>
+        Interactive organizational chart with 87 specialized agents across 5 hierarchical levels.
+    </div>
+    <div class="mermaid">
+graph TD
+    ceo["Alexander Sterling<br/>CEO<br/>2000 tokens"]
+    style ceo fill:#FF4444
+    cto["Dr. Priya Patel<br/>CTO<br/>2000 tokens"]
+    style cto fill:#FF4444
+    cfo["Marcus Chen<br/>CFO<br/>2000 tokens"]
+    style cfo fill:#FF4444
+    cmo["Isabella Rodriguez<br/>CMO<br/>2000 tokens"]
+    style cmo fill:#FF4444
+    cro["David Thompson<br/>CRO<br/>2000 tokens"]
+    style cro fill:#FF4444
+    coo["Sarah Kim<br/>COO<br/>2000 tokens"]
+    style coo fill:#FF4444
+    vp_sales["Michael Foster<br/>VP Sales<br/>2000 tokens"]
+    style vp_sales fill:#4444FF
+    vp_marketing["Natasha Petrov<br/>VP Marketing<br/>1800 tokens"]
+    style vp_marketing fill:#4444FF
+    vp_engineering["Dr. Rachel Goldman<br/>VP Engineering<br/>1800 tokens"]
+    style vp_engineering fill:#4444FF
+    vp_product["Catherine Mitchell<br/>VP Product<br/>2000 tokens"]
+    style vp_product fill:#4444FF
+    vp_people["Maria Santos<br/>VP People<br/>2000 tokens"]
+    style vp_people fill:#4444FF
+    finance_director["Margaret Foster<br/>Finance & Accounting Director<br/>2000 tokens"]
+    style finance_director fill:#44FF44
+    hr_director["Jonathan Reed<br/>Human Resources Director<br/>2000 tokens"]
+    style hr_director fill:#44FF44
+    it_director["Benjamin Clark<br/>IT Director<br/>2000 tokens"]
+    style it_director fill:#44FF44
+    customer_success_director["Amanda Johnson<br/>Customer Success Director<br/>2000 tokens"]
+    style customer_success_director fill:#44FF44
+    sales_manager["Carlos Mendoza<br/>Sales Manager<br/>1500 tokens"]
+    style sales_manager fill:#FFFF44
+    marketing_manager["Aisha Okafor<br/>Marketing Manager<br/>1500 tokens"]
+    style marketing_manager fill:#FFFF44
+    engineering_manager["Arjun Krishnan<br/>Engineering Manager<br/>1500 tokens"]
+    style engineering_manager fill:#FFFF44
+    product_manager["David Kim<br/>Product Manager<br/>1500 tokens"]
+    style product_manager fill:#FFFF44
+    operations_manager["Robert Chen<br/>Operations Manager<br/>1500 tokens"]
+    style operations_manager fill:#FFFF44
+    enterprise_architect["Thomas Anderson<br/>Enterprise Architect<br/>2000 tokens"]
+    style enterprise_architect fill:#FF8844
+    solution_architect["Zara Al-Rashid<br/>Solution Architect<br/>2000 tokens"]
+    style solution_architect fill:#FF8844
+    application_architect["Kevin O'Sullivan<br/>Application Architect<br/>2000 tokens"]
+    style application_architect fill:#FF8844
+    data_architect["Dr. Amara Singh<br/>Data Architect<br/>2000 tokens"]
+    style data_architect fill:#FF8844
+    security_architect["Rafael Santos<br/>Security Architect<br/>2000 tokens"]
+    style security_architect fill:#FF8844
+    cloud_architect["Emma Johansson<br/>Cloud Architect<br/>2000 tokens"]
+    style cloud_architect fill:#FF8844
+    software_engineer["Alex Harper<br/>Software Engineer<br/>1300 tokens"]
+    style software_engineer fill:#8844FF
+    ux_ui_designer["Chloe Bennett<br/>UX/UI Designer<br/>1300 tokens"]
+    style ux_ui_designer fill:#8844FF
+    data_scientist["Dr. Vikram Shah<br/>Data Scientist<br/>1400 tokens"]
+    style data_scientist fill:#8844FF
+    sales_engineer["Jason Kim<br/>Sales Engineer<br/>1400 tokens"]
+    style sales_engineer fill:#8844FF
+
+    ceo --> cto
+    ceo --> cfo
+    ceo --> cmo
+    ceo --> cro
+    ceo --> coo
+    cto --> vp_engineering
+    cto --> enterprise_architect
+    cto --> it_director
+    cfo --> finance_director
+    cmo --> vp_marketing
+    cmo --> vp_product
+    cro --> vp_sales
+    cro --> customer_success_director
+    coo --> vp_people
+    coo --> operations_manager
+    vp_sales --> sales_manager
+    vp_marketing --> marketing_manager
+    vp_engineering --> engineering_manager
+    vp_product --> product_manager
+    vp_people --> hr_director
+    sales_manager --> sales_engineer
+    engineering_manager --> software_engineer
+    engineering_manager --> ux_ui_designer
+    enterprise_architect --> solution_architect
+    enterprise_architect --> application_architect
+    enterprise_architect --> data_architect
+    data_architect --> data_scientist
+    </div>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>

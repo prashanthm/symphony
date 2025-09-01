@@ -1,0 +1,367 @@
+# Financial Services Industry Template
+# Specialized configuration for banking, finance, and regulated financial institutions
+
+# Inherits from base template
+inherits_from:
+  - "base/workspace-base"
+
+# Override workspace description for financial services
+workspace:
+  description: "Regulatory-compliant autonomous enterprise coordination for ${customer_name}"
+
+# Financial services specific teams
+teams:
+  - name: "Risk Management" 
+    key: "RISK"
+    description: "Risk assessment, monitoring, and mitigation"
+    workflows:
+      - name: "Risk Assessment"
+        type: "unstarted"
+        position: 1
+        description: "Initial risk evaluation"
+      - name: "Analysis"
+        type: "started" 
+        position: 2
+        description: "Detailed risk analysis"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Risk committee review"
+      - name: "Mitigation"
+        type: "started"
+        position: 4
+        description: "Risk mitigation implementation"
+      - name: "Monitoring"
+        type: "started"
+        position: 5
+        description: "Ongoing risk monitoring"
+      - name: "Closed"
+        type: "completed"
+        position: 6
+        description: "Risk closed or transferred"
+    custom_fields:
+      - name: "Risk Level"
+        type: "select"
+        options: ["Low", "Medium", "High", "Critical"]
+        required: true
+        description: "Assessed risk level"
+      - name: "Risk Category"
+        type: "select"
+        options: ["Credit", "Market", "Operational", "Liquidity", "Compliance", "Reputational"]
+        required: true
+      - name: "Regulatory Impact"
+        type: "boolean"
+        description: "Has regulatory compliance impact"
+      - name: "Financial Impact"
+        type: "number"
+        range: [0, 1000000]
+        description: "Estimated financial impact (USD)"
+      - name: "Risk Owner"
+        type: "text"
+        required: true
+        description: "Person responsible for risk management"
+
+  - name: "Regulatory Compliance"
+    key: "COMP"
+    description: "Regulatory compliance and audit management"
+    workflows:
+      - name: "Compliance Review"
+        type: "unstarted"
+        position: 1
+        description: "Initial compliance assessment"
+      - name: "Gap Analysis"
+        type: "started"
+        position: 2
+        description: "Identify compliance gaps"
+      - name: "Control Design"
+        type: "started"
+        position: 3
+        description: "Design compliance controls"
+      - name: "Implementation"
+        type: "started"
+        position: 4
+        description: "Implement compliance measures"
+      - name: "Testing"
+        type: "started"
+        position: 5
+        description: "Test compliance controls"
+      - name: "Regulatory Approval"
+        type: "started"
+        position: 6
+        description: "Await regulatory approval"
+      - name: "Certified"
+        type: "completed"
+        position: 7
+        description: "Compliance certified"
+    custom_fields:
+      - name: "Regulatory Framework"
+        type: "select"
+        options: ["SOX", "GDPR", "PCI-DSS", "Basel III", "Dodd-Frank", "MiFID II", "CCAR"]
+        required: true
+      - name: "SOX Compliance"
+        type: "boolean"
+        description: "Sarbanes-Oxley Act compliance required"
+      - name: "Audit Trail Required"
+        type: "boolean"
+        description: "Complete audit trail documentation required"
+      - name: "Compliance Officer"
+        type: "text"
+        required: true
+        description: "Responsible compliance officer"
+      - name: "Review Date"
+        type: "date"
+        required: true
+        description: "Next compliance review date"
+      - name: "Audit Status"
+        type: "select"
+        options: ["Not Started", "In Progress", "Completed", "Exception", "Remediation"]
+
+  - name: "Security Operations"
+    key: "SEC"
+    description: "Information security and cybersecurity operations"
+    workflows:
+      - name: "Security Assessment"
+        type: "unstarted"
+        position: 1
+        description: "Initial security evaluation"
+      - name: "Threat Analysis"
+        type: "started"
+        position: 2
+        description: "Threat modeling and analysis"
+      - name: "Control Implementation"
+        type: "started"
+        position: 3
+        description: "Security control implementation"
+      - name: "Penetration Testing"
+        type: "started"
+        position: 4
+        description: "Security penetration testing"
+      - name: "Certification"
+        type: "completed"
+        position: 5
+        description: "Security certification achieved"
+    custom_fields:
+      - name: "Security Classification"
+        type: "select"
+        options: ["Public", "Internal", "Confidential", "Restricted", "Top Secret"]
+        required: true
+      - name: "Encryption Required"
+        type: "boolean"
+        description: "Encryption at rest and in transit required"
+      - name: "Access Control Level"
+        type: "select"
+        options: ["Basic", "Multi-Factor", "Certificate", "Biometric"]
+        required: true
+      - name: "Security Framework"
+        type: "select"
+        options: ["NIST", "ISO 27001", "COBIT", "COSO"]
+
+  - name: "Treasury Operations"
+    key: "TREAS"
+    description: "Treasury and financial operations management"
+    workflows:
+      - name: "Planning"
+        type: "unstarted"
+        position: 1
+        description: "Financial planning and forecasting"
+      - name: "Execution"
+        type: "started"
+        position: 2
+        description: "Execute treasury operations"
+      - name: "Settlement"
+        type: "started"
+        position: 3
+        description: "Transaction settlement"
+      - name: "Reconciliation"
+        type: "started"
+        position: 4
+        description: "Financial reconciliation"
+      - name: "Reporting"
+        type: "completed"
+        position: 5
+        description: "Financial reporting completed"
+    custom_fields:
+      - name: "Transaction Type"
+        type: "select"
+        options: ["Payment", "Transfer", "Investment", "Loan", "Deposit"]
+        required: true
+      - name: "Amount (USD)"
+        type: "number"
+        range: [0, 100000000]
+        required: true
+      - name: "Currency"
+        type: "select"
+        options: ["USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD"]
+        default_value: "USD"
+      - name: "Settlement Date"
+        type: "date"
+        required: true
+
+# Financial services specific initiatives
+initiatives:
+  - name: "Regulatory Compliance 2025"
+    level: 1
+    description: "Maintain comprehensive regulatory compliance across all frameworks"
+    owner: "Chief Compliance Officer"
+    timeline: "2025-Q4"
+    sub_initiatives:
+      - name: "SOX 404 Compliance"
+        level: 2
+        description: "Sarbanes-Oxley Section 404 compliance maintenance"
+        timeline: "2025-Q2"
+      - name: "GDPR Enhancement"
+        level: 2
+        description: "Enhanced GDPR privacy and data protection compliance"
+        timeline: "2025-Q2"
+      - name: "Basel III Implementation"
+        level: 2
+        description: "Basel III capital requirements implementation"
+        timeline: "2025-Q3"
+      - name: "Cybersecurity Framework"
+        level: 2
+        description: "NIST Cybersecurity Framework full implementation"
+        timeline: "2025-Q4"
+
+  - name: "Digital Banking Transformation"
+    level: 1
+    description: "Complete digital transformation of banking operations"
+    owner: "Chief Technology Officer"
+    timeline: "2025-Q4"
+    sub_initiatives:
+      - name: "API Banking Platform"
+        level: 2
+        description: "Modern API-first banking platform"
+        timeline: "2025-Q2"
+      - name: "Real-time Risk Management"
+        level: 2
+        description: "Real-time automated risk assessment and management"
+        timeline: "2025-Q3"
+      - name: "Customer Experience Portal"
+        level: 2
+        description: "Next-generation customer digital experience"
+        timeline: "2025-Q4"
+
+# Financial services specific project templates
+projects:
+  - template_name: "regulatory_compliance"
+    name: "${regulation} Compliance Implementation"
+    description: "Full implementation of ${regulation} regulatory requirements for ${customer_name}"
+    assignable_teams: ["Risk Management", "Regulatory Compliance", "Security Operations"]
+    milestones:
+      - name: "Regulatory Gap Analysis"
+        description: "Comprehensive analysis of current vs required compliance state"
+      - name: "Risk Assessment"
+        description: "Assessment of compliance risks and impact"
+      - name: "Control Framework Design"
+        description: "Design comprehensive compliance control framework"
+      - name: "Policy Development"
+        description: "Develop policies and procedures"
+      - name: "Implementation"
+        description: "Implement compliance controls and procedures"
+      - name: "Testing & Validation"
+        description: "Test compliance controls and validate effectiveness"
+      - name: "Documentation"
+        description: "Complete compliance documentation and evidence"
+      - name: "External Audit"
+        description: "External audit and certification"
+      - name: "Regulatory Filing"
+        description: "Submit regulatory filings and reports"
+    timeline: "24 weeks"
+    custom_fields:
+      - name: "Regulation"
+        type: "select"
+        options: ["SOX", "GDPR", "PCI-DSS", "Basel III", "Dodd-Frank", "MiFID II"]
+        required: true
+      - name: "Regulatory Deadline"
+        type: "date"
+        required: true
+      - name: "Audit Firm"
+        type: "text"
+        description: "External audit firm"
+
+  - template_name: "digital_banking_feature"
+    name: "${feature_name} Digital Banking Implementation"
+    description: "Implementation of digital banking feature: ${feature_name}"
+    assignable_teams: ["Treasury Operations", "Security Operations"]
+    milestones:
+      - name: "Requirements & Compliance Review"
+        description: "Gather requirements and review regulatory compliance"
+      - name: "Security Design"
+        description: "Design security architecture and controls"
+      - name: "API Development"
+        description: "Develop secure banking APIs"
+      - name: "Integration Testing"
+        description: "Test integrations with core banking systems"
+      - name: "Security Testing"
+        description: "Comprehensive security and penetration testing"
+      - name: "Regulatory Approval"
+        description: "Obtain required regulatory approvals"
+      - name: "Production Deployment"
+        description: "Deploy to production with monitoring"
+    timeline: "16 weeks"
+    custom_fields:
+      - name: "Banking Function"
+        type: "select"
+        options: ["Payments", "Lending", "Deposits", "Investment", "Trade Finance"]
+        required: true
+      - name: "Customer Impact"
+        type: "select"
+        options: ["Retail", "Commercial", "Corporate", "Investment"]
+        required: true
+
+# Financial services Symphony agent integration
+symphony_integration:
+  agent_assignments:
+    "Risk Management":
+      - "Risk Assessment Agent"
+      - "Regulatory Monitor Agent"
+      - "Financial Impact Calculator Agent"
+      - "Risk Mitigation Planner Agent"
+    "Regulatory Compliance":
+      - "Compliance Monitor Agent"
+      - "Audit Trail Generator Agent"
+      - "Regulatory Filing Agent"
+      - "Policy Management Agent"
+    "Security Operations":
+      - "Security Assessment Agent"
+      - "Threat Detection Agent"
+      - "Access Control Manager Agent"
+      - "Encryption Management Agent"
+    "Treasury Operations":
+      - "Treasury Operations Agent"
+      - "Transaction Monitor Agent"
+      - "Settlement Automation Agent"
+      - "Financial Reporting Agent"
+  
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    regulatory_notifications: true  # Special for financial services
+    audit_trail_generation: true   # Required for compliance
+    risk_monitoring: true          # Continuous risk monitoring
+    
+  defaults_override:
+    compliance_mode: true          # Enable compliance-first workflows
+    audit_everything: true         # Full audit trail for all actions
+    encryption_required: true     # Encrypt all data by default
+    
+  # Financial services specific configuration
+  regulatory_config:
+    frameworks: ["SOX", "GDPR", "PCI-DSS", "Basel III"]
+    audit_retention: "7_years"     # Financial record retention
+    encryption_standard: "AES-256"
+    access_control: "multi_factor_required"
+
+# Custom variables for financial services
+variables:
+  computed:
+    compliance_score: "${compliance_frameworks.length * 10}"
+    risk_tolerance: "low"  # Financial services = low risk tolerance
+    
+  conditional:
+    high_security_required: true
+    audit_trail_mandatory: true
+    regulatory_oversight: true
+    encryption_at_rest: true
+    multi_factor_auth: true

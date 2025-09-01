@@ -1,0 +1,245 @@
+# SMB Package Configuration
+# 35 agents, $15K-35K/month, 4-6 week implementation
+
+package_info:
+  name: "smb"
+  description: "Comprehensive agent suite for small-to-medium businesses"
+  agent_count: 35
+  pricing_range: "$15,000-35,000/month"
+  implementation_time: "4-6 weeks"
+  target_customers: "Small-to-medium businesses, growing companies, established SMBs"
+
+# Agent allocation for SMB package
+agents:
+  # Enhanced coordination (3 agents)
+  coordination:
+    - agent: "maestro/ultimate-coordinator"
+      role: "Supreme orchestration"
+      priority: "critical"
+    
+    - agent: "coordinators/smb-orchestrator"
+      role: "SMB-focused coordination"
+      priority: "high"
+    
+    - agent: "coordinators/department-coordinator"
+      role: "Department coordination"
+      priority: "high"
+
+  # Expanded leadership (6 agents)
+  leadership:
+    - agent: "executives/cto"
+      role: "Chief Technology Officer"
+      priority: "high"
+    
+    - agent: "executives/cfo"
+      role: "Chief Financial Officer"
+      priority: "high"
+    
+    - agent: "leads/technical-lead"
+      role: "Technical leadership"
+      priority: "high"
+    
+    - agent: "leads/business-lead"
+      role: "Business leadership"
+      priority: "high"
+    
+    - agent: "managers/operations-manager"
+      role: "Operations management"
+      priority: "high"
+    
+    - agent: "managers/project-manager"
+      role: "Project coordination"
+      priority: "medium"
+
+  # Comprehensive specialists (26 agents)
+  specialists:
+    # Core business functions
+    - agent: "specialists/senior-business-analyst"
+      role: "Business analysis and strategy"
+      priority: "high"
+    
+    - agent: "specialists/customer-success-manager"
+      role: "Customer relationship management"
+      priority: "high"
+    
+    - agent: "specialists/financial-analyst"
+      role: "Financial planning and analysis"
+      priority: "high"
+    
+    - agent: "specialists/marketing-manager"
+      role: "Marketing strategy and campaigns"
+      priority: "high"
+    
+    - agent: "specialists/sales-manager"
+      role: "Sales process and pipeline"
+      priority: "high"
+    
+    - agent: "specialists/hr-manager"
+      role: "Human resources management"
+      priority: "medium"
+    
+    # Technical specialists
+    - agent: "specialists/systems-analyst"
+      role: "System analysis and optimization"
+      priority: "high"
+    
+    - agent: "specialists/security-specialist"
+      role: "Security monitoring and compliance"
+      priority: "high"
+    
+    - agent: "specialists/data-analyst"
+      role: "Data analysis and reporting"
+      priority: "medium"
+    
+    - agent: "specialists/integration-coordinator"
+      role: "System integrations"
+      priority: "medium"
+    
+    # Operational specialists
+    - agent: "specialists/process-optimizer"
+      role: "Process improvement"
+      priority: "medium"
+    
+    - agent: "specialists/quality-coordinator"
+      role: "Quality assurance"
+      priority: "medium"
+    
+    - agent: "specialists/compliance-monitor"
+      role: "Compliance monitoring"
+      priority: "medium"
+    
+    - agent: "specialists/performance-monitor"
+      role: "Performance tracking"
+      priority: "medium"
+    
+    # Additional specialists
+    - agent: "specialists/content-manager"
+      role: "Content creation and management"
+      priority: "low"
+    
+    - agent: "specialists/vendor-coordinator"
+      role: "Vendor and supplier management"
+      priority: "low"
+    
+    - agent: "specialists/training-coordinator"
+      role: "Training and development"
+      priority: "low"
+    
+    - agent: "specialists/communications-coordinator"
+      role: "Internal and external communications"
+      priority: "low"
+    
+    # Industry-specific options (select based on customer)
+    - agent: "specialists/industry-specialist"
+      role: "Industry-specific expertise"
+      priority: "medium"
+    
+    # Additional specialized roles (7+ more agents)
+    # Note: Full SMB package includes additional role-specific
+    # and department-specific agents based on customer needs
+
+# Default configuration values for SMB customers
+default_configuration:
+  business_objectives:
+    efficiency_improvement: "60%"
+    cost_reduction: "45%"
+    revenue_growth: "35%"
+    customer_satisfaction: "4.6/5"
+    process_automation: "80%"
+  
+  technical_environment:
+    deployment_preference: "saas_with_integrations"
+    security_requirements: "enhanced"
+    recommended_integrations:
+      - "linear"
+      - "github"
+      - "slack"
+      - "salesforce"
+      - "quickbooks"
+      - "hubspot"
+      - "jira"
+      - "google-workspace"
+  
+  operational_constraints:
+    security_requirements: "enhanced"
+    compliance_requirements: ["pci", "gdpr", "hipaa"]
+  
+  agent_configuration:
+    performance_targets:
+      agent_success_rate: 98.0
+      handoff_success_rate: 95.0
+      response_time: 7
+      customer_satisfaction: 4.6
+      uptime: 99.5
+  
+  monitoring:
+    alert_thresholds:
+      performance_degradation: 95
+      error_rate: 2
+    
+    reporting_frequency:
+      daily_reports: true
+      weekly_summaries: true
+      monthly_assessments: true
+      quarterly_reviews: true
+
+# Implementation timeline for SMB package
+implementation:
+  weeks_1_2:
+    - "Business assessment and planning"
+    - "Environment setup and configuration"
+    - "Core agent deployment (Maestro, executives, leads)"
+    - "Primary integration setup"
+  
+  weeks_3_4:
+    - "Department-specific agent deployment"
+    - "Advanced integration configuration"
+    - "Process automation setup"
+    - "Initial training and knowledge transfer"
+  
+  weeks_5_6:
+    - "Specialized agent deployment"
+    - "End-to-end workflow optimization"
+    - "Reporting and analytics configuration"
+    - "Go-live and monitoring setup"
+
+# Success criteria and validation
+success_criteria:
+  - "All 35 agents operational within 6 weeks"
+  - "Key business processes automated"
+  - "Enhanced security and compliance implemented"
+  - "Advanced reporting and analytics functional"
+  - "Customer satisfaction >= 4.6/5"
+  - "System reliability >= 99.5%"
+  - "ROI >= 200% within 9 months"
+
+# Support and maintenance
+maintenance:
+  support_level: "enhanced"
+  update_schedule: "bi-weekly"
+  performance_reviews: "monthly"
+  
+  included_services:
+    - "Enhanced monitoring and alerting"
+    - "Daily performance reports"
+    - "Weekly optimization recommendations"
+    - "Enhanced customer support"
+    - "Advanced customization options"
+    - "Dedicated account manager"
+    - "Monthly business reviews"
+
+# Expansion path to enterprise package
+expansion_path:
+  next_package: "enterprise"
+  upgrade_triggers:
+    - "Team size > 200 people"
+    - "Revenue > $10M annually"
+    - "Complex compliance requirements"
+    - "Multi-location operations"
+    - "Advanced security needs"
+  
+  additional_agents_preview:
+    - "C-suite executive agents (CMO, COO)"
+    - "Advanced security and risk management"
+    - "Enterprise-grade compliance monitoring"
+    - "Multi-department coordination specialists"

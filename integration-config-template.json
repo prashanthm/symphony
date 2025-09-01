@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "orchestration": {
+    "auto_sync_enabled": true,
+    "error_retry_count": 3,
+    "event_processing_interval": 5
+  },
+  "integrations": {
+    "linear": {
+      "api_token": "",
+      "workspace_id": null,
+      "team_mappings": {
+        "default": "symphony-team"
+      },
+      "sync_intervals": {
+        "projects": 300,
+        "issues": 60,
+        "teams": 3600
+      },
+      "auto_sync_enabled": true,
+      "webhook_enabled": false,
+      "retry_config": {
+        "max_retries": 3,
+        "retry_delay": 1.0,
+        "exponential_backoff": true
+      }
+    },
+    "github": {
+      "token": "",
+      "organization": "",
+      "repository_mappings": {
+        "default": "symphony-repo"
+      },
+      "webhook_config": {
+        "enabled": false,
+        "events": [
+          "push",
+          "pull_request",
+          "issues"
+        ],
+        "secret": ""
+      },
+      "sync_intervals": {
+        "repositories": 3600,
+        "issues": 300,
+        "pull_requests": 300,
+        "workflows": 1800
+      },
+      "auto_sync_enabled": true,
+      "rate_limit_config": {
+        "requests_per_hour": 5000,
+        "respect_rate_limits": true
+      },
+      "retry_config": {
+        "max_retries": 3,
+        "retry_delay": 2.0,
+        "exponential_backoff": true
+      }
+    }
+  },
+  "orchestration_rules": [
+    {
+      "rule_id": "default_sync",
+      "name": "Default Data Synchronization",
+      "trigger_conditions": [
+        "data_change",
+        "scheduled_sync"
+      ],
+      "target_integrations": [
+        "linear",
+        "github"
+      ],
+      "orchestration_type": "parallel",
+      "actions": [
+        {
+          "type": "sync_data",
+          "params": {
+            "sync_type": "incremental"
+          }
+        }
+      ],
+      "enabled": true
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[project]
+name = "symphony-templates"
+version = "0.1.0"
+description = "Symphony Templates - Workspace and repository templates for Linear, GitHub, etc."
+requires-python = ">=3.9"
+authors = [
+    {name = "Symphony Team", email = "team@symphony.ai"},
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "symphony-core",
+    "symphony-integrations",
+    "jinja2>=3.1.0",  # for template rendering
+]
+
+[tool.uv.sources]
+symphony-core = { workspace = true }
+symphony-integrations = { workspace = true }
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.package-data]
+symphony_templates = ["templates/**/*.yaml", "templates/**/*.yml", "templates/**/*.json"]

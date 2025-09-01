@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "meta",
+    "organization",
+    "agents",
+    "integrations"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "configuration_name"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "string"
+        },
+        "configuration_name": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "required": [
+        "profile"
+      ],
+      "properties": {
+        "profile": {
+          "type": "object",
+          "required": [
+            "name",
+            "industry",
+            "scale"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "industry": {
+              "type": "string"
+            },
+            "scale": {
+              "type": "string",
+              "enum": [
+                "startup",
+                "smb",
+                "enterprise",
+                "global"
+              ]
+            },
+            "implementation_timeline": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "agents": {
+      "type": "object"
+    },
+    "integrations": {
+      "type": "object"
+    }
+  }
+}

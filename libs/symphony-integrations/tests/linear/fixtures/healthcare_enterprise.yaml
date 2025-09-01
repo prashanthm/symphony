@@ -1,0 +1,209 @@
+# Healthcare Enterprise Configuration
+# Test configuration for a healthcare enterprise organization
+
+organization:
+  customer_name: "MedCorp Health Systems" 
+  industry: "healthcare"
+  size: "enterprise"
+  regions: ["us-east-1", "us-west-2", "eu-west-1"]
+  timezone: "America/Chicago"
+  locale: "en-US"
+
+workspace:
+  name: "${customer_name} Clinical Operations"
+  description: "HIPAA-compliant healthcare operations management for ${customer_name}"
+
+# Healthcare-specific teams with HIPAA compliance
+teams:
+  - name: "Clinical Informatics"
+    key: "CLIN_INFO"
+    description: "Clinical data systems and EHR management"
+    sub_teams:
+      - name: "EHR Systems"
+        key: "EHR"
+        description: "Electronic Health Record systems"
+      - name: "Clinical Analytics"
+        key: "CLIN_ANALYTICS"
+        description: "Clinical data analytics and reporting"
+    workflows:
+      - name: "Clinical Review"
+        type: "started"
+        position: 1
+        description: "Clinical stakeholder review required"
+      - name: "HIPAA Assessment"
+        type: "started"
+        position: 2
+        description: "HIPAA compliance assessment"
+      - name: "Privacy Review"
+        type: "started"
+        position: 3
+        description: "Privacy impact assessment"
+      - name: "Implementation"
+        type: "started"
+        position: 4
+      - name: "Clinical Validation"
+        type: "completed"
+        position: 5
+    custom_fields:
+      - name: "PHI Involved"
+        type: "boolean"
+        description: "Does this involve Protected Health Information?"
+        required: true
+      - name: "Patient Safety Impact"
+        type: "select"
+        options: ["None", "Low", "Medium", "High", "Critical"]
+        required: true
+      - name: "HIPAA Risk Level"
+        type: "select"
+        options: ["Minimal", "Moderate", "High"]
+        required: true
+      - name: "Clinical Validation Required"
+        type: "boolean"
+        default_value: false
+
+  - name: "Regulatory Affairs"
+    key: "REG_AFFAIRS"
+    description: "Healthcare regulatory compliance and quality assurance"
+    custom_fields:
+      - name: "FDA Involvement"
+        type: "boolean"
+        description: "Does this require FDA oversight?"
+      - name: "Clinical Trial Related"
+        type: "boolean"
+      - name: "Quality Management"
+        type: "select"
+        options: ["ISO 13485", "FDA QSR", "EU MDR", "Other"]
+
+# Healthcare-specific initiatives
+initiatives:
+  - name: "Digital Health Transformation"
+    level: 1
+    description: "Comprehensive digital transformation of healthcare delivery"
+    timeline: "2025-2026"
+    sub_initiatives:
+      - name: "Telehealth Platform"
+        level: 2
+        description: "HIPAA-compliant telehealth platform implementation"
+        timeline: "2025-Q2"
+      - name: "Patient Portal Enhancement"
+        level: 2
+        description: "Enhanced patient engagement platform"
+        timeline: "2025-Q3"
+      - name: "Clinical Decision Support"
+        level: 2
+        description: "AI-powered clinical decision support systems"
+        timeline: "2025-Q4"
+        sub_initiatives:
+          - name: "AI Ethics Framework"
+            level: 3
+            description: "Establish AI ethics framework for healthcare"
+          - name: "Clinical AI Validation"
+            level: 3
+            description: "Validation protocols for clinical AI systems"
+
+# Healthcare-specific project templates
+projects:
+  - template_name: "clinical_system_implementation"
+    name: "${system_name} Clinical Implementation"
+    description: "HIPAA-compliant implementation of ${system_name} for ${customer_name}"
+    assignable_teams: ["Clinical Informatics", "Regulatory Affairs"]
+    milestones:
+      - name: "Clinical Requirements"
+        description: "Define clinical requirements and workflows"
+        position: 1
+      - name: "HIPAA Risk Assessment"
+        description: "Complete HIPAA and privacy impact assessment"
+        position: 2
+      - name: "System Design"
+        description: "Design HIPAA-compliant system architecture"
+        position: 3
+      - name: "Clinical Validation"
+        description: "Clinical validation and user acceptance testing"
+        position: 4
+      - name: "Regulatory Approval"
+        description: "Obtain necessary regulatory approvals"
+        position: 5
+      - name: "Go-Live Support"
+        description: "Production deployment and go-live support"
+        position: 6
+    timeline: "24 weeks"
+    custom_fields:
+      - name: "Clinical Champion"
+        type: "text"
+        description: "Lead clinician for this implementation"
+      - name: "Regulatory Pathway"
+        type: "select"
+        options: ["FDA 510(k)", "FDA PMA", "HIPAA Only", "State Licensing"]
+
+# Enhanced Symphony integration for healthcare
+symphony_integration:
+  use_symphony_defaults: true
+  agent_assignments:
+    "Clinical Informatics":
+      - "HIPAA Compliance Agent"
+      - "Clinical Workflow Agent"
+      - "EHR Integration Agent"
+      - "Clinical Analytics Agent"
+    "EHR Systems":
+      - "EHR Configuration Agent"
+      - "Interoperability Agent"
+    "Clinical Analytics":
+      - "Healthcare Analytics Agent"
+      - "Clinical Reporting Agent"
+    "Regulatory Affairs":
+      - "FDA Compliance Agent"
+      - "Quality Management Agent"
+      - "Clinical Trial Agent"
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    hipaa_monitoring: true
+    clinical_validation_tracking: true
+    regulatory_deadline_monitoring: true
+  defaults_override:
+    hipaa_first: true
+    patient_safety_priority: true
+    clinical_validation_required: true
+    regulatory_notifications: true
+  custom_templates_path: "healthcare/templates"
+  auto_optimization: true
+  
+  # Healthcare-specific autonomous features
+  self_managing: false
+  recursive_improvement: false
+  clinical_decision_support: true
+
+# Healthcare branding
+branding:
+  colors:
+    primary: "#0066CC"    # Medical blue
+    secondary: "#00AA44"  # Health green  
+    accent: "#FF6B35"     # Alert orange
+    clinical: "#4A4A4A"   # Professional gray
+  logo_url: "https://medcorp.health/logo.png"
+
+# Healthcare-specific variables
+variables:
+  global_vars:
+    privacy_officer: "Dr. Sarah Johnson, CPO"
+    clinical_lead: "Dr. Michael Chen, CMO"
+    compliance_framework: "HIPAA/HITECH"
+    primary_ehr: "Epic Systems"
+  computed_vars:
+    phi_exposure_score: "phi_assessments.risk_score()"
+    clinical_validation_rate: "validated_systems.percentage()"
+    hipaa_compliance_score: "hipaa_controls.effectiveness()"
+  conditional_vars:
+    high_risk_phi:
+      phi_volume_threshold: 10000
+      encryption_required: true
+      audit_frequency: "daily"
+    clinical_ai_system:
+      fda_oversight_required: true
+      clinical_validation_required: true
+      bias_monitoring_required: true
+
+template_version: "2025.1"
+created_by: "Symphony Healthcare Defaults Generator"
+created_date: "${date.today()}"

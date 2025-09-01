@@ -7,4 +7,10 @@ Linear API integration for project management, issue tracking, and workspace man
 from .client import *
 from .models import *
 
-__all__ = ["LinearAPIClient", "LinearTeam", "LinearProject", "LinearIssue", "LinearWorkflow"]
+__all__ = [
+    "LinearAPIClient",
+    "LinearTeam",
+    "LinearProject",
+    "LinearIssue",
+    "LinearWorkflow",
+]

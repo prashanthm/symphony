@@ -8,7 +8,7 @@ setup(
     package_dir={"": "src"},
     install_requires=[
         "symphony-core",
-        "symphony-integrations", 
+        "symphony-integrations",
         "symphony-templates",
         "click>=8.0.0",
         "rich>=12.0.0",  # for beautiful CLI output

@@ -8,7 +8,11 @@ setup(
     package_dir={"": "src"},
     include_package_data=True,
     package_data={
-        "symphony_templates": ["templates/**/*.yaml", "templates/**/*.yml", "templates/**/*.json"],
+        "symphony_templates": [
+            "templates/**/*.yaml",
+            "templates/**/*.yml",
+            "templates/**/*.json",
+        ],
     },
     install_requires=[
         "symphony-core",

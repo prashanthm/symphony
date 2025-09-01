@@ -16,7 +16,7 @@ class LinearTeam:
     key: str
 
 
-@dataclass 
+@dataclass
 class LinearProject:
     id: str
     name: str

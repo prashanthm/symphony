@@ -1,5 +1,5 @@
 """
-Symphony GitHub Integration  
+Symphony GitHub Integration
 
 GitHub API integration for repository management, CI/CD, and development workflows.
 """

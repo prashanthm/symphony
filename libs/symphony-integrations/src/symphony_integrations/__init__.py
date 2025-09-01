@@ -6,7 +6,7 @@ and other services that Symphony coordinates with.
 """
 
 __version__ = "0.1.0"
-__author__ = "Symphony Team" 
+__author__ = "Symphony Team"
 __email__ = "team@symphony.ai"
 
 from .linear import *

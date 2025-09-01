@@ -5,26 +5,27 @@ Tests for Linear Template Validator
 Tests validation logic, business rules, and preview generation for Linear workspace templates.
 """
 
-import pytest
 from unittest.mock import Mock, patch
+
+import pytest
+from symphony_integrations.linear.template_models import (
+    CustomField,
+    FieldType,
+    IndustryType,
+    Initiative,
+    Milestone,
+    OrganizationConfig,
+    OrganizationSize,
+    ProjectTemplate,
+    SymphonyIntegration,
+    TeamTemplate,
+    TemplateValidationResult,
+    WorkflowState,
+    WorkspaceTemplate,
+)
 from symphony_integrations.linear.template_validator import (
     TemplateValidator,
     WorkspacePreviewGenerator,
-)
-from symphony_integrations.linear.template_models import (
-    WorkspaceTemplate,
-    OrganizationConfig,
-    TeamTemplate,
-    ProjectTemplate,
-    Initiative,
-    CustomField,
-    WorkflowState,
-    Milestone,
-    SymphonyIntegration,
-    IndustryType,
-    OrganizationSize,
-    FieldType,
-    TemplateValidationResult,
 )
 
 

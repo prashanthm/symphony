@@ -5,21 +5,22 @@ Symphony CLI - Modern Python-based command line interface
 Provides a unified command line interface for all Symphony platform operations.
 """
 
-import click
 import asyncio
 import json
-from rich.console import Console
-from rich.panel import Panel
-from rich.text import Text
-from rich.table import Table
 from pathlib import Path
 from typing import Optional
+
+import click
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
 
 # Import from symphony packages
 try:
     from symphony_core.utils.env_loader import validate_setup
-    from symphony_integrations.linear.client import SymphonyLinearIntegration
     from symphony_integrations.github.client import GitHubAPIClient
+    from symphony_integrations.linear.client import SymphonyLinearIntegration
 except ImportError as e:
     click.echo(f"Warning: Could not import Symphony modules: {e}")
     click.echo("Please install Symphony packages in development mode:")

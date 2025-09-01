@@ -6,24 +6,25 @@ YAML-based template processing with inheritance, variable substitution,
 and dynamic content generation.
 """
 
-import yaml
-import re
 import os
-from typing import Dict, List, Any, Optional, Union
-from pathlib import Path
-from datetime import datetime
+import re
 from dataclasses import asdict
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Union
 
+import yaml
+
+from .defaults_generator import SymphonyLinearDefaults
 from .template_models import (
-    WorkspaceTemplate,
-    TeamTemplate,
-    ProjectTemplate,
+    IndustryType,
     Initiative,
     OrganizationConfig,
-    IndustryType,
     OrganizationSize,
+    ProjectTemplate,
+    TeamTemplate,
+    WorkspaceTemplate,
 )
-from .defaults_generator import SymphonyLinearDefaults
 
 
 class TemplateEngine:

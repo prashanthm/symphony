@@ -5,25 +5,26 @@ Tests for Linear Template Models
 Tests data classes, validation, and model interactions for the Linear workspace templates.
 """
 
-import pytest
 from dataclasses import FrozenInstanceError
+
+import pytest
 from symphony_integrations.linear.template_models import (
-    WorkspaceTemplate,
-    OrganizationConfig,
-    TeamTemplate,
-    ProjectTemplate,
-    Initiative,
-    CustomField,
-    WorkflowState,
-    Milestone,
-    SymphonyIntegration,
-    IndustryType,
-    OrganizationSize,
-    FieldType,
-    TemplateValidationResult,
-    WorkspacePreview,
     BrandingConfig,
+    CustomField,
+    FieldType,
+    IndustryType,
+    Initiative,
+    Milestone,
+    OrganizationConfig,
+    OrganizationSize,
+    ProjectTemplate,
+    SymphonyIntegration,
+    TeamTemplate,
+    TemplateValidationResult,
     VariableConfig,
+    WorkflowState,
+    WorkspacePreview,
+    WorkspaceTemplate,
 )
 
 

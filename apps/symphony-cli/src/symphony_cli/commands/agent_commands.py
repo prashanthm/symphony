@@ -7,15 +7,16 @@ coordination, monitoring, and lifecycle management.
 """
 
 import asyncio
-import click
 import json
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+import click
 from rich.console import Console
-from rich.table import Table
+from rich.live import Live
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.live import Live
-from pathlib import Path
-from typing import Optional, Dict, Any
+from rich.table import Table
 
 try:
     from symphony_core.agents.agent_manager import (

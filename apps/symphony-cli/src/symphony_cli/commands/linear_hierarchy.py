@@ -5,33 +5,34 @@ Linear Hierarchy CLI Commands
 CLI commands for configurable Linear workspace management with maximum customer flexibility.
 """
 
-import click
 import json
-import yaml
 from pathlib import Path
-from typing import Optional, Dict, Any
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.prompt import Prompt, Confirm
+from typing import Any, Dict, Optional
+
+import click
+import yaml
 from rich import print as rprint
+from rich.console import Console
+from rich.panel import Panel
+from rich.prompt import Confirm, Prompt
+from rich.table import Table
 
 try:
+    from symphony_integrations.linear.client import LinearAPIClient
+    from symphony_integrations.linear.defaults_generator import SymphonyLinearDefaults
+    from symphony_integrations.linear.template_engine import (
+        ConfigurationWizard,
+        TemplateEngine,
+    )
     from symphony_integrations.linear.template_models import (
-        OrganizationConfig,
         IndustryType,
+        OrganizationConfig,
         OrganizationSize,
     )
-    from symphony_integrations.linear.defaults_generator import SymphonyLinearDefaults
     from symphony_integrations.linear.template_validator import (
         TemplateValidator,
         WorkspacePreviewGenerator,
     )
-    from symphony_integrations.linear.template_engine import (
-        TemplateEngine,
-        ConfigurationWizard,
-    )
-    from symphony_integrations.linear.client import LinearAPIClient
 except ImportError as e:
     click.echo(f"Error importing Linear integration modules: {e}")
     click.echo("Please ensure Symphony integrations are properly installed.")

@@ -5,24 +5,25 @@ Tests for Linear CLI Commands
 Tests CLI functionality, command interfaces, and integration with core components.
 """
 
-import pytest
 import tempfile
-import yaml
 from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import MagicMock, Mock, patch
+
+import pytest
+import yaml
 from click.testing import CliRunner
 
 # Import CLI commands - handle import errors gracefully
 try:
     from symphony_cli.commands.linear_hierarchy import (
-        hierarchy,
         configure,
-        generate,
-        validate,
-        preview,
         deploy,
         dogfood,
+        generate,
+        hierarchy,
         list_templates,
+        preview,
+        validate,
     )
 
     CLI_AVAILABLE = True
@@ -30,8 +31,8 @@ except ImportError:
     CLI_AVAILABLE = False
 
 from symphony_integrations.linear.template_models import (
-    OrganizationConfig,
     IndustryType,
+    OrganizationConfig,
     OrganizationSize,
 )
 

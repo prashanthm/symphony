@@ -7,17 +7,17 @@ Provides comprehensive GitHub API integration with Symphony orchestration.
 """
 
 import asyncio
+import json
 import logging
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any
-import json
+from typing import Any, Dict, List, Optional
 
 try:
     from symphony_core.orchestration.integration_coordinator import (
         BaseIntegrationAdapter,
-        IntegrationStatus,
-        IntegrationHealth,
         IntegrationEvent,
+        IntegrationHealth,
+        IntegrationStatus,
     )
     from symphony_integrations.github.client import GitHubAPIClient
 except ImportError as e:

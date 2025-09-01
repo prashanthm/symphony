@@ -6,20 +6,22 @@ Validates workspace templates and generates previews before deployment.
 """
 
 import re
-from typing import Dict, List, Set, Any, Optional
 from dataclasses import asdict
+from typing import Any, Dict, List, Optional, Set
+
 import jsonschema
+
 from .template_models import (
-    WorkspaceTemplate,
+    CustomField,
+    FieldType,
+    IndustryType,
+    Initiative,
+    OrganizationSize,
+    ProjectTemplate,
+    TeamTemplate,
     TemplateValidationResult,
     WorkspacePreview,
-    TeamTemplate,
-    ProjectTemplate,
-    Initiative,
-    CustomField,
-    IndustryType,
-    OrganizationSize,
-    FieldType,
+    WorkspaceTemplate,
 )
 
 

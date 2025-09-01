@@ -7,14 +7,14 @@ Linear, GitHub, Slack, HubSpot, and other enterprise tools.
 """
 
 import asyncio
+import json
 import logging
+import uuid
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any, Callable, Union
 from enum import Enum
-import json
-import uuid
+from typing import Any, Callable, Dict, List, Optional, Union
 
 logger = logging.getLogger(__name__)
 

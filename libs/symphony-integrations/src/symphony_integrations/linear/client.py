@@ -6,14 +6,15 @@ Implements Linear API integration with proper error handling, authentication,
 and Symphony-specific functionality.
 """
 
-import os
-import json
 import asyncio
+import json
 import logging
-from typing import Dict, Any, List, Optional
+import os
 from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
+from typing import Any, Dict, List, Optional
+
 import aiohttp
 import yaml
 
@@ -29,7 +30,7 @@ except ImportError:
         return token
 
 
-from .models import LinearTeam, LinearProject, LinearIssue, LinearWorkflow
+from .models import LinearIssue, LinearProject, LinearTeam, LinearWorkflow
 
 # Configure logging
 logging.basicConfig(

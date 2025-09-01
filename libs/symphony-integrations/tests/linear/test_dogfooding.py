@@ -5,15 +5,16 @@ Tests for Symphony Dogfooding Configuration
 Tests Symphony's own workspace configuration - the ultimate test of eating our own dogfood.
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
 from symphony_integrations.linear.defaults_generator import SymphonyLinearDefaults
 from symphony_integrations.linear.template_engine import TemplateEngine
+from symphony_integrations.linear.template_models import IndustryType, OrganizationSize
 from symphony_integrations.linear.template_validator import (
     TemplateValidator,
     WorkspacePreviewGenerator,
 )
-from symphony_integrations.linear.template_models import IndustryType, OrganizationSize
 
 
 @pytest.fixture

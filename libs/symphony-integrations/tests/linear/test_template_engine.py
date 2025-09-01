@@ -5,22 +5,23 @@ Tests for Linear Template Engine
 Tests YAML template processing, variable substitution, inheritance, and configuration wizards.
 """
 
+import os
+import tempfile
+from pathlib import Path
+from unittest.mock import Mock, mock_open, patch
+
 import pytest
 import yaml
-import tempfile
-import os
-from pathlib import Path
-from unittest.mock import Mock, patch, mock_open
 from symphony_integrations.linear.template_engine import (
-    TemplateEngine,
     ConfigurationWizard,
+    TemplateEngine,
 )
 from symphony_integrations.linear.template_models import (
-    WorkspaceTemplate,
-    OrganizationConfig,
-    TeamTemplate,
     IndustryType,
+    OrganizationConfig,
     OrganizationSize,
+    TeamTemplate,
+    WorkspaceTemplate,
 )
 
 

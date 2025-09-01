@@ -8,16 +8,16 @@ Tests the intelligent defaults generation system for Linear workspaces.
 import pytest
 from symphony_integrations.linear.defaults_generator import SymphonyLinearDefaults
 from symphony_integrations.linear.template_models import (
-    OrganizationConfig,
-    WorkspaceTemplate,
-    TeamTemplate,
-    IndustryType,
-    OrganizationSize,
-    FieldType,
     CustomField,
-    WorkflowState,
+    FieldType,
+    IndustryType,
     Initiative,
+    OrganizationConfig,
+    OrganizationSize,
     ProjectTemplate,
+    TeamTemplate,
+    WorkflowState,
+    WorkspaceTemplate,
 )
 
 

@@ -9,9 +9,9 @@ __version__ = "0.1.0"
 __author__ = "Symphony Team"
 __email__ = "team@symphony.ai"
 
-from .linear import *
-from .github import *
 from .common import *
+from .github import *
+from .linear import *
 
 __all__ = [
     # Integration modules will be imported here as they're migrated

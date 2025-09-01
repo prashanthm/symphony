@@ -6,8 +6,8 @@ Data classes for configurable Linear workspace templates and customer configurat
 """
 
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Any, Union
 from enum import Enum
+from typing import Any, Dict, List, Optional, Union
 
 
 class IndustryType(Enum):

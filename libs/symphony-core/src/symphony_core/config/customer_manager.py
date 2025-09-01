@@ -6,15 +6,16 @@ Handles customer configuration storage, validation, and management for Symphony
 autonomous enterprise deployments.
 """
 
-import os
-import yaml
-import json
 import hashlib
+import json
+import logging
+import os
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Union
-from dataclasses import dataclass, asdict
-import logging
+from typing import Any, Dict, List, Optional, Union
+
+import yaml
 from cryptography.fernet import Fernet
 
 logger = logging.getLogger(__name__)

@@ -6,29 +6,30 @@ CLI commands for managing Symphony's integration orchestration framework.
 """
 
 import asyncio
-import click
 import json
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+import click
 from rich.console import Console
-from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
-from pathlib import Path
-from typing import Optional, Dict, Any
+from rich.table import Table
 
 try:
     from symphony_core.orchestration.integration_coordinator import (
-        create_integration_orchestrator,
+        OrchestrationType,
         create_data_sync_rule,
         create_error_handling_rule,
-        OrchestrationType,
-    )
-    from symphony_integrations.adapters.linear_adapter import (
-        create_linear_adapter,
-        get_default_linear_config,
+        create_integration_orchestrator,
     )
     from symphony_integrations.adapters.github_adapter import (
         create_github_adapter,
         get_default_github_config,
+    )
+    from symphony_integrations.adapters.linear_adapter import (
+        create_linear_adapter,
+        get_default_linear_config,
     )
 except ImportError as e:
     click.echo(f"Error importing Symphony modules: {e}")

@@ -5,10 +5,10 @@ GitHub API Client for Symphony
 Implements GitHub API integration for repository management, CI/CD, and development workflows.
 """
 
-import os
 import logging
-from typing import Dict, Any, List, Optional
+import os
 from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 # Import from symphony-core
 try:

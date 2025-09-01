@@ -6,21 +6,22 @@ Generates intelligent Linear workspace defaults based on customer profile,
 industry, and organization size.
 """
 
-from typing import Dict, List, Any
 from dataclasses import asdict
+from typing import Any, Dict, List
+
 from .template_models import (
-    WorkspaceTemplate,
-    OrganizationConfig,
-    TeamTemplate,
-    ProjectTemplate,
-    Initiative,
     CustomField,
-    WorkflowState,
-    Milestone,
-    SymphonyIntegration,
-    IndustryType,
-    OrganizationSize,
     FieldType,
+    IndustryType,
+    Initiative,
+    Milestone,
+    OrganizationConfig,
+    OrganizationSize,
+    ProjectTemplate,
+    SymphonyIntegration,
+    TeamTemplate,
+    WorkflowState,
+    WorkspaceTemplate,
 )
 
 

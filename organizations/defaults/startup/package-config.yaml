@@ -1,25 +1,21 @@
 # Startup Package Configuration
-# 15 agents, $2K-8K/month, 1-2 week implementation
+# 14 agents, $2K-8K/month, 1-2 week implementation
 
 package_info:
   name: "startup"
   description: "Essential agents for small businesses and startups"
-  agent_count: 15
+  agent_count: 14
   pricing_range: "$2,000-8,000/month"
   implementation_time: "1-2 weeks"
   target_customers: "Small businesses, startups, solopreneurs"
 
 # Agent allocation for startup package
 agents:
-  # Core coordination (2 agents)
+  # Core coordination (1 agent)
   coordination:
     - agent: "maestro/ultimate-coordinator"
       role: "Supreme orchestration"
       priority: "critical"
-    
-    - agent: "coordinators/startup-orchestrator"
-      role: "Startup-focused coordination"
-      priority: "high"
 
   # Essential leadership (3 agents)
   leadership:
@@ -129,7 +125,7 @@ implementation:
 
 # Success metrics and validation criteria
 success_criteria:
-  - "All 15 agents operational within 2 weeks"
+  - "All 14 agents operational within 2 weeks"
   - "Core business processes automated"
   - "Basic reporting and analytics functional"
   - "Customer satisfaction >= 4.5/5"

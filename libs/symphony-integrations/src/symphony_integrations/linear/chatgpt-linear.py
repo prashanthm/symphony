@@ -100,7 +100,7 @@ QUERIES = {
     """,
     "project_by_name": """
         query ProjectByName($name: String!) {
-          projects(filter: { name: { eq: $name } }) { nodes { id name } }
+            projects(filter: { name: { eq: $name } }) { nodes { id name } }
         }
     """,
 }
@@ -138,7 +138,7 @@ MUTATIONS = {
     """,
     "initiative_create": """
         mutation InitiativeCreate($input: InitiativeCreateInput!) {
-          initiativeCreate(input: $input) { success initiative { id name identifier } }
+          initiativeCreate(input: $input) { success initiative { id name } }
         }
     """,
     "initiative_update": """
@@ -148,7 +148,7 @@ MUTATIONS = {
     """,
     "project_create": """
         mutation ProjectCreate($input: ProjectCreateInput!) {
-          projectCreate(input: $input) { success project { id name identifier } }
+          projectCreate(input: $input) { success project { id name } }
         }
     """,
     "project_update": """
@@ -369,49 +369,35 @@ def ensure_initiative(client: LinearGQL, key: str, name: str, description: Optio
         raise
 
 
-def ensure_project(client: LinearGQL, key: str, name: str, team_id: str, initiative_id: Optional[str] = None, description: Optional[str] = None) -> str:
-    # Lookup by name for schema compatibility
+def ensure_project(client, key, name, team_id, initiative_id=None, description=None):
+    # Lookup (schema-safe)
     res = client.run(QUERIES["project_by_name"], {"name": name})
     nodes = res["projects"]["nodes"]
     if nodes:
         proj_id = nodes[0]["id"]
-        upd: Dict[str, Any] = {"name": name}
+        upd = {"name": name}
         if description:
             upd["description"] = description
         if initiative_id:
-            # Try to link initiative; if schema rejects, retry without
+            # Try to link initiative; if schema rejects it, retry without
             try:
-                upd_with_init = dict(upd)
-                upd_with_init["initiativeId"] = initiative_id
-                client.run(MUTATIONS["project_update"], {"id": proj_id, "input": upd_with_init})
+                client.run(MUTATIONS["project_update"], {"id": proj_id, "input": {**upd, "initiativeId": initiative_id}})
             except RuntimeError:
                 client.run(MUTATIONS["project_update"], {"id": proj_id, "input": upd})
         else:
             client.run(MUTATIONS["project_update"], {"id": proj_id, "input": upd})
         return proj_id
 
-    # Create: prefer teamIds (list) for newer schemas; fall back to teamId if needed
-    base_inp: Dict[str, Any] = {"name": name}
+    # Create with teamIds (newer schema); fallback to legacy teamId if needed
+    base = {"name": name}
     if description:
-        base_inp["description"] = description
-
-    # First attempt with teamIds
-    inp_teamids = dict(base_inp)
-    inp_teamids["teamIds"] = [team_id]
-    if initiative_id:
-        inp_teamids["initiativeId"] = initiative_id
+        base["description"] = description
     try:
-        out = client.run(MUTATIONS["project_create"], {"input": inp_teamids})
+        out = client.run(MUTATIONS["project_create"], {"input": {**base, "teamIds": [team_id], **({"initiativeId": initiative_id} if initiative_id else {})}})
         return out["projectCreate"]["project"]["id"]
     except RuntimeError:
-        # Fallback to legacy single teamId if supported in your workspace
-        inp_teamid = dict(base_inp)
-        inp_teamid["teamId"] = team_id
-        if initiative_id:
-            inp_teamid["initiativeId"] = initiative_id
-        out = client.run(MUTATIONS["project_create"], {"input": inp_teamid})
+        out = client.run(MUTATIONS["project_create"], {"input": {**base, "teamId": team_id, **({"initiativeId": initiative_id} if initiative_id else {})}})
         return out["projectCreate"]["project"]["id"]
-
 
 def create_cycle(client: LinearGQL, team_id: str, name: str, start_date: str, end_date: str):
     inp = {"teamId": team_id, "name": name, "startsAt": start_date, "endsAt": end_date}

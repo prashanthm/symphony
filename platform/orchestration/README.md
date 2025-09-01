@@ -19,14 +19,14 @@ Symphony's orchestration system manages the coordination of 85+ agents across th
 ### **Hierarchical Coordination**
 ```
 Ultimate Coordinator (Maestro)
-├── Coordinators (life-conductor, startup-orchestrator)  
+├── Coordinators  
 ├── Leads (portfolio-architect, platform-team-lead, technical-leads)
 ├── Managers (product-strategist, marketing-strategist, sales-manager)  
 └── Specialists (business-analyst, security-engineer, ai-ml-engineer, etc.)
 ```
 
 ### **Domain Clustering**
-- **Life Management Domain**: life-conductor + wellness-coach + goal-tracker + routine-optimizer
+- **Personal Development Domain**: wellness-coach + goal-tracker + routine-optimizer
 - **Business Strategy Domain**: business-analyst + product-strategist + marketing-strategist  
 - **Technical Development Domain**: technical leads + ai-ml-engineer + security-engineer
 - **Customer Success Domain**: customer-success-agent + sales-manager + relationship-counselor

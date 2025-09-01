@@ -113,7 +113,7 @@ Strategic approach where Symphony uses its own platform for its own success:
 - **Continuous Improvement**: Use Symphony's learning to improve Symphony
 
 ### **Startup Orchestration**
-Symphony's startup-orchestrator agent manages Symphony's own startup journey:
+Symphony's coordinated agent system manages Symphony's own startup journey:
 - **Phase 1**: Ideation & Validation using Symphony agents
 - **Phase 2**: MVP Development through Symphony coordination
 - **Phase 3**: Growth & Scaling via Symphony optimization  

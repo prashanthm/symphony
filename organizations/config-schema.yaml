@@ -251,13 +251,12 @@ customer_config:
 # Package definitions
 packages:
   startup:
-    agents: 15
+    agents: 14
     pricing_range: "$2,000-8,000/month"
     implementation_time: "1-2 weeks"
     description: "Essential agents for small businesses and startups"
     included_agents:
       - "maestro/ultimate-coordinator"
-      - "coordinators/startup-orchestrator"
       - "specialists/business-analyst"
       - "leads/technical-lead"
       - "managers/operations-manager"

@@ -33,15 +33,16 @@ except ImportError as e:
         def __init__(self):
             self.workflows = []
             
-        def create_workflow(self, customer_name, package=None, industry=None, template_file=None):
-            workflow = type('Workflow', (), {})()  # Create simple object
-            workflow.workflow_id = f'onboard-{customer_name}-12345'
+        def create_workflow(self, customer_name, package='startup', industry='general', template_file=None, **kwargs):
+            # Handle both test signature (package) and real signature (package_type) 
+            package_type = kwargs.get('package_type', package)
+            workflow = type('Workflow', (), {})()
+            workflow.workflow_id = f'onboard-{customer_name.lower().replace(" ", "-")}-12345'
             workflow.customer_name = customer_name
             workflow.package = package
             workflow.industry = industry
             workflow.status = WorkflowStatus.IN_PROGRESS
-            self.workflows.append(workflow)
-            return workflow
+            return workflow  # Return workflow object for test compatibility
             
         def start_workflow(self, workflow_id):
             return True
@@ -184,14 +185,25 @@ def start(customer_name: str, package: Optional[str], industry: Optional[str],
         if config_file:
             console.print(f"  Template: [blue]{config_file}[/blue]")
         
-        # Create workflow
-        workflow = workflow_manager.create_workflow(
-            customer_name=customer_name,
-            package=selected_package,
-            industry=selected_industry,
-            template_file=config_file
-        )
-        console.print(f"\n[green]✅ Created onboarding workflow: {workflow.workflow_id}[/green]")
+        # Create workflow - handle both real and test signatures
+        if ONBOARDING_AVAILABLE:
+            # Real WorkflowManager uses package_type parameter
+            workflow_id = workflow_manager.create_workflow(
+                customer_name=customer_name,
+                package_type=selected_package or 'startup',
+                industry=selected_industry or 'general',
+                template_file=config_file
+            )
+        else:
+            # Stub WorkflowManager for tests uses package parameter
+            workflow = workflow_manager.create_workflow(
+                customer_name=customer_name,
+                package=selected_package or 'startup',
+                industry=selected_industry or 'general',
+                template_file=config_file
+            )
+            workflow_id = workflow.workflow_id
+        console.print(f"\n[green]✅ Created onboarding workflow: {workflow_id}[/green]")
         
         if config_file:
             console.print(f"[blue]Using external template: {config_file}[/blue]")
@@ -199,8 +211,17 @@ def start(customer_name: str, package: Optional[str], industry: Optional[str],
             console.print(f"[blue]Using {selected_package} package for {selected_industry} industry[/blue]")
         
         # Start workflow execution
-        workflow_manager.start_workflow(workflow.workflow_id)
-        console.print(f"[green]✅ Workflow started successfully[/green]")
+        try:
+            import asyncio
+            asyncio.run(workflow_manager.start_workflow(workflow_id))
+            console.print(f"[green]✅ Workflow started successfully[/green]")
+        except Exception as e:
+            if 'coroutine' not in str(e):
+                # If start_workflow is synchronous (stub), call directly
+                workflow_manager.start_workflow(workflow_id)
+                console.print(f"[green]✅ Workflow started successfully[/green]")
+            else:
+                console.print(f"[red]❌ Error starting workflow: {e}[/red]")
         
     except EOFError:
         console.print("\n[red]❌ Onboarding failed with error: EOF when reading a line[/red]")

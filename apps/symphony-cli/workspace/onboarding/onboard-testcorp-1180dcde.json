@@ -1,0 +1,148 @@
+{
+  "workflow_id": "onboard-testcorp-1180dcde",
+  "customer_name": "testcorp",
+  "package_type": "enterprise",
+  "industry": "technology",
+  "status": "not_started",
+  "current_step": null,
+  "created_at": "2025-09-01T14:38:32.752314+00:00",
+  "started_at": null,
+  "completed_at": null,
+  "steps": [
+    {
+      "step_id": "validate_environment",
+      "name": "Environment Validation",
+      "description": "Validate Symphony environment and dependencies",
+      "required": true,
+      "estimated_duration": 30,
+      "dependencies": [],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "create_customer",
+      "name": "Customer Creation",
+      "description": "Create customer configuration and directory structure",
+      "required": true,
+      "estimated_duration": 60,
+      "dependencies": [
+        "validate_environment"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "setup_integrations",
+      "name": "Integration Setup",
+      "description": "Configure and validate integrations (Linear, GitHub, etc.)",
+      "required": true,
+      "estimated_duration": 300,
+      "dependencies": [
+        "create_customer"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "setup_compliance",
+      "name": "Compliance Setup",
+      "description": "Configure enterprise compliance and security requirements",
+      "required": true,
+      "estimated_duration": 240,
+      "dependencies": [
+        "setup_integrations"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "deploy_agents",
+      "name": "Agent Deployment",
+      "description": "Deploy and configure Symphony agents",
+      "required": true,
+      "estimated_duration": 180,
+      "dependencies": [
+        "create_customer",
+        "setup_integrations"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "validate_deployment",
+      "name": "Deployment Validation",
+      "description": "Validate complete deployment and integration health",
+      "required": true,
+      "estimated_duration": 120,
+      "dependencies": [
+        "deploy_agents"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    },
+    {
+      "step_id": "go_live",
+      "name": "Go Live",
+      "description": "Finalize setup and activate customer environment",
+      "required": true,
+      "estimated_duration": 60,
+      "dependencies": [
+        "validate_deployment"
+      ],
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "result_data": {},
+      "retry_count": 0,
+      "max_retries": 3,
+      "metadata": {}
+    }
+  ],
+  "configuration": {},
+  "integrations": {},
+  "error_history": [],
+  "metadata": {
+    "package_type": "enterprise",
+    "industry": "technology",
+    "estimated_duration": 990,
+    "total_steps": 7,
+    "required_steps": 7
+  }
+}

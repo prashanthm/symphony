@@ -35,7 +35,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        uv sync --all-packages --dev
+        uv sync --all-extras --dev
     
     - name: Lint with flake8
       run: |
@@ -86,7 +86,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        uv sync --all-packages --dev
+        uv sync --all-extras --dev
     
     - name: Integration tests
       env:
@@ -143,7 +143,7 @@ jobs:
     - name: Install UV and Symphony CLI
       run: |
         pip install uv
-        uv sync --all-packages --dev
+        uv sync --all-extras --dev
     
     - name: Test CLI commands
       run: |

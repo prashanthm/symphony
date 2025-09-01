@@ -221,10 +221,10 @@ def sync(integration: str, data_type: Optional[str], options: Optional[str]):
                     results_table.add_column("Status", style="green")
                     results_table.add_column("Count", style="yellow")
                     
-                    for data_type, data_result in sync_results.items():
+                    for sync_data_type, data_result in sync_results.items():
                         status = "✅ Success" if data_result.get('success', False) else "❌ Failed"
-                        count = data_result.get(f"{data_type}_count", "N/A")
-                        results_table.add_row(data_type.title(), status, str(count))
+                        count = data_result.get(f"{sync_data_type}_count", "N/A")
+                        results_table.add_row(sync_data_type.title(), status, str(count))
                     
                     console.print(results_table)
             else:

@@ -7,6 +7,7 @@ Provides a unified command line interface for all Symphony platform operations.
 
 import click
 import asyncio
+import json
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text

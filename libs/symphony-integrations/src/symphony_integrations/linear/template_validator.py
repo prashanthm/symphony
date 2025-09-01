@@ -93,7 +93,7 @@ class TemplateValidator:
         errors = []
 
         try:
-            template_dict = asdict(template)
+            template_dict = self._serialize_template_for_validation(template)
             jsonschema.validate(template_dict, self.schema)
         except jsonschema.ValidationError as e:
             errors.append(f"Schema validation error: {e.message}")
@@ -101,6 +101,23 @@ class TemplateValidator:
             errors.append(f"Schema validation failed: {str(e)}")
 
         return errors
+
+    def _serialize_template_for_validation(self, template: WorkspaceTemplate) -> Dict[str, Any]:
+        """Serialize template to dictionary with enum values converted to strings"""
+        template_dict = asdict(template)
+        
+        # Convert enum values to strings recursively
+        def convert_enums(obj):
+            if isinstance(obj, dict):
+                return {k: convert_enums(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_enums(item) for item in obj]
+            elif hasattr(obj, 'value'):  # Enum object
+                return obj.value
+            else:
+                return obj
+        
+        return convert_enums(template_dict)
 
     def _validate_business_rules(
         self, template: WorkspaceTemplate

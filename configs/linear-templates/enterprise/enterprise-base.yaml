@@ -1,0 +1,386 @@
+# Enterprise Linear Workspace Template
+# Comprehensive template for enterprise organizations (100-500 people)
+# Inherits from base template and extends with enterprise-specific features
+
+inherits_from: "../base/workspace-base.yaml"
+
+workspace:
+  name: "${customer_name} Enterprise Operations"
+  description: "Enterprise-scale autonomous coordination for ${customer_name}"
+
+organization:
+  customer_name: "${customer_name}"
+  industry: "${industry}"
+  size: "enterprise"
+  regions: ["${region}"]
+  timezone: "${timezone}"
+  locale: "${locale}"
+
+# Enterprise team structure - comprehensive departments
+teams:
+  - name: "Leadership"
+    key: "LEAD"
+    description: "Executive leadership and strategic planning"
+    workflows:
+      - name: "Strategic Backlog"
+        type: "backlog"
+        position: 0
+        description: "Strategic initiatives backlog"
+      - name: "Planning"
+        type: "unstarted"
+        position: 1
+        description: "Strategic planning phase"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active strategic work"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Executive review"
+      - name: "Approved"
+        type: "completed"
+        position: 4
+        description: "Approved and implemented"
+    custom_fields:
+      - name: "Strategic Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Quarter"
+        type: "select"
+        options: ["Q1", "Q2", "Q3", "Q4"]
+        required: true
+      - name: "Budget Impact"
+        type: "select"
+        options: ["High", "Medium", "Low", "None"]
+        required: false
+
+  - name: "Operations"
+    key: "OPS"
+    description: "Core business operations and process management"
+    workflows:
+      - name: "Backlog"
+        type: "backlog"
+        position: 0
+        description: "Operational tasks backlog"
+      - name: "Todo"
+        type: "unstarted"
+        position: 1
+        description: "Ready to start"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active work"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Quality review"
+      - name: "Done"
+        type: "completed"
+        position: 4
+        description: "Completed work"
+    custom_fields:
+      - name: "Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Business Impact"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Process Category"
+        type: "select"
+        options: ["Automation", "Optimization", "Compliance", "Integration"]
+        required: false
+
+  - name: "Technology"
+    key: "TECH"
+    description: "Technology infrastructure and development"
+    workflows:
+      - name: "Backlog"
+        type: "backlog"
+        position: 0
+        description: "Technical tasks backlog"
+      - name: "Analysis"
+        type: "unstarted"
+        position: 1
+        description: "Requirements analysis"
+      - name: "Development"
+        type: "started"
+        position: 2
+        description: "Active development"
+      - name: "Testing"
+        type: "started"
+        position: 3
+        description: "Quality assurance"
+      - name: "Deployed"
+        type: "completed"
+        position: 4
+        description: "Production deployment"
+    custom_fields:
+      - name: "Technical Priority"
+        type: "select"
+        options: ["P0", "P1", "P2", "P3"]
+        required: true
+      - name: "Component"
+        type: "select"
+        options: ["Platform", "Integration", "Security", "Infrastructure"]
+        required: true
+      - name: "Effort Estimate"
+        type: "select"
+        options: ["XS", "S", "M", "L", "XL"]
+        required: false
+
+  - name: "Compliance"
+    key: "COMP"
+    description: "Regulatory compliance and risk management"
+    workflows:
+      - name: "Compliance Backlog"
+        type: "backlog"
+        position: 0
+        description: "Compliance requirements backlog"
+      - name: "Assessment"
+        type: "unstarted"
+        position: 1
+        description: "Risk assessment phase"
+      - name: "Implementation"
+        type: "started"
+        position: 2
+        description: "Compliance implementation"
+      - name: "Validation"
+        type: "started"
+        position: 3
+        description: "Compliance validation"
+      - name: "Certified"
+        type: "completed"
+        position: 4
+        description: "Compliance certified"
+    custom_fields:
+      - name: "Compliance Type"
+        type: "select"
+        options: ["SOX", "GDPR", "HIPAA", "PCI", "ISO27001", "SOC2"]
+        required: true
+      - name: "Risk Level"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Audit Status"
+        type: "select"
+        options: ["Required", "In Progress", "Complete", "N/A"]
+        required: false
+
+# Enterprise-scale project structure
+projects:
+  - template_name: "strategic_initiative"
+    name: "${customer_name} - Strategic Planning"
+    description: "Enterprise-wide strategic planning and roadmap execution"
+    assignable_teams: ["Leadership", "Operations"]
+    milestones:
+      - name: "Strategic Assessment"
+        description: "Current state analysis and opportunity identification"
+        position: 0
+      - name: "Strategic Planning"
+        description: "Long-term strategy and roadmap development"
+        position: 1
+      - name: "Resource Allocation"
+        description: "Budget and resource planning"
+        position: 2
+      - name: "Execution Planning"
+        description: "Detailed execution strategy"
+        position: 3
+      - name: "Implementation"
+        description: "Strategic initiative implementation"
+        position: 4
+    timeline: "12 months"
+    auto_create: true
+
+  - template_name: "enterprise_architecture"
+    name: "${customer_name} - Enterprise Architecture"
+    description: "System architecture, integration planning, and technical governance"
+    assignable_teams: ["Technology", "Operations"]
+    milestones:
+      - name: "Architecture Assessment"
+        description: "Current architecture analysis"
+        position: 0
+      - name: "Architecture Design"
+        description: "Target architecture design"
+        position: 1
+      - name: "Integration Planning"
+        description: "System integration strategy"
+        position: 2
+      - name: "Implementation Roadmap"
+        description: "Phased implementation plan"
+        position: 3
+      - name: "Deployment"
+        description: "Architecture implementation"
+        position: 4
+    timeline: "18 months"
+    auto_create: true
+
+  - template_name: "digital_transformation"
+    name: "${customer_name} - Digital Transformation"
+    description: "Digital transformation initiatives and technology modernization"
+    assignable_teams: ["Technology", "Operations", "Leadership"]
+    milestones:
+      - name: "Digital Assessment"
+        description: "Current digital maturity assessment"
+        position: 0
+      - name: "Transformation Strategy"
+        description: "Digital transformation roadmap"
+        position: 1
+      - name: "Technology Selection"
+        description: "Platform and tool selection"
+        position: 2
+      - name: "Implementation"
+        description: "Digital transformation execution"
+        position: 3
+      - name: "Optimization"
+        description: "Process optimization and refinement"
+        position: 4
+    timeline: "24 months"
+    auto_create: true
+
+  - template_name: "compliance_governance"
+    name: "${customer_name} - Compliance & Governance"
+    description: "Enterprise compliance management and regulatory governance"
+    assignable_teams: ["Compliance", "Operations", "Leadership"]
+    milestones:
+      - name: "Compliance Assessment"
+        description: "Current compliance state analysis"
+        position: 0
+      - name: "Gap Analysis"
+        description: "Compliance gap identification"
+        position: 1
+      - name: "Remediation Planning"
+        description: "Compliance remediation strategy"
+        position: 2
+      - name: "Implementation"
+        description: "Compliance controls implementation"
+        position: 3
+      - name: "Certification"
+        description: "Compliance certification and validation"
+        position: 4
+    timeline: "15 months"
+    auto_create: true
+
+  - template_name: "operational_excellence"
+    name: "${customer_name} - Operational Excellence"
+    description: "Process optimization, automation, and operational efficiency"
+    assignable_teams: ["Operations", "Technology"]
+    milestones:
+      - name: "Process Assessment"
+        description: "Current process analysis and bottleneck identification"
+        position: 0
+      - name: "Optimization Design"
+        description: "Process optimization and automation design"
+        position: 1
+      - name: "Tool Selection"
+        description: "Automation tool and platform selection"
+        position: 2
+      - name: "Implementation"
+        description: "Process automation implementation"
+        position: 3
+      - name: "Optimization"
+        description: "Continuous improvement and optimization"
+        position: 4
+    timeline: "12 months"
+    auto_create: true
+
+# Enterprise initiatives structure
+initiatives:
+  - name: "Enterprise Transformation"
+    level: 1
+    description: "Comprehensive enterprise transformation initiative"
+    timeline: "${current_year}-${next_year}"
+    sub_initiatives:
+      - name: "Digital Foundation"
+        level: 2
+        description: "Core digital infrastructure and platform establishment"
+      - name: "Process Automation"
+        level: 2
+        description: "Business process automation and optimization"
+      - name: "Data & Analytics"
+        level: 2
+        description: "Data platform and analytics capabilities"
+      - name: "Security & Compliance"
+        level: 2
+        description: "Enterprise security and compliance framework"
+
+  - name: "Operational Excellence"
+    level: 1
+    description: "Achieve operational excellence across all business functions"
+    timeline: "${current_year}"
+    sub_initiatives:
+      - name: "Process Optimization"
+        level: 2
+        description: "Streamline and optimize core business processes"
+      - name: "Quality Management"
+        level: 2
+        description: "Implement comprehensive quality management system"
+      - name: "Performance Monitoring"
+        level: 2
+        description: "Real-time performance monitoring and analytics"
+
+# Symphony integration for enterprise customers
+symphony_integration:
+  agent_assignments:
+    "Leadership":
+      - "Enterprise Strategy Agent"
+      - "Executive Coordinator Agent"
+      - "Strategic Planning Agent"
+      - "Budget Management Agent"
+    "Operations":
+      - "Operations Manager Agent"
+      - "Process Optimization Agent"
+      - "Quality Assurance Agent"
+      - "Integration Coordinator Agent"
+    "Technology":
+      - "Enterprise Architect Agent"
+      - "Platform Engineering Agent"
+      - "Security Engineer Agent"
+      - "DevOps Coordinator Agent"
+    "Compliance":
+      - "Compliance Manager Agent"
+      - "Risk Assessment Agent"
+      - "Audit Coordinator Agent"
+      - "Regulatory Advisor Agent"
+
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    template_updates: true
+    milestone_tracking: true
+    risk_monitoring: true
+
+  enterprise_features:
+    multi_team_coordination: true
+    advanced_reporting: true
+    custom_dashboards: true
+    integration_apis: true
+    audit_logging: true
+    role_based_access: true
+
+  defaults_override:
+    use_symphony_defaults: true
+    allow_customization: true
+    auto_sync: true
+    enterprise_governance: true
+
+  performance_targets:
+    issue_resolution_time: "24 hours"
+    milestone_completion_rate: "95%"
+    team_productivity_increase: "40%"
+    process_automation_coverage: "80%"
+
+# Template metadata
+template_version: "2025.1"
+template_type: "enterprise"
+created_by: "Symphony Platform"
+created_date: "2025-09-01"
+last_updated: "2025-09-01"
+target_organization_size: "100-500 people"
+estimated_setup_time: "45-90 minutes"
+complexity_level: "high"
+recommended_agents: 25

@@ -1,0 +1,399 @@
+# Complete Enterprise Linear Workspace Template  
+# Comprehensive template for enterprise customers with full variable substitution
+
+workspace:
+  name: "${customer_name} Enterprise Operations"
+  description: "Enterprise-scale autonomous coordination for ${customer_name} in the ${industry} industry"
+
+organization:
+  customer_name: "${customer_name}"
+  industry: "${industry}"
+  size: "enterprise"
+  regions: ["${region}"]
+  timezone: "${timezone}"
+  locale: "${locale}"
+
+# Enterprise team structure with 4 core departments
+teams:
+  - name: "Leadership"
+    key: "LEAD"
+    description: "Executive leadership and strategic planning for ${customer_name}"
+    workflows:
+      - name: "Strategic Backlog"
+        type: "backlog"
+        position: 0
+        description: "Strategic initiatives and planning items"
+      - name: "Planning"
+        type: "unstarted"
+        position: 1
+        description: "Strategic planning and analysis phase"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active strategic initiatives"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Executive review and approval"
+      - name: "Approved"
+        type: "completed"
+        position: 4
+        description: "Approved and ready for execution"
+    custom_fields:
+      - name: "Strategic Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Quarter"
+        type: "select"
+        options: ["Q1 ${current_year}", "Q2 ${current_year}", "Q3 ${current_year}", "Q4 ${current_year}"]
+        required: true
+      - name: "Budget Impact"
+        type: "select"
+        options: ["High", "Medium", "Low", "None"]
+        required: false
+
+  - name: "Operations"
+    key: "OPS"  
+    description: "Core business operations and process management for ${customer_name}"
+    workflows:
+      - name: "Operational Backlog"
+        type: "backlog"
+        position: 0
+        description: "Operational tasks and improvements"
+      - name: "Todo"
+        type: "unstarted"
+        position: 1
+        description: "Ready to start"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active operational work"
+      - name: "Review"
+        type: "started"
+        position: 3
+        description: "Quality review and validation"
+      - name: "Done"
+        type: "completed"
+        position: 4
+        description: "Completed work"
+    custom_fields:
+      - name: "Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Business Impact"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Process Category"
+        type: "select"
+        options: ["Automation", "Optimization", "Compliance", "Integration"]
+        required: false
+
+  - name: "Technology"
+    key: "TECH"
+    description: "Technology infrastructure and development for ${customer_name}"
+    workflows:
+      - name: "Technical Backlog"
+        type: "backlog"
+        position: 0
+        description: "Technical tasks and enhancements"
+      - name: "Analysis"
+        type: "unstarted"
+        position: 1
+        description: "Requirements analysis and design"
+      - name: "Development"
+        type: "started"
+        position: 2
+        description: "Active development work"
+      - name: "Testing"
+        type: "started"
+        position: 3
+        description: "Quality assurance and testing"
+      - name: "Deployed"
+        type: "completed"
+        position: 4
+        description: "Production deployment complete"
+    custom_fields:
+      - name: "Technical Priority"
+        type: "select"
+        options: ["P0", "P1", "P2", "P3"]
+        required: true
+      - name: "Component"
+        type: "select"
+        options: ["Platform", "Integration", "Security", "Infrastructure"]
+        required: true
+      - name: "Effort Estimate"
+        type: "select"
+        options: ["XS", "S", "M", "L", "XL"]
+        required: false
+
+  - name: "Compliance"
+    key: "COMP"
+    description: "Regulatory compliance and risk management for ${customer_name}"
+    workflows:
+      - name: "Compliance Backlog"
+        type: "backlog"
+        position: 0
+        description: "Compliance requirements and audits"
+      - name: "Assessment"
+        type: "unstarted"
+        position: 1
+        description: "Risk assessment and gap analysis"
+      - name: "Implementation"
+        type: "started"
+        position: 2
+        description: "Compliance implementation"
+      - name: "Validation"
+        type: "started"
+        position: 3
+        description: "Compliance validation and testing"
+      - name: "Certified"
+        type: "completed"
+        position: 4
+        description: "Compliance certified and approved"
+    custom_fields:
+      - name: "Compliance Type"
+        type: "select"
+        options: ["SOX", "GDPR", "HIPAA", "PCI", "ISO27001", "SOC2"]
+        required: true
+      - name: "Risk Level"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+      - name: "Audit Status"
+        type: "select"
+        options: ["Required", "In Progress", "Complete", "N/A"]
+        required: false
+
+# Enterprise project templates with full variable substitution
+projects:
+  - name: "${customer_name} - Strategic Planning"
+    description: "Enterprise-wide strategic planning and roadmap execution for ${customer_name} in the ${industry} sector"
+    assignable_teams: ["Leadership", "Operations"]
+    milestones:
+      - name: "Strategic Assessment"
+        description: "Current state analysis and market opportunity identification"
+        position: 0
+      - name: "Strategic Planning"
+        description: "Long-term strategy and roadmap development"
+        position: 1
+      - name: "Resource Planning"
+        description: "Budget allocation and resource planning"
+        position: 2
+      - name: "Execution Strategy"
+        description: "Detailed execution planning and timeline"
+        position: 3
+      - name: "Implementation"
+        description: "Strategic initiative implementation and monitoring"
+        position: 4
+    timeline: "12 months"
+    auto_create: true
+
+  - name: "${customer_name} - Enterprise Architecture"
+    description: "System architecture, integration planning, and technical governance for ${customer_name}"
+    assignable_teams: ["Technology", "Operations"]
+    milestones:
+      - name: "Architecture Assessment" 
+        description: "Current system architecture analysis and documentation"
+        position: 0
+      - name: "Target Architecture"
+        description: "Future state architecture design and planning"
+        position: 1
+      - name: "Integration Strategy"
+        description: "System integration and data flow planning"
+        position: 2
+      - name: "Implementation Roadmap"
+        description: "Phased implementation strategy and timeline"
+        position: 3
+      - name: "Architecture Deployment"
+        description: "Architecture implementation and validation"
+        position: 4
+    timeline: "18 months"
+    auto_create: true
+
+  - name: "${customer_name} - Digital Transformation"
+    description: "Digital transformation initiatives and technology modernization for ${customer_name}"
+    assignable_teams: ["Technology", "Operations", "Leadership"]
+    milestones:
+      - name: "Digital Maturity Assessment"
+        description: "Current digital capabilities and maturity evaluation"
+        position: 0
+      - name: "Transformation Strategy"
+        description: "Digital transformation roadmap and strategy"
+        position: 1
+      - name: "Technology Platform Selection"
+        description: "Digital platform and tool selection process"
+        position: 2
+      - name: "Digital Implementation"
+        description: "Digital transformation execution and rollout"
+        position: 3
+      - name: "Optimization & Scaling"
+        description: "Process optimization and scaling to enterprise levels"
+        position: 4
+    timeline: "24 months"
+    auto_create: true
+
+  - name: "${customer_name} - Compliance & Governance"
+    description: "Enterprise compliance management and regulatory governance for ${customer_name} in ${industry}"
+    assignable_teams: ["Compliance", "Operations", "Leadership"]
+    milestones:
+      - name: "Compliance Assessment"
+        description: "Current compliance posture and regulatory requirements analysis"
+        position: 0
+      - name: "Gap Analysis"
+        description: "Compliance gap identification and risk assessment"
+        position: 1
+      - name: "Remediation Planning"
+        description: "Compliance remediation strategy and implementation plan"
+        position: 2
+      - name: "Controls Implementation"
+        description: "Compliance controls and governance framework implementation"
+        position: 3
+      - name: "Certification & Validation"
+        description: "Compliance certification and ongoing validation processes"
+        position: 4
+    timeline: "15 months"
+    auto_create: true
+
+  - name: "${customer_name} - Operational Excellence"
+    description: "Process optimization, automation, and operational efficiency for ${customer_name}"
+    assignable_teams: ["Operations", "Technology"]
+    milestones:
+      - name: "Process Assessment"
+        description: "Current process analysis and bottleneck identification"
+        position: 0
+      - name: "Optimization Design"
+        description: "Process optimization and automation design"
+        position: 1
+      - name: "Automation Implementation"
+        description: "Process automation and tool implementation"
+        position: 2
+      - name: "Efficiency Monitoring"
+        description: "Performance monitoring and metrics tracking"
+        position: 3
+      - name: "Continuous Improvement"
+        description: "Ongoing optimization and process refinement"
+        position: 4
+    timeline: "12 months"
+    auto_create: true
+
+# Enterprise initiatives with variable substitution
+initiatives:
+  - name: "${customer_name} Enterprise Transformation ${current_year}"
+    level: 1
+    description: "Comprehensive enterprise transformation initiative for ${customer_name}"
+    timeline: "${current_year}-${next_year}"
+    sub_initiatives:
+      - name: "Digital Foundation"
+        level: 2
+        description: "Core digital infrastructure and platform establishment"
+      - name: "Process Automation"
+        level: 2  
+        description: "Business process automation and optimization"
+      - name: "Data & Analytics Platform"
+        level: 2
+        description: "Enterprise data platform and analytics capabilities"
+      - name: "Security & Compliance Framework"
+        level: 2
+        description: "Enterprise security and regulatory compliance framework"
+
+  - name: "${customer_name} Operational Excellence ${current_year}"
+    level: 1
+    description: "Achieve operational excellence across all ${customer_name} business functions"
+    timeline: "${current_year}"
+    sub_initiatives:
+      - name: "Process Optimization"
+        level: 2
+        description: "Streamline and optimize core business processes"
+      - name: "Quality Management System"
+        level: 2
+        description: "Implement comprehensive quality management framework"
+      - name: "Performance Analytics"
+        level: 2
+        description: "Real-time performance monitoring and business intelligence"
+
+# Symphony integration with enterprise-scale agent assignments
+symphony_integration:
+  agent_assignments:
+    "Leadership":
+      - "Enterprise Strategy Agent"
+      - "Executive Coordinator Agent"  
+      - "Strategic Planning Agent"
+      - "Budget Management Agent"
+      - "Board Relations Agent"
+    "Operations":
+      - "Enterprise Operations Manager Agent"
+      - "Process Optimization Agent"
+      - "Quality Assurance Agent"
+      - "Integration Coordinator Agent"
+      - "Vendor Management Agent"
+    "Technology":
+      - "Enterprise Architect Agent"
+      - "Platform Engineering Agent"
+      - "Security Engineer Agent"
+      - "DevOps Coordinator Agent"
+      - "Data Architecture Agent"
+    "Compliance":
+      - "Compliance Manager Agent"
+      - "Risk Assessment Agent"
+      - "Audit Coordinator Agent"
+      - "Regulatory Advisor Agent"
+      - "Policy Management Agent"
+
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    template_updates: true
+    milestone_tracking: true
+    risk_monitoring: true
+    performance_analytics: true
+
+  enterprise_features:
+    multi_team_coordination: true
+    advanced_reporting: true
+    custom_dashboards: true
+    integration_apis: true
+    audit_logging: true
+    role_based_access: true
+    enterprise_sla: true
+    dedicated_support: true
+
+  defaults_override:
+    use_symphony_defaults: true
+    allow_customization: true
+    auto_sync: true
+    enterprise_governance: true
+    advanced_orchestration: true
+
+  performance_targets:
+    issue_resolution_time: "4 hours"
+    milestone_completion_rate: "95%"
+    team_productivity_increase: "50%"
+    process_automation_coverage: "85%"
+    compliance_coverage: "100%"
+
+# Template metadata
+template_version: "2025.1"
+template_type: "enterprise_complete"
+created_by: "Symphony Platform"
+created_date: "2025-09-01"
+last_updated: "2025-09-01"
+target_organization_size: "100-500 people"
+estimated_setup_time: "45-90 minutes"
+complexity_level: "high"
+recommended_agents: 20
+industry_agnostic: true
+variable_substitution: true
+
+# Default variable values for testing
+default_variables:
+  customer_name: "Enterprise Customer"
+  industry: "technology"
+  region: "us-east-1"
+  timezone: "UTC"
+  locale: "en-US"
+  current_year: "2025"
+  next_year: "2026"

@@ -1,0 +1,202 @@
+# Simple Enterprise Linear Workspace Template
+# Ready-to-use template for enterprise customers
+
+workspace:
+  name: "Enterprise Operations"
+  description: "Enterprise-scale autonomous coordination platform"
+
+organization:
+  customer_name: "Enterprise Customer"
+  industry: "technology"
+  size: "enterprise"
+  regions: ["us-east-1"]
+  timezone: "UTC"
+  locale: "en-US"
+
+# Enterprise team structure
+teams:
+  - name: "Leadership"
+    key: "LEAD"
+    description: "Executive leadership and strategic planning"
+    workflows:
+      - name: "Strategic Backlog"
+        type: "backlog"
+        position: 0
+        description: "Strategic initiatives"
+      - name: "Planning"
+        type: "unstarted"
+        position: 1
+        description: "Strategic planning"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active strategic work"
+      - name: "Approved"
+        type: "completed"
+        position: 3
+        description: "Approved initiatives"
+    custom_fields:
+      - name: "Strategic Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+
+  - name: "Operations"
+    key: "OPS"
+    description: "Core business operations and process management"
+    workflows:
+      - name: "Backlog"
+        type: "backlog"
+        position: 0
+        description: "Operational tasks"
+      - name: "Todo"
+        type: "unstarted"
+        position: 1
+        description: "Ready to start"
+      - name: "In Progress"
+        type: "started"
+        position: 2
+        description: "Active work"
+      - name: "Done"
+        type: "completed"
+        position: 3
+        description: "Completed work"
+    custom_fields:
+      - name: "Priority"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+
+  - name: "Technology"
+    key: "TECH"
+    description: "Technology infrastructure and development"
+    workflows:
+      - name: "Backlog"
+        type: "backlog"
+        position: 0
+        description: "Technical backlog"
+      - name: "Development"
+        type: "started"
+        position: 1
+        description: "Active development"
+      - name: "Testing"
+        type: "started"
+        position: 2
+        description: "Quality assurance"
+      - name: "Deployed"
+        type: "completed"
+        position: 3
+        description: "Production ready"
+    custom_fields:
+      - name: "Technical Priority"
+        type: "select"
+        options: ["P0", "P1", "P2", "P3"]
+        required: true
+
+  - name: "Compliance"
+    key: "COMP"
+    description: "Regulatory compliance and risk management"
+    workflows:
+      - name: "Assessment"
+        type: "unstarted"
+        position: 0
+        description: "Risk assessment"
+      - name: "Implementation"
+        type: "started"
+        position: 1
+        description: "Compliance implementation"
+      - name: "Certified"
+        type: "completed"
+        position: 2
+        description: "Compliance certified"
+    custom_fields:
+      - name: "Risk Level"
+        type: "select"
+        options: ["Critical", "High", "Medium", "Low"]
+        required: true
+
+# Enterprise projects
+projects:
+  - name: "Enterprise Strategic Planning"
+    description: "Enterprise-wide strategic planning and roadmap execution"
+    assignable_teams: ["Leadership", "Operations"]
+    timeline: "12 months"
+    auto_create: true
+
+  - name: "Enterprise Architecture"
+    description: "System architecture, integration planning, and technical governance"
+    assignable_teams: ["Technology", "Operations"]
+    timeline: "18 months"
+    auto_create: true
+
+  - name: "Digital Transformation"
+    description: "Digital transformation initiatives and technology modernization"
+    assignable_teams: ["Technology", "Operations", "Leadership"]
+    timeline: "24 months"
+    auto_create: true
+
+  - name: "Compliance & Governance"
+    description: "Enterprise compliance management and regulatory governance"
+    assignable_teams: ["Compliance", "Operations", "Leadership"]
+    timeline: "15 months"
+    auto_create: true
+
+  - name: "Operational Excellence"
+    description: "Process optimization, automation, and operational efficiency"
+    assignable_teams: ["Operations", "Technology"]
+    timeline: "12 months"
+    auto_create: true
+
+# Enterprise initiatives
+initiatives:
+  - name: "Enterprise Transformation"
+    level: 1
+    description: "Comprehensive enterprise transformation initiative"
+    timeline: "2025-2026"
+    sub_initiatives:
+      - name: "Digital Foundation"
+        level: 2
+        description: "Core digital infrastructure establishment"
+      - name: "Process Automation"
+        level: 2
+        description: "Business process automation and optimization"
+
+# Symphony integration
+symphony_integration:
+  agent_assignments:
+    "Leadership":
+      - "Enterprise Strategy Agent"
+      - "Executive Coordinator Agent"
+      - "Strategic Planning Agent"
+    "Operations":
+      - "Operations Manager Agent"
+      - "Process Optimization Agent"
+      - "Quality Assurance Agent"
+    "Technology":
+      - "Enterprise Architect Agent"
+      - "Platform Engineering Agent"
+      - "Security Engineer Agent"
+    "Compliance":
+      - "Compliance Manager Agent"
+      - "Risk Assessment Agent"
+
+  automation:
+    issue_creation: true
+    status_sync: true
+    reporting: true
+    template_updates: true
+
+  defaults_override:
+    use_symphony_defaults: true
+    allow_customization: true
+    auto_sync: true
+
+# Template metadata
+template_version: "2025.1"
+template_type: "enterprise"
+created_by: "Symphony Platform"
+created_date: "2025-09-01"
+target_organization_size: "100-500 people"
+estimated_setup_time: "30-60 minutes"
+complexity_level: "medium"
+recommended_agents: 12

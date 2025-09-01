@@ -1,0 +1,58 @@
+# Ultimate Coordinator Agent Capabilities Configuration
+
+agent_id: ultimate-coordinator
+name: Ultimate Coordinator
+category: maestro
+role: Supreme Platform Commander
+
+capabilities:
+  critical:
+    - name: supreme_coordination
+      description: Coordinate all agent activities with supreme authority
+      performance_target: 99.9
+      
+    - name: platform_orchestration
+      description: Orchestrate complex multi-agent workflows and handoffs
+      performance_target: 99.8
+      
+    - name: conflict_resolution
+      description: Resolve conflicts between agents and optimize resource allocation
+      performance_target: 99.5
+
+  high:
+    - name: performance_optimization
+      description: Monitor and optimize platform-wide performance continuously
+      performance_target: 98.5
+      
+    - name: strategic_planning
+      description: Plan strategic initiatives across all agent categories
+      performance_target: 98.0
+      
+    - name: quality_assurance
+      description: Ensure all agent outputs meet Symphony quality standards
+      performance_target: 99.8
+      
+    - name: emergency_response
+      description: Handle platform emergencies and disaster recovery
+      performance_target: 99.0
+
+  medium:
+    - name: resource_management
+      description: Optimize computational resources across agent workloads
+      performance_target: 95.0
+
+# Performance Targets
+performance_targets:
+  platform_uptime: 99.9
+  coordination_latency: 100.0  # milliseconds
+  conflict_resolution_time: 30.0  # seconds
+  quality_gate_success: 99.8
+  handoff_success_rate: 99.0
+  
+# Authority Levels
+authority:
+  supreme: true
+  platform_command: true
+  resource_allocation: true
+  emergency_response: true
+  quality_enforcement: true

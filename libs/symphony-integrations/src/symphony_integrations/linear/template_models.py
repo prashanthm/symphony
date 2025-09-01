@@ -17,11 +17,11 @@ class IndustryType(Enum):
     HEALTHCARE = "healthcare"
     MANUFACTURING = "manufacturing"
     TECHNOLOGY = "technology"
+    ENTERPRISE_SOFTWARE = "enterprise_software"
     CONSULTING = "consulting"
     RETAIL = "retail"
     EDUCATION = "education"
     GOVERNMENT = "government"
-
 
 class OrganizationSize(Enum):
     """Organization sizes for template scaling"""

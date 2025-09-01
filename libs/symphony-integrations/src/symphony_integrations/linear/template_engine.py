@@ -42,13 +42,22 @@ class TemplateEngine:
     ) -> WorkspaceTemplate:
         """Load and process a template from YAML file"""
 
-        # Load raw YAML
-        full_path = self.templates_dir / template_path
+        # Handle both absolute and relative paths
+        template_path_obj = Path(template_path)
+        if template_path_obj.is_absolute():
+            full_path = template_path_obj
+        else:
+            full_path = self.templates_dir / template_path
+            
         if not full_path.exists():
             raise FileNotFoundError(f"Template not found: {full_path}")
 
         with open(full_path, "r") as f:
             template_data = yaml.safe_load(f)
+            
+        print(f"DEBUG load_template: template_data has projects: {'projects' in template_data}")
+        if 'projects' in template_data:
+            print(f"DEBUG load_template: projects count: {len(template_data['projects'])}")
 
         # Process template inheritance
         if "inherits_from" in template_data:
@@ -58,8 +67,14 @@ class TemplateEngine:
         if variables:
             template_data = self._substitute_variables(template_data, variables)
 
+        print(f"DEBUG load_template: After processing, template_data has projects: {'projects' in template_data}")
+        if 'projects' in template_data:
+            print(f"DEBUG load_template: After processing, projects count: {len(template_data['projects'])}")
+
         # Convert to WorkspaceTemplate object
-        return self._dict_to_workspace_template(template_data)
+        workspace_template = self._dict_to_workspace_template(template_data)
+        print(f"DEBUG load_template: WorkspaceTemplate projects count: {len(workspace_template.projects) if workspace_template.projects else 0}")
+        return workspace_template
 
     def process_customer_config(self, config_path: str) -> WorkspaceTemplate:
         """Process customer configuration file with intelligent defaults"""
@@ -328,7 +343,7 @@ class TemplateEngine:
             template.workspace = data["workspace"]
 
         # Organization
-        if "organization" in data:
+        if "organization" in data and data["organization"] is not None:
             org_data = data["organization"]
             template.organization = OrganizationConfig(
                 customer_name=org_data.get("customer_name", "Unknown"),
@@ -347,6 +362,18 @@ class TemplateEngine:
                     description=team_data.get("description"),
                 )
                 template.teams.append(team)
+
+        # Projects (simplified - would need full deserialization)
+        if "projects" in data:
+            template.projects = []
+            for project_data in data["projects"]:
+                project = ProjectTemplate(
+                    template_name=project_data.get("template_name", "default"),
+                    name=project_data.get("name", ""),
+                    description=project_data.get("description"),
+                    assignable_teams=project_data.get("assignable_teams", []),
+                )
+                template.projects.append(project)
 
         # Add other fields as needed...
 
@@ -406,6 +433,26 @@ class TemplateEngine:
                 preview[var_expr] = f"<undefined: {var_expr}>"
 
         return preview
+
+    def apply_variables(self, template: WorkspaceTemplate, variables: Dict[str, Any]) -> WorkspaceTemplate:
+        """Apply variable substitution to a WorkspaceTemplate object"""
+        # Convert template to dict, substitute variables, convert back
+        print(f"DEBUG apply_variables: input template projects count: {len(template.projects) if template.projects else 0}")
+        template_dict = asdict(template)
+        print(f"DEBUG apply_variables: template_dict has projects: {'projects' in template_dict}")
+        if 'projects' in template_dict:
+            print(f"DEBUG apply_variables: template_dict projects count: {len(template_dict['projects'])}")
+        processed_dict = self._substitute_variables(template_dict, variables)
+        print(f"DEBUG apply_variables: processed_dict has projects: {'projects' in processed_dict}")
+        if 'projects' in processed_dict:
+            print(f"DEBUG apply_variables: processed_dict projects count: {len(processed_dict['projects'])}")
+        result = self._dict_to_workspace_template(processed_dict)
+        print(f"DEBUG apply_variables: result projects count: {len(result.projects) if result.projects else 0}")
+        return result
+
+    def substitute_variables(self, text: str, variables: Dict[str, Any]) -> str:
+        """Public method for string variable substitution"""
+        return self._substitute_string_variables(text, variables)
 
 
 class ConfigurationWizard:

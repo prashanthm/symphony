@@ -31,6 +31,8 @@ except ImportError:
 
 
 from .models import LinearIssue, LinearProject, LinearTeam, LinearWorkflow
+from .template_engine import TemplateEngine
+from .template_models import OrganizationConfig, IndustryType, OrganizationSize
 
 # Configure logging
 logging.basicConfig(
@@ -285,8 +287,15 @@ class SymphonyLinearIntegration:
         self.config_dir = config_dir
         self.workspace_config = None
 
-    async def initialize_workspace(self, organization_name: str) -> Dict[str, Any]:
-        """Initialize Linear workspace for Symphony deployment"""
+    async def initialize_workspace(
+        self, 
+        organization_name: str, 
+        template_path: Optional[str] = None,
+        industry: Optional[str] = None,
+        size: Optional[str] = None,
+        customer_config: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """Initialize Linear workspace for Symphony deployment with template support"""
         async with self.client as client:
             # Get teams
             teams = await client.get_teams()
@@ -311,9 +320,10 @@ class SymphonyLinearIntegration:
             workflow_states = await client.get_workflow_states(symphony_team.id)
             logger.info(f"Found {len(workflow_states)} workflow states")
 
-            # Create core projects
-            projects = await self._create_core_projects(
-                client, symphony_team, organization_name
+            # Create projects from template or fallback to core projects
+            projects = await self._create_projects_from_template(
+                client, symphony_team, organization_name, template_path, 
+                industry, size, customer_config
             )
 
             self.workspace_config = {
@@ -340,41 +350,158 @@ class SymphonyLinearIntegration:
 
             return self.workspace_config
 
+    async def _create_projects_from_template(
+        self, 
+        client: LinearAPIClient, 
+        team: LinearTeam, 
+        org_name: str,
+        template_path: Optional[str] = None,
+        industry: Optional[str] = None,
+        size: Optional[str] = None,
+        customer_config: Optional[Dict[str, Any]] = None
+    ) -> List[LinearProject]:
+        """Create projects from template or fallback to core projects"""
+        projects = []
+        
+        # Try template-based approach first
+        if template_path or customer_config:
+            try:
+                template_projects = await self._get_projects_from_template(
+                    template_path, org_name, industry, size, customer_config
+                )
+                
+                for project_config in template_projects:
+                    try:
+                        project = await client.create_project(
+                            name=project_config["name"],
+                            description=project_config["description"],
+                            team_id=team.id,
+                        )
+                        projects.append(project)
+                        logger.info(f"Created template project: {project.name}")
+                    except Exception as e:
+                        logger.error(f"Failed to create template project {project_config['name']}: {e}")
+                
+                if projects:
+                    logger.info(f"Successfully created {len(projects)} projects from template")
+                    return projects
+                else:
+                    logger.error("No projects created from template - template processing must be fixed")
+                    raise Exception("Template processing failed: No projects found in template")
+                    
+            except Exception as e:
+                logger.error(f"Template processing failed: {e}")
+                raise Exception(f"Template processing failed: {e}")
+        
+        # Template processing is required - no fallback
+        raise Exception("Template processing is required - no template_path or customer_config provided")
+
+    async def _get_projects_from_template(
+        self, 
+        template_path: Optional[str],
+        org_name: str,
+        industry: Optional[str] = None,
+        size: Optional[str] = None,
+        customer_config: Optional[Dict[str, Any]] = None
+    ) -> List[Dict[str, str]]:
+        """Extract project definitions from template"""
+        
+        # Initialize template engine
+        template_engine = TemplateEngine()
+        
+        # Process template
+        print(f"DEBUG Linear client: template_path = {template_path}")
+        print(f"DEBUG Linear client: customer_config = {customer_config is not None}")
+        if template_path:
+            # Direct template path provided
+            print(f"DEBUG Linear client: loading template from: {template_path}")
+            workspace_template = template_engine.load_template(template_path)
+            print(f"DEBUG Linear client: loaded template has {len(workspace_template.projects) if workspace_template.projects else 0} projects")
+        elif customer_config:
+            # Customer config provided, extract template info
+            template_info = customer_config.get('linear', {}).get('template_path')
+            if template_info:
+                workspace_template = template_engine.load_template(template_info)
+            else:
+                # Generate from customer config parameters
+                org_config = OrganizationConfig(
+                    customer_name=org_name,
+                    industry=IndustryType(industry) if industry else IndustryType.TECHNOLOGY,
+                    size=OrganizationSize(size) if size else OrganizationSize.STARTUP
+                )
+                
+                # Import defaults generator here to avoid circular imports
+                from .defaults_generator import SymphonyLinearDefaults
+                defaults_generator = SymphonyLinearDefaults()
+                workspace_template = defaults_generator.generate_defaults(org_config)
+        else:
+            raise ValueError("Either template_path or customer_config must be provided")
+        
+        # Apply variable substitution
+        variables = {
+            'customer_name': org_name,
+            'organization_name': org_name,
+            'current_year': datetime.now().year
+        }
+        
+        if industry:
+            variables['industry'] = industry
+        if size:
+            variables['size'] = size
+            
+        # Add customer config variables if available
+        if customer_config:
+            variables.update(customer_config.get('template_variables', {}))
+        
+        processed_template = template_engine.apply_variables(workspace_template, variables)
+        
+        # Extract project definitions
+        project_configs = []
+        
+        # Get projects from template
+        logger.info(f"DEBUG: processed_template has projects attr: {hasattr(processed_template, 'projects')}")
+        if hasattr(processed_template, 'projects'):
+            logger.info(f"DEBUG: processed_template.projects: {processed_template.projects}")
+            logger.info(f"DEBUG: processed_template.projects length: {len(processed_template.projects) if processed_template.projects else 0}")
+        
+        if hasattr(processed_template, 'projects') and processed_template.projects:
+            logger.info(f"DEBUG: Processing {len(processed_template.projects)} projects from template")
+            for project_template in processed_template.projects:
+                # Apply variable substitution to project name and description
+                project_name = template_engine.substitute_variables(
+                    project_template.name, variables
+                )
+                project_description = template_engine.substitute_variables(
+                    project_template.description, variables
+                )
+                
+                project_configs.append({
+                    "name": project_name,
+                    "description": project_description
+                })
+        
+        # If no projects found in template, extract from other template sections
+        if not project_configs and hasattr(processed_template, 'workspace'):
+            # Check if workspace has project-related content
+            workspace_data = processed_template.workspace
+            if isinstance(workspace_data, dict):
+                # Look for projects in workspace definition
+                template_projects = workspace_data.get('projects', [])
+                for proj in template_projects:
+                    if isinstance(proj, dict):
+                        project_configs.append({
+                            "name": template_engine.substitute_variables(proj.get('name', ''), variables),
+                            "description": template_engine.substitute_variables(proj.get('description', ''), variables)
+                        })
+        
+        if not project_configs:
+            logger.error("No projects found in template - this will cause deployment failure")
+        
+        return project_configs
+
     async def _create_core_projects(
         self, client: LinearAPIClient, team: LinearTeam, org_name: str
     ) -> List[LinearProject]:
-        """Create core Symphony projects in Linear"""
-        projects = []
-
-        core_projects = [
-            {
-                "name": f"{org_name} - Agent Ecosystem",
-                "description": "Agent deployment, coordination, and performance tracking",
-            },
-            {
-                "name": f"{org_name} - Tool Integration",
-                "description": "Tool integration setup, configuration, and monitoring",
-            },
-            {
-                "name": f"{org_name} - Deployment Phases",
-                "description": "Foundation, Optimization, and Excellence phase tracking",
-            },
-            {
-                "name": f"{org_name} - Validation & Testing",
-                "description": "Quality assurance, testing, and validation tracking",
-            },
-        ]
-
-        for project_config in core_projects:
-            try:
-                project = await client.create_project(
-                    name=project_config["name"],
-                    description=project_config["description"],
-                    team_id=team.id,
-                )
-                projects.append(project)
-                logger.info(f"Created project: {project.name}")
-            except Exception as e:
-                logger.error(f"Failed to create project {project_config['name']}: {e}")
-
-        return projects
+        """Removed - no longer using hardcoded core projects"""
+        logger.error("Template processing failed completely - no projects will be created")
+        return []

@@ -1,0 +1,447 @@
+# Linear Workspace Template — Symphony (Single Team)
+# Purpose: Configure Linear with a single team that still encodes the full Symphony 5‑level hierarchy
+# Notes:
+#  - This is a declarative template you can translate to Linear GraphQL mutations or apply via your setup scripts
+#  - All previous multi-team references (STRAT/PLAT/AGENTS/OPS/IMPL/CS) are mapped into one team: SYMPH
+#  - Workflows unify all state names used across the original teams so issue templates remain valid
+
+linear_template:
+  metadata:
+    version: "2025.09"
+    source: "Symphony Autonomous Enterprise Platform"
+    timezone: "America/Chicago"
+    locale: "en-US"
+
+  workspace:
+    name: "Symphony Autonomous Enterprise"
+    description: "AI-first autonomous enterprise delivery on Linear"
+    theme:
+      primary: "#6366f1"
+      secondary: "#8b5cf6"
+      accent: "#f59e0b"
+      success: "#10b981"
+
+  labels:
+    # Global labels used across the workspace
+    - { name: "L1-Vision", color: "purple" }
+    - { name: "L2-Architecture", color: "blue" }
+    - { name: "L3-Ops", color: "green" }
+    - { name: "L4-Implementation", color: "teal" }
+    - { name: "L5-Success", color: "orange" }
+    - { name: "Security:Critical", color: "red" }
+    - { name: "Security:High", color: "red" }
+    - { name: "Security:Standard", color: "gray" }
+    - { name: "Agent:Coordinator", color: "purple" }
+    - { name: "Agent:Lead", color: "indigo" }
+    - { name: "Agent:Manager", color: "blue" }
+    - { name: "Agent:Specialist", color: "teal" }
+    - { name: "Agent:Maestro", color: "yellow" }
+    - { name: "Package:Startup", color: "green" }
+    - { name: "Package:SMB", color: "blue" }
+    - { name: "Package:Enterprise", color: "purple" }
+    - { name: "Package:Global", color: "black" }
+    - { name: "Industry:Technology", color: "gray" }
+    - { name: "Industry:FS", color: "gray" }
+    - { name: "Industry:Healthcare", color: "gray" }
+    - { name: "Industry:Manufacturing", color: "gray" }
+    - { name: "Industry:Retail", color: "gray" }
+
+  cycles:
+    # Single-team cadence
+    defaults:
+      auto_create: true
+      timezone: "America/Chicago"
+    team_cycles:
+      - { team_key: SYMPH, length_weeks: 2, name: "Symphony Sprint" }
+
+  custom_fields:
+    global:
+      - key: strategic_priority
+        name: "Strategic Priority"
+        type: select
+        options: [Transformational, Core, Optimization, Innovation]
+      - key: business_impact
+        name: "Business Impact"
+        type: select
+        options: [Revolutionary, High, Medium, Supporting]
+      - key: timeline_horizon
+        name: "Timeline Horizon"
+        type: select
+        options: [Immediate, Quarter, Year, Multi-Year]
+      - key: security_level
+        name: "Security Level"
+        type: select
+        options: [Critical, High, Standard, Low]
+      - key: architecture_layer
+        name: "Architecture Layer"
+        type: select
+        options: [Core Platform, Agent Ecosystem, Security, Integration, UI/UX]
+      - key: tech_complexity
+        name: "Technical Complexity"
+        type: number
+        min: 1
+        max: 10
+      - key: operations_domain
+        name: "Operations Domain"
+        type: select
+        options: [Workflow Management, Agent Handoffs, Quality Standards, Performance Monitoring]
+      - key: automation_level
+        name: "Automation Level (%)"
+        type: number
+        min: 0
+        max: 100
+      - key: excellence_score
+        name: "Excellence Score"
+        type: number
+        min: 1
+        max: 10
+      - key: customer_package
+        name: "Customer Package"
+        type: select
+        options: ["Startup (15)", "SMB (35)", "Enterprise (65+)", "Global (85+)"]
+      - key: implementation_timeline
+        name: "Implementation Timeline"
+        type: select
+        options: ["1-2 weeks", "4-6 weeks", "12-16 weeks", "20-24 weeks"]
+      - key: industry_focus
+        name: "Industry Focus"
+        type: select
+        options: [Technology, Financial Services, Healthcare, Manufacturing, Retail, General]
+      - key: success_metrics
+        name: "Success Metrics"
+        type: multi_select
+        options: [Efficiency Gains, Cost Reduction, Revenue Growth, Satisfaction Score]
+      - key: customer_health
+        name: "Customer Health"
+        type: select
+        options: [Thriving, Healthy, At Risk, Requires Attention]
+      - key: expansion_potential
+        name: "Expansion Potential"
+        type: select
+        options: [High, Medium, Low, Not Applicable]
+      - key: agent_category
+        name: "Agent Category"
+        type: select
+        options: [Coordinator, Lead, Manager, Specialist, Maestro]
+      - key: agent_count
+        name: "Agent Count"
+        type: number
+        min: 1
+        max: 85
+      - key: coordination_complexity
+        name: "Coordination Complexity"
+        type: select
+        options: [Simple, Moderate, Complex, Ultra-Complex]
+
+  teams:
+    - key: SYMPH
+      name: "Symphony"
+      description: "Unified team for strategy, engineering, agents, ops, implementation, and success"
+      workflow:
+        states:
+          # Strategy / Vision
+          - { name: "Vision", type: unstarted, default: true }
+          - { name: "Strategy Planning", type: started }
+          - { name: "Market Analysis", type: started }
+          - { name: "Business Case", type: started }
+          - { name: "Executive Approval", type: completed }
+          # Platform / Engineering
+          - { name: "Architecture Design", type: unstarted }
+          - { name: "Development", type: started }
+          - { name: "Integration Testing", type: started }
+          - { name: "Security Review", type: started }
+          - { name: "Production Ready", type: completed }
+          # Agents
+          - { name: "Agent Design", type: unstarted }
+          - { name: "Agent Development", type: started }
+          - { name: "Coordination Testing", type: started }
+          - { name: "Performance Optimization", type: started }
+          - { name: "Ecosystem Ready", type: completed }
+          # Operations
+          - { name: "Standards Definition", type: unstarted }
+          - { name: "Process Implementation", type: started }
+          - { name: "Quality Assurance", type: started }
+          - { name: "Continuous Optimization", type: started }
+          - { name: "Excellence Achieved", type: completed }
+          # Implementation
+          - { name: "Discovery & Requirements", type: unstarted }
+          - { name: "Solution Design", type: started }
+          - { name: "Configuration & Setup", type: started }
+          - { name: "Agent Deployment", type: started }
+          - { name: "Go-Live & Support", type: completed }
+          # Customer Success
+          - { name: "Onboarding", type: unstarted }
+          - { name: "Value Realization", type: started }
+          - { name: "Success Optimization", type: started }
+          - { name: "Growth & Expansion", type: started }
+          - { name: "Autonomous Excellence", type: completed }
+      default_custom_fields: [strategic_priority, business_impact, timeline_horizon, architecture_layer, tech_complexity, security_level, operations_domain, automation_level, excellence_score, customer_package, implementation_timeline, industry_focus, success_metrics, customer_health, expansion_potential, agent_category, agent_count, coordination_complexity]
+
+  roadmaps:
+    # Level 1 Initiatives (with Level 2 sub-initiatives)
+    - key: AE-VISION
+      name: "Autonomous Enterprise Vision"
+      owner_team: SYMPH
+      level: 1
+      timeline: "2025-Q4"
+      metrics: ["Market leadership", "95%+ transformation success", "Industry recognition"]
+      children:
+        - key: AE-POSITIONING
+          name: "Market Positioning Excellence"
+          level: 2
+          timeline: "2025-Q2"
+          links_projects: [CDIFF, THOUGHT]
+        - key: AE-BUSINESSMODEL
+          name: "Business Model Optimization"
+          level: 2
+          timeline: "2025-Q3"
+          links_projects: [ROI, VALUEPROP]
+        - key: AE-PARTNERSHIPS
+          name: "Strategic Partnerships"
+          level: 2
+          timeline: "2025-Q4"
+          links_projects: [PARTNERINT, ECOSYS]
+
+    - key: P-ARCH
+      name: "Platform Architecture Excellence"
+      owner_team: SYMPH
+      level: 1
+      timeline: "2025-Q4"
+      metrics: ["99.99% uptime", "85+ agents", "<30m decision response"]
+      children:
+        - { key: CORE-V2, name: "Core Platform Development", level: 2, timeline: "2025-Q2", links_projects: [PLATFORM_CORE_V2, INTEG_FW] }
+        - { key: AGENT-MASTERY, name: "Agent Ecosystem Mastery", level: 2, timeline: "2025-Q3", links_projects: [AGENT_COORD, MAESTRO_OPT] }
+        - { key: SECURITY-COMPL, name: "Security & Compliance", level: 2, timeline: "2025-Q4", links_projects: [SEC_FRAME_V2, COMPL_AUTO] }
+        - { key: TECH-EXCEL, name: "Technical Excellence", level: 2, timeline: "2025-Q4", links_projects: [API_EXCEL, INTEG_STD] }
+
+    - key: OPS-MASTERY
+      name: "Operational Excellence Mastery"
+      owner_team: SYMPH
+      level: 1
+      timeline: "2025-Q4"
+      metrics: [">99% handoffs", ">95% automation", "100% exec-ready quality"]
+      children:
+        - { key: OPS-STANDARDS, name: "Operational Standards", level: 2, timeline: "2025-Q2", links_projects: [QUALITY_FW, TRUST_INFRA] }
+        - { key: OPS-WFM, name: "Workflow Management Excellence", level: 2, timeline: "2025-Q3", links_projects: [WFM_V2, STATE_MGMT] }
+        - { key: OPS-HANDOFFS, name: "Agent Coordination Protocols", level: 2, timeline: "2025-Q3", links_projects: [HANDOFF_V2, COORD_OPT] }
+        - { key: OPS-EXECENV, name: "Execution Environment", level: 2, timeline: "2025-Q4", links_projects: [EXEC_OPT, PERF_MON] }
+
+    - key: IMPL-EXCEL
+      name: "Implementation Excellence"
+      owner_team: SYMPH
+      level: 1
+      timeline: "2025-Q4"
+      metrics: ["100% successful implementations", "On-time delivery", "Immediate value"]
+      children:
+        - { key: DEV-TOOLING, name: "Development Tooling", level: 2, timeline: "2025-Q2", links_projects: [DEV_AUTO, DEP_PIPE] }
+        - { key: IMPL-PATTERNS, name: "Implementation Patterns", level: 2, timeline: "2025-Q3", links_projects: [IMPL_METH, PATTERN_LIB] }
+        - { key: DEP-AUTO, name: "Deployment Automation", level: 2, timeline: "2025-Q4", links_projects: [DEP_AUTO_V2, GO_LIVE_EX] }
+
+    - key: CS-EXCEL
+      name: "Customer Success Excellence"
+      owner_team: SYMPH
+      level: 1
+      timeline: "2025-Q4"
+      metrics: [">95% CSAT", "10x efficiency", "60-80% cost reduction"]
+      children:
+        - { key: REF-DOCS, name: "Reference Documentation", level: 2, timeline: "2025-Q2", links_projects: [DOCS_PLAT, KB_AUTO] }
+        - { key: IND-SOL, name: "Industry Solutions", level: 2, timeline: "2025-Q3", links_projects: [IND_TEMPL, VERTICAL_SOL] }
+        - { key: SUP-EX, name: "Support Excellence", level: 2, timeline: "2025-Q4", links_projects: [SUP_AUTO, SUCCESS_OPT] }
+
+  projects:
+    # Package templates now map to the single SYMPHONY team
+    - key: PKG-STARTUP
+      name: "Startup Package Implementation"
+      owner_team: SYMPH
+      labels: ["Package:Startup", "L4-Implementation"]
+      default_fields:
+        customer_package: "Startup (15)"
+        implementation_timeline: "1-2 weeks"
+      milestones:
+        - { name: "Discovery & Requirements", duration_days: 2 }
+        - { name: "Platform Configuration", duration_days: 3 }
+        - { name: "Agent Deployment", duration_days: 4 }
+        - { name: "Integration & Testing", duration_days: 2 }
+        - { name: "Go-Live & Training", duration_days: 3 }
+      issue_templates:
+        - name: "Startup | Discovery Checklist"
+          team: SYMPH
+          state: "Discovery & Requirements"
+          labels: ["Package:Startup"]
+          checklist:
+            - "Confirm scope and success metrics"
+            - "Provision sandbox"
+            - "Data access approvals"
+        - name: "Startup | Deploy 15 Core Agents"
+          team: SYMPH
+          state: "Agent Development"
+          labels: ["Agent:Coordinator", "Agent:Specialist"]
+          custom_fields:
+            agent_count: 15
+            coordination_complexity: Simple
+
+    - key: PKG-SMB
+      name: "SMB Package Implementation"
+      owner_team: SYMPH
+      labels: ["Package:SMB", "L4-Implementation"]
+      default_fields:
+        customer_package: "SMB (35)"
+        implementation_timeline: "4-6 weeks"
+      milestones:
+        - { name: "Comprehensive Discovery", duration_days: 5 }
+        - { name: "Platform Architecture", duration_days: 5 }
+        - { name: "Core Agent Deployment", duration_days: 10 }
+        - { name: "Advanced Integration", duration_days: 5 }
+        - { name: "Optimization & Go-Live", duration_days: 5 }
+
+    - key: PKG-ENT
+      name: "Enterprise Package Implementation"
+      owner_team: SYMPH
+      labels: ["Package:Enterprise", "L4-Implementation"]
+      default_fields:
+        customer_package: "Enterprise (65+)"
+        implementation_timeline: "12-16 weeks"
+      milestones:
+        - { name: "Enterprise Assessment", duration_days: 10 }
+        - { name: "Platform Foundation", duration_days: 15 }
+        - { name: "Agent Ecosystem Deployment", duration_days: 20 }
+        - { name: "Enterprise Integration", duration_days: 15 }
+        - { name: "Security & Compliance", duration_days: 10 }
+        - { name: "Excellence & Go-Live", duration_days: 10 }
+
+    - key: PKG-GLOBAL
+      name: "Global Package Implementation"
+      owner_team: SYMPH
+      labels: ["Package:Global", "L4-Implementation"]
+      default_fields:
+        customer_package: "Global (85+)"
+        implementation_timeline: "20-24 weeks"
+      milestones:
+        - { name: "Global Strategy & Architecture", duration_days: 15 }
+        - { name: "Platform Excellence Foundation", duration_days: 20 }
+        - { name: "Complete Agent Ecosystem", duration_days: 30 }
+        - { name: "Global Integration Excellence", duration_days: 20 }
+        - { name: "Security & Compliance Mastery", duration_days: 15 }
+        - { name: "Operational Excellence Achievement", duration_days: 20 }
+
+    # Platform / Agent development projects
+    - key: PLATFORM-DEV
+      name: "Symphony Platform Development"
+      owner_team: SYMPH
+      labels: ["L2-Architecture"]
+      milestones:
+        - { name: "Architecture & Design" }
+        - { name: "Core Development" }
+        - { name: "Agent Integration" }
+        - { name: "Testing & Validation" }
+        - { name: "Security Review" }
+        - { name: "Production Deployment" }
+      default_fields:
+        architecture_layer: Core Platform
+
+    - key: AGENT-DEV
+      name: "Agent Development"
+      owner_team: SYMPH
+      labels: ["L2-Architecture"]
+      milestones:
+        - { name: "Agent Specification" }
+        - { name: "Agent Implementation" }
+        - { name: "Coordination Integration" }
+        - { name: "Performance Optimization" }
+        - { name: "Ecosystem Testing" }
+        - { name: "Production Ready" }
+
+  default_issue_templates:
+    # Reusable across the single team
+    - name: "Security Review (Critical)"
+      team: SYMPH
+      state: "Security Review"
+      labels: ["Security:Critical"]
+      description: |
+        Perform enterprise-grade security assessment and document mitigations.
+        - Threat model
+        - Controls mapping
+        - Compliance impact
+      custom_fields:
+        security_level: Critical
+
+    - name: "Ops Standard Definition"
+      team: SYMPH
+      state: "Standards Definition"
+      description: "Define/refresh standard with acceptance criteria and rollout plan."
+      custom_fields:
+        operations_domain: "Quality Standards"
+
+    - name: "CS Onboarding"
+      team: SYMPH
+      state: "Onboarding"
+      description: "Kick off onboarding playbook for new go-live."
+      custom_fields:
+        customer_health: Healthy
+
+  automations:
+    # Represent Linear Automations (Rules)
+    - name: "Auto-create CS Onboarding on Go-Live"
+      trigger:
+        team: SYMPH
+        to_state: "Go-Live & Support"
+      actions:
+        - create_issue:
+            team: SYMPH
+            template: "CS Onboarding"
+            title: "Onboard: {{project.name}}"
+            labels: ["L5-Success"]
+
+    - name: "Escalate Maestro"
+      trigger:
+        label_added: "Agent:Maestro"
+      actions:
+        - assign_to_role: "Maestro Lead"
+        - add_comment: "Maestro item routed to Maestro Lead for coordination."
+
+    - name: "Escalate Critical Security"
+      trigger:
+        label_added: "Security:Critical"
+      actions:
+        - assign_to_role: "Security Lead"
+        - add_comment: "Critical security item escalated for immediate review."
+        - set_sla:
+            first_response_hours: 4
+            resolution_hours: 72
+
+    - name: "Auto-link Roadmap -> Project"
+      trigger:
+        project_created_under_roadmap: true
+      actions:
+        - add_labels_from_roadmap_level: true
+
+  views:
+    - name: "Executive Cockpit"
+      description: "KPI view across Symphony"
+      filters:
+        states: ["Executive Approval", "Production Ready", "Autonomous Excellence"]
+        teams: [SYMPHONY]
+      columns: [state, team, assignee, labels, custom_fields]
+
+    - name: "Agent Coordination Board"
+      filters:
+        teams: [SYMPHONY]
+        labels: ["Agent:Coordinator", "Agent:Lead", "Agent:Manager", "Agent:Specialist", "Agent:Maestro"]
+      swimlanes: [agent_category]
+
+    - name: "Implementation Tracker"
+      filters:
+        teams: [SYMPHONY]
+        labels: ["Package:Startup", "Package:SMB", "Package:Enterprise", "Package:Global"]
+      columns: [state, assignee, customer_package, implementation_timeline]
+
+# --- OPTIONAL: GraphQL provisioning examples (adapt as scripts) ---
+# mutation {
+#   teamCreate(input:{ name:"Symphony", key:"SYMPHONY" }) { team { id name key } }
+# }
+# mutation {
+#   customFieldCreate(input:{ name:"Strategic Priority", type:Select, options:["Transformational","Core","Optimization","Innovation"] }) { customField { id name } }
+# }
+# mutation {
+#   projectCreate(input:{ name:"Symphony Platform Development", teamId:"<SYMPHONY_ID>" }) { project { id } }
+# }

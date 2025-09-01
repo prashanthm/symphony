@@ -1,0 +1,300 @@
+initiatives:
+- description: Technical platform excellence and scalability
+  level: 1
+  name: Platform Excellence 2025
+  sub_initiatives:
+  - description: Service decomposition
+    level: 2
+    name: Microservices Architecture
+  - description: Monitoring and observability
+    level: 2
+    name: Observability Platform
+  - description: Internal developer tools
+    level: 2
+    name: Developer Experience
+organization:
+  customer_name: Enterprise Corp
+  industry: !!python/object/apply:symphony_integrations.linear.template_models.IndustryType
+  - technology
+  size: !!python/object/apply:symphony_integrations.linear.template_models.OrganizationSize
+  - enterprise
+symphony_integration:
+  agent_assignments:
+    Enterprise Architecture:
+    - Enterprise Orchestration Agent
+    - Governance Agent
+    - Compliance Monitoring Agent
+    Platform Engineering:
+    - Configuration Management Agent
+    - Workspace Setup Agent
+    - Template Generation Agent
+    - Linear Integration Agent
+    - Development Coordinator Agent
+    - Architecture Agent
+  auto_optimization: true
+  automation:
+    issue_creation: true
+    reporting: true
+    status_sync: true
+    template_updates: true
+  defaults_override:
+    allow_customization: true
+    auto_sync: true
+    use_symphony_defaults: true
+  recursive_improvement: false
+  self_managing: false
+  use_symphony_defaults: true
+teams:
+- custom_fields:
+  - name: Technical Complexity
+    range:
+    - 1
+    - 10
+    required: false
+    type: &id002 !!python/object/apply:symphony_integrations.linear.template_models.FieldType
+    - number
+  - name: Business Impact
+    options:
+    - Low
+    - Medium
+    - High
+    - Critical
+    required: false
+    type: &id001 !!python/object/apply:symphony_integrations.linear.template_models.FieldType
+    - select
+  - name: Architecture Review
+    required: false
+    type: &id003 !!python/object/apply:symphony_integrations.linear.template_models.FieldType
+    - boolean
+  description: Core platform development and infrastructure
+  key: PLAT
+  name: Platform Engineering
+  sub_teams:
+  - description: Frontend development
+    key: FE
+    name: Frontend
+    workflows:
+    - description: Product backlog
+      name: Backlog
+      position: 0
+      type: backlog
+    - description: Sprint planning
+      name: Planning
+      position: 1
+      type: unstarted
+    - description: Active development
+      name: Development
+      position: 2
+      type: started
+    - description: Peer code review
+      name: Code Review
+      position: 3
+      type: started
+    - description: QA testing
+      name: Testing
+      position: 4
+      type: started
+    - description: Staging environment
+      name: Staging
+      position: 5
+      type: started
+    - description: Deployed to production
+      name: Done
+      position: 6
+      type: completed
+  - description: Backend services
+    key: BE
+    name: Backend
+    workflows:
+    - description: Product backlog
+      name: Backlog
+      position: 0
+      type: backlog
+    - description: Sprint planning
+      name: Planning
+      position: 1
+      type: unstarted
+    - description: Active development
+      name: Development
+      position: 2
+      type: started
+    - description: Peer code review
+      name: Code Review
+      position: 3
+      type: started
+    - description: QA testing
+      name: Testing
+      position: 4
+      type: started
+    - description: Staging environment
+      name: Staging
+      position: 5
+      type: started
+    - description: Deployed to production
+      name: Done
+      position: 6
+      type: completed
+  - description: DevOps and infrastructure
+    key: INFRA
+    name: Infrastructure
+    workflows:
+    - description: Product backlog
+      name: Backlog
+      position: 0
+      type: backlog
+    - description: Sprint planning
+      name: Planning
+      position: 1
+      type: unstarted
+    - description: Active development
+      name: Development
+      position: 2
+      type: started
+    - description: Peer code review
+      name: Code Review
+      position: 3
+      type: started
+    - description: QA testing
+      name: Testing
+      position: 4
+      type: started
+    - description: Staging environment
+      name: Staging
+      position: 5
+      type: started
+    - description: Deployed to production
+      name: Done
+      position: 6
+      type: completed
+  workflows:
+  - description: Product backlog
+    name: Backlog
+    position: 0
+    type: backlog
+  - description: Sprint planning
+    name: Planning
+    position: 1
+    type: unstarted
+  - description: Active development
+    name: Development
+    position: 2
+    type: started
+  - description: Peer code review
+    name: Code Review
+    position: 3
+    type: started
+  - description: QA testing
+    name: Testing
+    position: 4
+    type: started
+  - description: Staging environment
+    name: Staging
+    position: 5
+    type: started
+  - description: Deployed to production
+    name: Done
+    position: 6
+    type: completed
+- custom_fields:
+  - name: Customer Segment
+    options:
+    - Enterprise
+    - SMB
+    - Startup
+    - Individual
+    required: false
+    type: *id001
+  - name: Feature Priority
+    options:
+    - P0
+    - P1
+    - P2
+    - P3
+    required: false
+    type: *id001
+  - name: User Story Points
+    range:
+    - 1
+    - 21
+    required: false
+    type: *id002
+  description: Product strategy and management
+  key: PM
+  name: Product Management
+  workflows:
+  - description: Items in backlog
+    name: Backlog
+    position: 0
+    type: backlog
+  - description: Ready to start
+    name: Todo
+    position: 1
+    type: unstarted
+  - description: Active work
+    name: In Progress
+    position: 2
+    type: started
+  - description: Under review
+    name: Review
+    position: 3
+    type: started
+  - description: Completed work
+    name: Done
+    position: 4
+    type: completed
+  - description: Canceled work
+    name: Canceled
+    position: 5
+    type: canceled
+- custom_fields:
+  - name: Architecture Review
+    required: false
+    type: *id003
+  - name: Enterprise Impact
+    options:
+    - Department
+    - Division
+    - Enterprise
+    - External
+    required: false
+    type: *id001
+  - name: Governance Stage
+    options:
+    - Concept
+    - Planning
+    - Execution
+    - Review
+    required: false
+    type: *id001
+  description: Enterprise architecture and governance
+  key: EA
+  name: Enterprise Architecture
+  workflows:
+  - description: Items in backlog
+    name: Backlog
+    position: 0
+    type: backlog
+  - description: Ready to start
+    name: Todo
+    position: 1
+    type: unstarted
+  - description: Active work
+    name: In Progress
+    position: 2
+    type: started
+  - description: Under review
+    name: Review
+    position: 3
+    type: started
+  - description: Completed work
+    name: Done
+    position: 4
+    type: completed
+  - description: Canceled work
+    name: Canceled
+    position: 5
+    type: canceled
+template_version: '2025.1'
+workspace:
+  description: Autonomous enterprise coordination for Enterprise Corp
+  name: Enterprise Corp Enterprise Operations

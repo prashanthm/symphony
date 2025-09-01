@@ -8,7 +8,7 @@ workspace:
 
 organization:
   customer_name: "Symphony Autonomous Enterprise"
-  industry: "autonomous_enterprise_platform"
+  industry: "technology"
   size: "global"
   regions: ["north_america", "europe", "asia_pacific", "global"]
   timezone: "UTC"
@@ -567,7 +567,7 @@ projects:
 
   # Platform Development Projects
   - template_name: "platform_development"
-    name: "${feature_name} Platform Development"
+    name: "Symphony Platform Development"
     description: "Core platform feature development and enhancement"
     assignable_teams: ["Platform Engineering", "Agent Ecosystem"]
     milestones:

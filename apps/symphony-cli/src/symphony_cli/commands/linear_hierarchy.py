@@ -5,6 +5,7 @@ Linear Hierarchy CLI Commands
 CLI commands for configurable Linear workspace management with maximum customer flexibility.
 """
 
+import asyncio
 import json
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -18,7 +19,7 @@ from rich.prompt import Confirm, Prompt
 from rich.table import Table
 
 try:
-    from symphony_integrations.linear.client import LinearAPIClient
+    from symphony_integrations.linear.client import LinearAPIClient, SymphonyLinearIntegration
     from symphony_integrations.linear.defaults_generator import SymphonyLinearDefaults
     from symphony_integrations.linear.template_engine import (
         ConfigurationWizard,
@@ -33,6 +34,7 @@ try:
         TemplateValidator,
         WorkspacePreviewGenerator,
     )
+    from symphony_core.config.customer_manager import get_customer_manager
 except ImportError as e:
     click.echo(f"Error importing Linear integration modules: {e}")
     click.echo("Please ensure Symphony integrations are properly installed.")
@@ -242,9 +244,19 @@ def preview(config_file: str, detailed: bool):
     )
 
     try:
-        # Load and process template
+        # Load and process template - use appropriate method based on file type
         template_engine = TemplateEngine()
-        workspace_template = template_engine.process_customer_config(config_file)
+        
+        # Check if this is a customer config or template file
+        with open(config_file, 'r') as f:
+            file_content = yaml.safe_load(f)
+        
+        if 'customer_profile' in file_content:
+            # This is a customer configuration file
+            workspace_template = template_engine.process_customer_config(config_file)
+        else:
+            # This is a template file
+            workspace_template = template_engine.load_template(config_file)
 
         # Generate preview
         _display_workspace_preview(workspace_template, detailed=detailed)
@@ -255,7 +267,7 @@ def preview(config_file: str, detailed: bool):
 
 
 @hierarchy.command()
-@click.argument("config_file", type=click.Path(exists=True))
+@click.argument("config_file", type=click.Path(exists=True), required=False)
 @click.option(
     "--linear-token",
     envvar="LINEAR_API_TOKEN",
@@ -264,7 +276,9 @@ def preview(config_file: str, detailed: bool):
 )
 @click.option("--dry-run", is_flag=True, help="Validate but don't create workspace")
 @click.option("--force", is_flag=True, help="Skip confirmation prompts")
-def deploy(config_file: str, linear_token: str, dry_run: bool, force: bool):
+@click.option("--customer-id", help="Customer ID to deploy (alternative to config file)")
+@click.option("--interactive", is_flag=True, help="Select customer interactively")
+def deploy(config_file: str, linear_token: str, dry_run: bool, force: bool, customer_id: str, interactive: bool):
     """Deploy workspace configuration to Linear"""
 
     console.print(
@@ -275,9 +289,35 @@ def deploy(config_file: str, linear_token: str, dry_run: bool, force: bool):
     )
 
     try:
-        # Load and validate configuration
+        # Resolve customer configuration
+        config_file_path = _resolve_customer_config(config_file, customer_id, interactive)
+        
+        if not config_file_path:
+            console.print("[red]❌ No customer configuration specified[/red]")
+            console.print("Use one of: config file path, --customer-id, or --interactive")
+            raise click.Abort()
+        
+        # Display customer information
+        customer_info = _get_customer_info(config_file_path)
+        if customer_info:
+            console.print(f"\n[bold cyan]📋 Customer Information[/bold cyan]")
+            console.print(f"Organization: [green]{customer_info.get('organization_name', 'Unknown')}[/green]")
+            console.print(f"Industry: [yellow]{customer_info.get('industry', 'Unknown')}[/yellow]")
+            console.print(f"Package: [blue]{customer_info.get('package_type', 'Unknown')}[/blue]")
+        
+        # Load and validate configuration - use appropriate method based on file type
         template_engine = TemplateEngine()
-        workspace_template = template_engine.process_customer_config(config_file)
+        
+        # Check if this is a customer config or template file
+        with open(config_file_path, 'r') as f:
+            file_content = yaml.safe_load(f)
+        
+        if 'customer_profile' in file_content:
+            # This is a customer configuration file
+            workspace_template = template_engine.process_customer_config(config_file_path)
+        else:
+            # This is a template file  
+            workspace_template = template_engine.load_template(config_file_path)
 
         validator = TemplateValidator()
         result = validator.validate_template(workspace_template)
@@ -309,9 +349,10 @@ def deploy(config_file: str, linear_token: str, dry_run: bool, force: bool):
         # Deploy to Linear
         console.print("[blue]Creating Linear workspace...[/blue]")
 
-        # This would implement actual Linear API calls
-        # For now, just simulate the deployment
-        _simulate_deployment(workspace_template)
+        # Create Linear integration and deploy workspace with template
+        asyncio.run(_deploy_workspace_with_template(
+            workspace_template, config_file_path, linear_token
+        ))
 
         console.print("[bold green]🎉 Workspace deployed successfully![/bold green]")
 
@@ -529,6 +570,182 @@ def _simulate_deployment(template):
         time.sleep(0.5)  # Simulate work
 
     console.print("[green]✓[/green] All components created successfully")
+
+
+async def _deploy_workspace_with_template(
+    workspace_template, config_file: str, linear_token: str
+):
+    """Deploy workspace using the Linear client with template support"""
+    
+    # Load customer configuration to extract template and organization info
+    with open(config_file, 'r') as f:
+        customer_config = yaml.safe_load(f)
+    
+    # Extract organization details
+    customer_profile = customer_config.get('customer_profile', {})
+    organization_name = customer_profile.get('organization_name', 'Unknown Customer')
+    industry = customer_profile.get('industry')
+    
+    # Determine organization size from agent configuration
+    agent_config = customer_config.get('agent_configuration', {})
+    selected_package = agent_config.get('selected_package', 'startup')
+    
+    # Map package to organization size
+    size_mapping = {
+        'startup': 'startup',
+        'smb': 'smb', 
+        'enterprise': 'enterprise',
+        'global': 'global'
+    }
+    size = size_mapping.get(selected_package, 'startup')
+    
+    console.print(f"[blue]Deploying for:[/blue] {organization_name}")
+    console.print(f"[blue]Industry:[/blue] {industry}")
+    console.print(f"[blue]Package:[/blue] {selected_package} ({size})")
+    
+    # Create Linear integration
+    linear_integration = SymphonyLinearIntegration(api_token=linear_token)
+    
+    try:
+        # Initialize workspace with template support
+        # Determine if this is a template file or customer config
+        # Re-read the file to check its type for Linear client call
+        with open(config_file, 'r') as f:
+            file_content_for_linear = yaml.safe_load(f)
+            
+        if 'customer_profile' in file_content_for_linear:
+            # This is a customer configuration file
+            workspace_config = await linear_integration.initialize_workspace(
+                organization_name=organization_name,
+                template_path=None,
+                industry=industry,
+                size=size,
+                customer_config=file_content_for_linear
+            )
+        else:
+            # This is a template file - pass the template path
+            workspace_config = await linear_integration.initialize_workspace(
+                organization_name=organization_name,
+                template_path=config_file,  # Pass the template file path
+                industry=industry,
+                size=size,
+                customer_config=None
+            )
+        
+        console.print(f"[green]✓[/green] Created workspace: {workspace_config['organization_name']}")
+        
+        # Display created projects
+        projects = workspace_config.get('projects', {})
+        if projects:
+            console.print(f"[green]✓[/green] Created {len(projects)} projects:")
+            for project_name in projects.keys():
+                console.print(f"  [cyan]•[/cyan] {project_name}")
+        
+        # Display team information
+        team = workspace_config.get('team', {})
+        if team:
+            console.print(f"[green]✓[/green] Using team: {team.get('name')} ({team.get('key')})")
+        
+        # Display workflow states
+        workflow_states = workspace_config.get('workflow_states', [])
+        console.print(f"[green]✓[/green] Configured {len(workflow_states)} workflow states")
+        
+        return workspace_config
+        
+    except Exception as e:
+        console.print(f"[red]❌ Deployment failed:[/red] {str(e)}")
+        raise
+
+
+def _resolve_customer_config(config_file: Optional[str], customer_id: Optional[str], interactive: bool) -> Optional[str]:
+    """Resolve customer configuration file path from various input methods"""
+    
+    if interactive:
+        return _interactive_customer_selection()
+    elif customer_id:
+        return _resolve_customer_by_id(customer_id)
+    elif config_file:
+        return config_file
+    else:
+        return None
+
+
+def _interactive_customer_selection() -> Optional[str]:
+    """Show interactive customer selection menu"""
+    try:
+        manager = get_customer_manager()
+        customers = manager.list_customers()
+        
+        if not customers:
+            console.print("[yellow]⚠️  No customers found in the system[/yellow]")
+            return None
+        
+        console.print("\n[bold cyan]📋 Available Customers[/bold cyan]")
+        table = Table()
+        table.add_column("#", style="cyan")
+        table.add_column("Customer ID", style="green")
+        table.add_column("Organization", style="yellow")
+        table.add_column("Industry", style="blue")
+        table.add_column("Package", style="magenta")
+        
+        for i, customer in enumerate(customers, 1):
+            table.add_row(
+                str(i),
+                customer.get('customer_id', 'Unknown'),
+                customer.get('organization_name', 'Unknown'),
+                customer.get('industry', 'Unknown'),
+                customer.get('package_type', 'Unknown')
+            )
+        
+        console.print(table)
+        
+        choice = Prompt.ask(
+            "\nSelect customer number",
+            choices=[str(i) for i in range(1, len(customers) + 1)]
+        )
+        
+        selected_customer = customers[int(choice) - 1]
+        customer_id = selected_customer.get('customer_id')
+        
+        return _resolve_customer_by_id(customer_id)
+        
+    except Exception as e:
+        console.print(f"[red]Error loading customers:[/red] {str(e)}")
+        return None
+
+
+def _resolve_customer_by_id(customer_id: str) -> Optional[str]:
+    """Resolve customer configuration file by customer ID"""
+    from pathlib import Path
+    
+    config_path = Path(f"organizations/customers/{customer_id}/config/customer-config.yaml")
+    
+    if config_path.exists():
+        return str(config_path)
+    else:
+        console.print(f"[red]❌ Customer configuration not found:[/red] {config_path}")
+        console.print(f"[dim]Expected path: {config_path.absolute()}[/dim]")
+        return None
+
+
+def _get_customer_info(config_file_path: str) -> Optional[Dict[str, str]]:
+    """Extract customer information from config file"""
+    try:
+        import yaml
+        with open(config_file_path, 'r') as f:
+            config = yaml.safe_load(f)
+        
+        customer_profile = config.get('customer_profile', {})
+        agent_config = config.get('agent_configuration', {})
+        
+        return {
+            'organization_name': customer_profile.get('organization_name'),
+            'industry': customer_profile.get('industry'),
+            'package_type': agent_config.get('selected_package'),
+            'customer_id': customer_profile.get('customer_id')
+        }
+    except Exception:
+        return None
 
 
 if __name__ == "__main__":

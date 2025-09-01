@@ -73,7 +73,14 @@ def login(service: str, token: str, interactive: bool):
     try:
         auth_manager = AuthenticationManager()
         
-        console.print(f"[purple]🔐 Authenticating with {service.title()}[/purple]")
+        # Use correct capitalization for service names
+        service_display = {
+            'linear': 'Linear',
+            'github': 'GitHub', 
+            'hubspot': 'HubSpot'
+        }.get(service, service.title())
+        
+        console.print(f"[purple]🔐 Authenticating with {service_display}[/purple]")
         
         # Get token
         if not token and not interactive:
@@ -102,13 +109,18 @@ def login(service: str, token: str, interactive: bool):
         
         # Verify credentials
         if auth_manager.verify_credentials(service):
-            console.print(f"[green]✅ Successfully authenticated with {service.title()}[/green]")
+            console.print(f"[green]✅ Successfully authenticated with {service_display}[/green]")
         else:
-            console.print(f"[red]❌ Failed to verify credentials for {service.title()}[/red]")
+            console.print(f"[red]❌ Failed to verify credentials for {service_display}[/red]")
             console.print(f"[yellow]The token may be invalid or the service may be unreachable[/yellow]")
             
     except Exception as e:
-        console.print(f"[red]❌ Error authenticating with {service.title()}: {e}[/red]")
+        service_display = {
+            'linear': 'Linear',
+            'github': 'GitHub',
+            'hubspot': 'HubSpot'
+        }.get(service, service.title())
+        console.print(f"[red]❌ Error authenticating with {service_display}: {e}[/red]")
 
 
 @auth.command()
@@ -129,16 +141,29 @@ def logout(service: str, all: bool):
             else:
                 console.print("[yellow]No services were authenticated[/yellow]")
         elif service:
-            console.print(f"[purple]🚪 Logging out of {service.title()}[/purple]")
+            service_display = {
+                'linear': 'Linear',
+                'github': 'GitHub',
+                'hubspot': 'HubSpot'
+            }.get(service, service.title())
+            console.print(f"[purple]🚪 Logging out of {service_display}[/purple]")
             if auth_manager.remove_credentials(service):
-                console.print(f"[green]✅ Successfully logged out of {service.title()}[/green]")
+                console.print(f"[green]✅ Successfully logged out of {service_display}[/green]")
             else:
-                console.print(f"[yellow]❌ Not currently authenticated with {service.title()}[/yellow]")
+                console.print(f"[yellow]Not currently authenticated with {service_display}[/yellow]")
         else:
             console.print("[yellow]Please specify --service or --all[/yellow]")
             
     except Exception as e:
-        console.print(f"[red]❌ Error logging out of {service or 'all services'}: {e}[/red]")
+        if service:
+            service_display = {
+                'linear': 'Linear', 
+                'github': 'GitHub',
+                'hubspot': 'HubSpot'
+            }.get(service, service.title())
+            console.print(f"[red]❌ Error logging out of {service_display}: {e}[/red]")
+        else:
+            console.print(f"[red]❌ Error logging out of all services: {e}[/red]")
 
 
 @auth.command()
@@ -160,8 +185,14 @@ def status():
             status_icon = "✅ Authenticated" if status_info['authenticated'] else "❌ Not authenticated"
             token_type = status_info.get('token_type', 'None')
             
+            service_display = {
+                'linear': 'Linear',
+                'github': 'GitHub', 
+                'hubspot': 'HubSpot'
+            }.get(service, service.title())
+            
             status_table.add_row(
-                service.title(),
+                service_display,
                 status_icon,
                 token_type
             )

@@ -110,7 +110,7 @@ def start(customer_name: str, package: Optional[str], industry: Optional[str],
     
     console.print(Panel.fit(
         f"[bold blue]🎼 Symphony Customer Onboarding[/bold blue]\n"
-        f"[cyan]Starting onboarding for: {customer_name}[/cyan]",
+        f"[cyan]Starting onboarding for {customer_name}[/cyan]",
         title="Welcome to Symphony"
     ))
     
@@ -186,7 +186,7 @@ def start(customer_name: str, package: Optional[str], industry: Optional[str],
         
         # Create workflow
         workflow = workflow_manager.create_workflow(
-            customer_name, 
+            customer_name=customer_name,
             package=selected_package,
             industry=selected_industry,
             template_file=config_file
